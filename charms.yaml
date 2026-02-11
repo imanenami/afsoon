@@ -1,0 +1,47 @@
+machine:
+- name: kafka
+  repo: https://github.com/canonical/kafka-operator
+  snap: charmed-kafka
+  rev_var_src_path: literals::CHARMED_KAFKA_SNAP_REVISION
+- name: kafka-connect
+  repo: https://github.com/canonical/kafka-connect-operator
+  snap: charmed-kafka
+  rev_var_src_path: literals::CHARMED_KAFKA_SNAP_REVISION
+- name: karapace
+  repo: https://github.com/canonical/karapace-operator
+  snap: charmed-karapace
+  rev_var_src_path: literals::CHARMED_KARAPACE_SNAP_REVISION
+- name: zookeeper
+  repo: https://github.com/canonical/zookeeper-operator
+  snap: charmed-zookeeper
+  rev_var_src_path: literals::CHARMED_ZOOKEEPER_SNAP_REVISION
+- name: kafka-ui
+  repo: https://github.com/canonical/kafka-ui-operator
+  snap: charmed-kafka-ui
+  rev_var_src_path: literals::SNAP_REVISION
+
+k8s:
+# cmd: command to determine workload version, which is run on the container
+# regex: If the output of `cmd` needs to be parsed, a regex in which
+#        the version is captured by the first match group.
+# image_path: yq-style path to image URL in metadata.yaml or charmcraft.yaml
+- name: kafka-k8s
+  cmd: /opt/kafka/bin/kafka-topics.sh --version
+  image_path: .resources."kafka-image"."upstream-source"
+  regex: null
+  repo: https://github.com/canonical/kafka-k8s-operator
+- name: kafka-connect-k8s
+  cmd: /opt/kafka/bin/kafka-topics.sh --version
+  image_path: .resources."kafka-image"."upstream-source"
+  regex: null
+  repo: https://github.com/canonical/kafka-connect-k8s-operator
+- name: kafka-ui-k8s
+  cmd: ls -1 /opt/kafka-ui/libs/
+  image_path: .resources."kafka-ui-image"."upstream-source"
+  regex: api-([0-9]+\.[0-9]+\.[0-9]+)\.jar
+  repo: https://github.com/canonical/kafka-ui-k8s-operator
+- name: karapace-k8s
+  cmd: python3 -c 'from karapace import version; print(version.version)'
+  image_path: .resources."karapace-image"."upstream-source"
+  regex: null
+  repo: https://github.com/canonical/karapace-k8s-operator
