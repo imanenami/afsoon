@@ -5,8 +5,10 @@ description = "Tools to make your charming life easier."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "gitpython>=3.1.46",
     "pyright>=1.1.408",
     "pyyaml>=6.0.3",
+    "requests>=2.32.5",
 ]
 
 [tool.ruff]
@@ -47,3 +49,9 @@ typeCheckingMode = "basic"
 reportIncompatibleMethodOverride = false
 reportMissingModuleSource = true
 stubPath = ""
+
+[dependency-groups]
+dev = [
+    "coverage>=7.13.4",
+    "pytest>=9.0.2",
+]

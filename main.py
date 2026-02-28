@@ -2,108 +2,67 @@
 
 import logging
 import sys
-from collections import namedtuple
-from typing import Any
 
 import yaml
 
-import charm
+import rock
 import snap
-from rock import resolve_k8s_charm
+import workflows
+from models import CharmSpec, WorkflowSettings
 from util import cleanup
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-Versions = namedtuple("Versions", "charm snap workload")
 
-
-def load_config() -> dict[str, Any]:
+def load_config() -> dict[str, CharmSpec]:
     """Load charms.yaml."""
     charms = yaml.safe_load(open("charms.yaml"))
     cfg = {}
     for substrate in ("machine", "k8s"):
         charm_info = charms.get(substrate, [])
-        cfg |= {i["name"]: dict(i) | {"substrate": substrate} for i in charm_info}
+        for spec_dict in charm_info:
+            spec = CharmSpec(substrate=substrate, **spec_dict)
+            cfg[spec.name] = spec
     return cfg
 
 
-def load_charm_info(spec: dict) -> dict[str, str]:
-    """Return a mapping of track/risk to charm revision for the given charm spec.
-
-    The output will be like: {"4/edge": "100", "4/stable": "90", ...}
-    """
-    _charm = spec["name"]
-    charm_info = charm.info(_charm)
-    logger.info(charm_info)
-    return charm_info
-
-
-def _main_machine(spec: dict) -> list[Versions]:
-    """Main entrypoint for machin charm specs."""
-    _charm = spec["name"]
-    charm_info = load_charm_info(spec)
-    charm_revs = set(charm_info.values())
-
-    rev_to_snap = {}
-    for rev in charm_revs:
-        charm_dir = charm.unpack(_charm, rev)
-        try:
-            rev_to_snap[rev] = snap.resolve_rev(spec, charm_dir)
-        except AssertionError:
-            rev_to_snap[rev] = "unknown"
-
-    snap_revs = set(rev_to_snap.values())
-    snap_to_workload = {}
-    for rev in snap_revs:
-        if rev == "unknown":
-            snap_to_workload[rev] = "unknown"
-        else:
-            snap_to_workload[rev] = snap.resolve_workload_version(spec, rev)
-
-    versions = []
-    for rel, charm_rev in charm_info.items():
-        snap_rev = rev_to_snap[charm_rev]
-        wv = snap_to_workload[snap_rev]
-        versions.append(Versions(charm=rel, snap=snap_rev, workload=wv))
-
-    return versions
-
-
-def _main_k8s(spec: dict) -> list[Versions]:
-    """Main entrypoint for k8s charm specs."""
-    _charm = spec["name"]
-    charm_info = load_charm_info(spec)
-    charm_revs = set(charm_info.values())
-
-    rev_to_workload = {}
-    for rev in charm_revs:
-        charm_dir = charm.unpack(_charm, rev)
-        try:
-            rev_to_workload[rev] = resolve_k8s_charm(spec, charm_dir)
-        except Exception as e:
-            logger.error(e)
-            rev_to_workload[rev] = "unknown"
-
-    versions = []
-    for rel, charm_rev in charm_info.items():
-        wv = rev_to_workload[charm_rev]
-        versions.append(Versions(charm=rel, snap=None, workload=wv))
-
-    return versions
-
-
-if __name__ == "__main__":
+def resolve_edge(charm_name: str):
+    """Main function to resolve workload version of latest revision of a charm."""
     cfg = load_config()
 
     try:
-        _charm = sys.argv[1]
-        spec = cfg[_charm]
-        substrate = spec["substrate"]
-        _main = _main_machine if substrate == "machine" else _main_k8s
-        _main(spec)
-
+        spec = cfg[charm_name]
+        substrate = spec.substrate
+        _resolve = (
+            snap.resolve_machine_charm_single
+            if substrate == "machine"
+            else rock.resolve_k8s_charm_single
+        )
+        _resolve(spec)
     except Exception:
         raise
     finally:
         cleanup()
+
+
+if __name__ == "__main__":
+    if len(sys.argv) < 2:
+        print("Workflow should be specified.")
+        sys.exit(1)
+
+    workflow = sys.argv[1].replace("-", "_")
+    if workflow not in workflows.WORKFLOWS:
+        print(f"Workflow {workflow} is not defined, available values are:")
+        print("\n".join(workflows.WORKFLOWS.keys()))
+        sys.exit(2)
+
+    cfg = load_config()
+    settings = WorkflowSettings(
+        config=cfg,
+        repos=[spec.repo.replace("https://github.com/canonical/", "") for spec in cfg.values()],
+    )
+
+    workflows.run(workflow, settings)
+
+    cleanup()

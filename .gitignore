@@ -1,8 +1,11 @@
 # Python-generated files
 __pycache__/
 *.py[oc]
+*.js
 build/
 dist/
+.tox/
+.coverage
 wheels/
 *.egg-info
 .tmp.pickle
