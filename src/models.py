@@ -50,4 +50,3 @@ class WorkflowSettings:
     """..."""
 
     config: dict[str, CharmSpec]
-    repos: list[str]

@@ -60,7 +60,6 @@ if __name__ == "__main__":
     cfg = load_config()
     settings = WorkflowSettings(
         config=cfg,
-        repos=[spec.repo.replace("https://github.com/canonical/", "") for spec in cfg.values()],
     )
 
     workflows.run(workflow, settings)

@@ -22,7 +22,7 @@ WORKFLOWS = {}
 
 def _register(labels: Iterable[str] = []):
 
-    def decorator(f: Callable):
+    def decorator(f: Callable[[WorkflowSettings], None]):
         global WORKFLOWS
         nonlocal labels
         _labels = [f.__qualname__, f.__qualname__.replace("_", "-"), *labels]
@@ -55,9 +55,9 @@ def run(workflow: str, settings: WorkflowSettings) -> None:
 
 
 @_register(labels=["poke"])
-def poke_ci(settings: WorkflowSettings):
+def poke_ci(settings: WorkflowSettings) -> None:
     """Poke scheduled CI and re-run if failed and retries < 3."""
-    repos = settings.repos
+    repos = [github.strip_gh_link(spec.repo) for spec in settings.config.values()]
     retry_list: list[CIRun] = []
     for repo in repos:
         ci_run = github.get_last_scheduled_run(repo)
@@ -71,9 +71,9 @@ def poke_ci(settings: WorkflowSettings):
 
 
 @_register(labels=["heatmap"])
-def generate_heatmap(settings: WorkflowSettings):
+def generate_heatmap(settings: WorkflowSettings) -> None:
     """Generate heatmap of CI runs, plus general DevSecOps workflow information."""
-    repos = settings.repos
+    repos = [github.strip_gh_link(spec.repo) for spec in settings.config.values()]
     github.clone_repos(repos)
     wf_state = github.get_repos_wf_state(repos)
     heatmap_data = github.collect_scheduled_ci_stats(repos, last_n_days=20)
@@ -102,7 +102,7 @@ def generate_heatmap(settings: WorkflowSettings):
 
 
 @_register(labels=["releases"])
-def gather_releases(settings: WorkflowSettings):
+def gather_releases(settings: WorkflowSettings) -> None:
     """..."""
     prepare_sandbox()
     cfg = settings.config

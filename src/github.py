@@ -216,3 +216,8 @@ def push_changes(
         print(f"git push {' '.join(push_args)}")
     else:
         repo.git.push(*push_args)
+
+
+def strip_gh_link(link: str, owner: str = OWNER):
+    """Remove GitHub domain and owner name from repo link."""
+    return(link.replace(f"https://github.com/{owner}/", ""))
