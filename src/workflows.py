@@ -161,6 +161,8 @@ def gather_releases(settings: WorkflowSettings) -> None:
 def trivy_scan(settings: WorkflowSettings) -> None:
     """Run Trivy scan."""
     prepare_sandbox()
+    # install Trivy snap on sandbox
+    os.system(f"lxc exec {SANDBOX_INST} -- snap install --classic trivy")
     repos = trivy.load_rocks()
     for repo in repos:
         os.system(f"scripts/vuln-scan.sh {SANDBOX_INST} {' '.join(repo.split('@'))}")
