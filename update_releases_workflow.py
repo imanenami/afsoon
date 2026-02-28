@@ -4,9 +4,10 @@ import os
 from collections import defaultdict
 
 from main import cleanup, load_config, _main_k8s, _main_machine
-from util import DOCKER
+from src.util import DOCKER, SANDBOX_INST
 
 
+os.system(f"scripts/init-sandbox.sh {SANDBOX_INST}")
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 cwd = os.getcwd()
 os.chdir(BASE_DIR)
@@ -54,5 +55,5 @@ with open("releaseData.js", "w") as f:
 os.system("./publish releaseData.js")
 
 cleanup()
-os.system(f"{DOCKER} image prune --force")
+os.system(f"lxc rm --force {SANDBOX_INST}")
 os.chdir(cwd)

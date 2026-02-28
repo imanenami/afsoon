@@ -2,12 +2,23 @@
 
 import logging
 import os
+import secrets
 import subprocess
+
+logger = logging.getLogger(__name__)
 
 TMP_PREFIX = "tmp_imon_"
 POETRY = "poetry"
-DOCKER = "lxc exec sqlpad -- docker"
-SANDBOX_EXEC = "lxc exec sandbox --"
+
+if not os.environ.get("SANDBOX_INSTANCE", ""):
+    inst = f"sandbox_{secrets.token_hex(8)}"
+    logger.info(f"lanuching sandbox: {inst}")
+    os.environ.update({"SANDBOX_INSTANCE": inst})
+
+
+SANDBOX_INST = os.environ.get("SANDBOX_INSTANCE")
+DOCKER = f"lxc exec {SANDBOX_INST} -- docker"
+SANDBOX_EXEC = f"lxc exec {SANDBOX_INST} --"
 
 logger = logging.getLogger(__name__)
 

@@ -17,8 +17,6 @@ logger = logging.getLogger(__name__)
 
 Versions = namedtuple("Versions", "charm snap workload")
 
-# BLACKLIST = {"kafka-k8s/latest/edge", "kafka-k8s/latest/stable"}
-BLACKLIST = set()
 
 def load_config() -> dict[str, Any]:
     """Load charms.yaml."""
@@ -37,12 +35,6 @@ def load_charm_info(spec: dict) -> dict[str, str]:
     """
     _charm = spec["name"]
     charm_info = charm.info(_charm)
-
-    for k in BLACKLIST:
-        rel = k.replace(f"{_charm}/", "")
-        if rel in charm_info:
-            charm_info.pop(rel)
-
     logger.info(charm_info)
     return charm_info
 
