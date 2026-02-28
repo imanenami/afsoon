@@ -4,15 +4,17 @@ import datetime
 import inspect
 import json
 import logging
+import os
 from collections import defaultdict
 from collections.abc import Callable, Iterable
-from functools import wraps
+from functools import partial, wraps
 
 import github
 import rock
 import snap
+import trivy
 from models import CIRun, WorkflowSettings
-from util import prepare_sandbox
+from util import prepare_sandbox, SANDBOX_INST
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +38,15 @@ def _register(labels: Iterable[str] = []):
         return wrapper
 
     return decorator
+
+
+push_to_kafka_ci = partial(
+    github.push_changes,
+    "kafka-ci",
+    owner="imanenami",
+    gh_user="iminions",
+    gh_email="iman@datapy.co",
+)
 
 
 def run(workflow: str, settings: WorkflowSettings) -> None:
@@ -98,13 +109,7 @@ def generate_heatmap(settings: WorkflowSettings) -> None:
     with open("rawData.js", "w") as f:
         f.write(raw_data)
 
-    github.push_changes(
-        "kafka-ci",
-        owner="imanenami",
-        gh_user="iminions",
-        gh_email="iman@datapy.co",
-        add={"rawData.js": "js/rawData.js"},
-    )
+    push_to_kafka_ci(add={"rawData.js": "js/rawData.js"})
 
 
 @_register(labels=["releases"])
@@ -148,3 +153,25 @@ def gather_releases(settings: WorkflowSettings) -> None:
     print(js)
     with open("releaseData.js", "w") as f:
         f.write(js)
+
+    push_to_kafka_ci(add={"releaseData.js": "js/releaseData.js"})
+
+
+@_register(labels=["scan"])
+def trivy_scan(settings: WorkflowSettings) -> None:
+    """Run Trivy scan."""
+    prepare_sandbox()
+    repos = trivy.load_rocks()
+    for repo in repos:
+        os.system(f"scripts/vuln-scan.sh {SANDBOX_INST} {' '.join(repo.split('@'))}")
+    vuln_list = trivy.combine_results()
+    now = datetime.datetime.now(tz=datetime.UTC).replace(microsecond=0)
+    raw = inspect.cleandoc(f"""
+        updatedAt = '{now}';
+        rawVulnData = {json.dumps(vuln_list)};
+    """)
+
+    with open("vulnData.js", "w") as f:
+        f.write(raw)
+
+    push_to_kafka_ci(add={"vulnData.js": "js/vulnData.js"})
