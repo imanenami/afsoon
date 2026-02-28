@@ -106,11 +106,12 @@ def resolve_workload_version(spec: CharmSpec, rev) -> str:
     return version
 
 
-def resolve_machine_charm_single(spec: CharmSpec, charm_dir: str | None = None) -> tuple[int, str]:
+def resolve_machine_charm_single(spec: CharmSpec, rev: int) -> Versions:
     """Return the snap revision and workload version of a single charm/rev."""
+    charm_dir = charm.unpack(spec.name, rev)
     snap_rev = resolve_rev(spec, charm_dir=charm_dir)
     workload_version = resolve_workload_version(spec, snap_rev)
-    return snap_rev, workload_version
+    return Versions(charm=spec.name, snap=snap_rev, workload=workload_version)
 
 
 def resolve_machine_charm_all(spec: CharmSpec) -> list[Versions]:
