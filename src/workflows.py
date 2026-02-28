@@ -73,7 +73,6 @@ def poke_ci(settings: WorkflowSettings):
 @_register(labels=["heatmap"])
 def generate_heatmap(settings: WorkflowSettings):
     """Generate heatmap of CI runs, plus general DevSecOps workflow information."""
-    prepare_sandbox()
     repos = settings.repos
     github.clone_repos(repos)
     wf_state = github.get_repos_wf_state(repos)
@@ -105,6 +104,7 @@ def generate_heatmap(settings: WorkflowSettings):
 @_register(labels=["releases"])
 def gather_releases(settings: WorkflowSettings):
     """..."""
+    prepare_sandbox()
     cfg = settings.config
     res = []
     # iterate over all defined charms
