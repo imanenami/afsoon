@@ -1,0 +1,4 @@
+type,name,rev,version
+snap,charmed-kafka,60,3.9.0-ubuntu1
+snap,charmed-kafka,67,4.1.1-ubuntu2
+

@@ -17,8 +17,8 @@ logger = logging.getLogger(__name__)
 
 Versions = namedtuple("Versions", "charm snap workload")
 
-BLACKLIST = {"kafka-k8s/latest/edge", "kafka-k8s/latest/stable"}
-
+# BLACKLIST = {"kafka-k8s/latest/edge", "kafka-k8s/latest/stable"}
+BLACKLIST = set()
 
 def load_config() -> dict[str, Any]:
     """Load charms.yaml."""
@@ -47,7 +47,7 @@ def load_charm_info(spec: dict) -> dict[str, str]:
     return charm_info
 
 
-def _main_machine(spec: dict):
+def _main_machine(spec: dict) -> list[Versions]:
     """Main entrypoint for machin charm specs."""
     _charm = spec["name"]
     charm_info = load_charm_info(spec)
@@ -56,18 +56,29 @@ def _main_machine(spec: dict):
     rev_to_snap = {}
     for rev in charm_revs:
         charm_dir = charm.unpack(_charm, rev)
-        rev_to_snap[rev] = snap.resolve_rev(spec, charm_dir)
+        try:
+            rev_to_snap[rev] = snap.resolve_rev(spec, charm_dir)
+        except AssertionError:
+            rev_to_snap[rev] = "unknown"
 
     snap_revs = set(rev_to_snap.values())
-    snap_to_workload = {rev: snap.resolve_workload_version(spec["snap"], rev) for rev in snap_revs}
+    snap_to_workload = {}
+    for rev in snap_revs:
+        if rev == "unknown":
+            snap_to_workload[rev] = "unknown"
+        else:
+            snap_to_workload[rev] = snap.resolve_workload_version(spec, rev)
 
+    versions = []
     for rel, charm_rev in charm_info.items():
         snap_rev = rev_to_snap[charm_rev]
         wv = snap_to_workload[snap_rev]
-        print(Versions(charm=rel, snap=snap_rev, workload=wv))
+        versions.append(Versions(charm=rel, snap=snap_rev, workload=wv))
+
+    return versions
 
 
-def _main_k8s(spec: dict):
+def _main_k8s(spec: dict) -> list[Versions]:
     """Main entrypoint for k8s charm specs."""
     _charm = spec["name"]
     charm_info = load_charm_info(spec)
@@ -76,11 +87,18 @@ def _main_k8s(spec: dict):
     rev_to_workload = {}
     for rev in charm_revs:
         charm_dir = charm.unpack(_charm, rev)
-        rev_to_workload[rev] = resolve_k8s_charm(spec, charm_dir)
+        try:
+            rev_to_workload[rev] = resolve_k8s_charm(spec, charm_dir)
+        except Exception as e:
+            logger.error(e)
+            rev_to_workload[rev] = "unknown"
 
+    versions = []
     for rel, charm_rev in charm_info.items():
         wv = rev_to_workload[charm_rev]
-        print(Versions(charm=rel, snap=None, workload=wv))
+        versions.append(Versions(charm=rel, snap=None, workload=wv))
+
+    return versions
 
 
 if __name__ == "__main__":

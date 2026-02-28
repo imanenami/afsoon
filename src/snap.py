@@ -2,11 +2,13 @@
 
 import glob
 import logging
+import os
+import re
 import tempfile
 
 import yaml
 
-from util import POETRY, TMP_PREFIX, clone_repo, exec
+from util import POETRY, SANDBOX_EXEC, TMP_PREFIX, clone_repo, exec
 
 logger = logging.getLogger(__name__)
 
@@ -43,18 +45,37 @@ def resolve_rev(spec: dict, charm_dir: str | None = None) -> int:
     return int(rev)
 
 
-def resolve_workload_version(snap, rev) -> str:
+def resolve_workload_version(spec, rev) -> str:
     """Resolve the workload version of a given `snap` at certain revision `rev`."""
+    snap = spec["snap"]
     tmp_path = tempfile.mkdtemp(dir=".", prefix=TMP_PREFIX)
     logger.info(f"downloading snap {snap} @ {rev}...")
     exec(f"snap download {snap} --revision {rev}", cwd=tmp_path)
     raw_info = exec(f"unsquashfs -cat {snap}_{rev}.snap meta/snap.yaml", cwd=tmp_path)
+    naive_version = yaml.safe_load(raw_info).get("version", "unknown")
 
-    return yaml.safe_load(raw_info).get("version", "unknown")
+    cmd = spec["cmd"]
+    regex = spec["regex"]
+
+    os.system(f"{SANDBOX_EXEC} snap install {snap} --revision {rev}")
+    try:
+        raw = exec(f"{SANDBOX_EXEC} {cmd}")
+    except Exception as e:
+        logger.error(e)
+        os.system(f"{SANDBOX_EXEC} snap remove {snap}")
+        return naive_version
+
+    os.system(f"{SANDBOX_EXEC} snap remove {snap}")
+
+    matches = [raw] if not regex else re.findall(regex, raw)
+    version = matches[0].strip() if matches else naive_version
+
+    logger.info(f"resolved workload version for {snap}@{rev}: {version}")
+    return version
 
 
 def resolve_machine_charm(spec: dict, charm_dir: str | None = None) -> tuple[int, str]:
     """Return the snap revision and workload version of a charm."""
     snap_rev = resolve_rev(spec, charm_dir=charm_dir)
-    workload_version = resolve_workload_version(spec["snap"], snap_rev)
+    workload_version = resolve_workload_version(spec, snap_rev)
     return snap_rev, workload_version

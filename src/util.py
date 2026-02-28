@@ -6,8 +6,8 @@ import subprocess
 
 TMP_PREFIX = "tmp_imon_"
 POETRY = "poetry"
-DOCKER = "lxc exec dckr -- docker"
-
+DOCKER = "lxc exec sqlpad -- docker"
+SANDBOX_EXEC = "lxc exec sandbox --"
 
 logger = logging.getLogger(__name__)
 

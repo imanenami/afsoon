@@ -7,6 +7,7 @@ wheels/
 *.egg-info
 .tmp.pickle
 .env
+tmp_*/
 
 # Virtual environments
 .venv

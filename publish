@@ -1,0 +1,15 @@
+#!/bin/bash
+
+FILE_TO_PUBLISH="$1"
+
+git clone https://iminions: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@github.com/imanenami/kafka-ci tmp
+cp $FILE_TO_PUBLISH tmp/js/
+pushd tmp
+git config user.name iminions
+git config user.email "iman@datapy.co"
+git add .
+git commit -m "chore: update $FILE_TO_PUBLISH"
+git push origin main
+popd
+
+rm -rf tmp/ $FILE_TO_PUBLISH
