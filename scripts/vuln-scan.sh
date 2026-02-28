@@ -1,5 +1,11 @@
 #!/bin/bash
 
+# Utility for building rocks from source and running Trivy scans against them.
+# This utility uses a LXD instance as sandbox environment.
+#
+# Usage: ./vuln-scan.sh [LXD-INSTANCE-NAME] [ROCK-REPOSITORY-NAME] [BRANCH]
+
+
 DOCKER_ENABLED_CONTAINER=$1
 REPO=$2
 BRANCH=$3

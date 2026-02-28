@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Script to install docker & co.
+#
+# Usage: ./docker-script.sh
+
+
 sudo apt-get update
 
 sudo apt-get install \

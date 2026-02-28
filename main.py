@@ -5,8 +5,6 @@ import sys
 
 import yaml
 
-import rock
-import snap
 import workflows
 from models import CharmSpec, WorkflowSettings
 from util import cleanup
@@ -15,7 +13,7 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
-def load_config() -> dict[str, CharmSpec]:
+def load_charms() -> dict[str, CharmSpec]:
     """Load charms.yaml."""
     charms = yaml.safe_load(open("charms.yaml"))
     cfg = {}
@@ -27,41 +25,41 @@ def load_config() -> dict[str, CharmSpec]:
     return cfg
 
 
-def resolve_edge(charm_name: str):
-    """Main function to resolve workload version of latest revision of a charm."""
-    cfg = load_config()
+def load_rocks() -> list[str]:
+    """Load rocks from ROCKS file."""
+    raw = [line.strip() for line in open("ROCKS").readlines()]
+    return [line for line in raw if line and not line.startswith("#")]
 
-    try:
-        spec = cfg[charm_name]
-        substrate = spec.substrate
-        _resolve = (
-            snap.resolve_machine_charm_single
-            if substrate == "machine"
-            else rock.resolve_k8s_charm_single
-        )
-        _resolve(spec)
-    except Exception:
-        raise
-    finally:
-        cleanup()
+
+def _help() -> None:
+    print("USAGE: main.py [WORKFLOW] or tox -e run workflow -- [WORKFLOW]")
+    print("\nAvailable workflows are:")
+    workflows.prettyprint()
+
+
+def _quit(return_code: int):
+    cleanup()
+    sys.exit(return_code)
 
 
 if __name__ == "__main__":
+    if "-h" in sys.argv or "--help" in sys.argv:
+        _help()
+        _quit(0)
+
     if len(sys.argv) < 2:
-        print("Workflow should be specified.")
-        sys.exit(1)
+        print("ERROR: workflow should be specified.\n")
+        _help()
+        _quit(1)
 
     workflow = sys.argv[1].replace("-", "_")
     if workflow not in workflows.WORKFLOWS:
-        print(f"Workflow {workflow} is not defined, available values are:")
-        print("\n".join(workflows.WORKFLOWS.keys()))
-        sys.exit(2)
+        print(f'ERROR: Workflow "{workflow}" is not defined, available values are:')
+        workflows.prettyprint()
+        _quit(2)
 
-    cfg = load_config()
-    settings = WorkflowSettings(
-        config=cfg,
-    )
+    charms = load_charms()
+    rocks = load_rocks()
+    settings = WorkflowSettings(charms=charms, rocks=rocks)
 
     workflows.run(workflow, settings)
-
-    cleanup()

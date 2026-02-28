@@ -123,8 +123,9 @@ def get_workflow(repo: str, workflow: str) -> dict[str, Any]:
     return {"jobs": {}}
 
 
-def get_repos_wf_state(repos: Iterable[str]):
-    """..."""
+# TODO: improve typing & docs.
+def get_repos_wf_state(repos: Iterable[str]) -> list:
+    """Read the repo .github/workflows directory and find which workflows are used."""
     lst = []
     for repo in repos:
         state = {"repo": repo}
