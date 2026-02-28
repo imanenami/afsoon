@@ -14,7 +14,7 @@ import rock
 import snap
 import trivy
 from models import CIRun, WorkflowSettings
-from util import prepare_sandbox, SANDBOX_INST
+from util import SANDBOX_INST, prepare_sandbox
 
 logger = logging.getLogger(__name__)
 
@@ -22,14 +22,14 @@ logger = logging.getLogger(__name__)
 WORKFLOWS = {}
 
 
-def _register(labels: Iterable[str] = []):
+def _register(aliases: Iterable[str] = []):
 
     def decorator(f: Callable[[WorkflowSettings], None]):
         global WORKFLOWS
-        nonlocal labels
-        _labels = [f.__qualname__, f.__qualname__.replace("_", "-"), *labels]
-        for label in _labels:
-            WORKFLOWS[label] = f
+        nonlocal aliases
+        _aliases = [f.__qualname__, f.__qualname__.replace("_", "-"), *aliases]
+        for alias in _aliases:
+            WORKFLOWS[alias] = f
 
         @wraps(f)
         def wrapper(*args, **kwargs):
@@ -65,11 +65,23 @@ def run(workflow: str, settings: WorkflowSettings) -> None:
     WORKFLOWS[workflow](settings)
 
 
-@_register(labels=["poke"])
+def prettyprint() -> None:
+    """Pretty print workflows and their docs to stdout."""
+    alias_map = defaultdict(lambda: [])
+    for label, func in WORKFLOWS.items():
+        alias_map[func].append(label)
+
+    for func, aliases in alias_map.items():
+        aliases.sort()
+        quoted = [f'"{alias}"' for alias in aliases]
+        print(f"  - {', '.join(quoted)}:", func.__doc__)
+
+
+@_register(aliases=["poke"])
 def poke_ci(settings: WorkflowSettings) -> None:
-    """Poke scheduled CI and re-run if failed and retries < 3."""
+    """Poke scheduled CI and retry if failed and no. of retries < 3."""
     repos = [
-        github.strip_gh_link(spec.repo) for spec in settings.config.values() if spec.is_healthy
+        github.strip_gh_link(spec.repo) for spec in settings.charms.values() if spec.is_healthy
     ]
     logger.info(f"healthy repos: {', '.join(repos)}")
     retry_list: list[CIRun] = []
@@ -84,11 +96,11 @@ def poke_ci(settings: WorkflowSettings) -> None:
         github._post(repo, f"actions/runs/{_run.id}/rerun-failed-jobs")
 
 
-@_register(labels=["heatmap"])
+@_register(aliases=["heatmap"])
 def generate_heatmap(settings: WorkflowSettings) -> None:
     """Generate heatmap of CI runs, plus general DevSecOps workflow information."""
     repos = [
-        github.strip_gh_link(spec.repo) for spec in settings.config.values() if spec.is_healthy
+        github.strip_gh_link(spec.repo) for spec in settings.charms.values() if spec.is_healthy
     ]
     logger.info(f"healthy repos: {', '.join(repos)}")
     github.clone_repos(repos)
@@ -112,11 +124,11 @@ def generate_heatmap(settings: WorkflowSettings) -> None:
     push_to_kafka_ci(add={"rawData.js": "js/rawData.js"})
 
 
-@_register(labels=["releases"])
+@_register(aliases=["releases"])
 def gather_releases(settings: WorkflowSettings) -> None:
-    """..."""
+    """Gather charm releases and associated workflow versions for different tracks."""
     prepare_sandbox()
-    cfg = settings.config
+    cfg = settings.charms
     res = []
     # iterate over all defined charms
     for spec in cfg.values():
@@ -157,13 +169,13 @@ def gather_releases(settings: WorkflowSettings) -> None:
     push_to_kafka_ci(add={"releaseData.js": "js/releaseData.js"})
 
 
-@_register(labels=["scan"])
+@_register(aliases=["scan"])
 def trivy_scan(settings: WorkflowSettings) -> None:
-    """Run Trivy scan."""
+    """Build from source and run Trivy scan on the rocks defined in "ROCKS" file."""
     prepare_sandbox()
     # install Trivy snap on sandbox
     os.system(f"lxc exec {SANDBOX_INST} -- snap install --classic trivy")
-    repos = trivy.load_rocks()
+    repos = settings.rocks
     for repo in repos:
         os.system(f"scripts/vuln-scan.sh {SANDBOX_INST} {' '.join(repo.split('@'))}")
     vuln_list = trivy.combine_results()

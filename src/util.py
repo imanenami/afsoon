@@ -1,5 +1,6 @@
 """Utility and helper functions."""
 
+import json
 import logging
 import os
 import secrets
@@ -12,11 +13,11 @@ POETRY = "poetry"
 
 if not os.environ.get("SANDBOX_INSTANCE", ""):
     inst = f"sandbox-{secrets.token_hex(8)}"
-    logger.info(f"launching sandbox: {inst}")
+    logger.info(f"sandbox: {inst}")
     os.environ.update({"SANDBOX_INSTANCE": inst})
 
 
-SANDBOX_INST = os.environ.get("SANDBOX_INSTANCE")
+SANDBOX_INST = os.environ["SANDBOX_INSTANCE"].replace('"', "").replace("'", "")
 DOCKER = f"lxc exec {SANDBOX_INST} -- docker"
 SANDBOX_EXEC = f"lxc exec {SANDBOX_INST} --"
 
@@ -52,10 +53,17 @@ def clone_repo(repo: str, path="") -> str:
     return clone_path
 
 
+def lxc_list() -> list[str]:
+    """Run "lxc list" and return list of instance names."""
+    _json = json.loads(exec("lxc list --format json"))
+    return [i["name"] for i in _json]
+
+
 def cleanup() -> None:
     """Clean up temp files and resources."""
     os.system(f"rm -rf ./{TMP_PREFIX}*")
-    os.system(f"lxc rm --force {SANDBOX_INST}")
+    if SANDBOX_INST in lxc_list():
+        os.system(f"lxc rm --force {SANDBOX_INST}")
 
 
 def prepare_sandbox():

@@ -8,12 +8,6 @@ import os
 TrivyScanResults = dict
 
 
-def load_rocks() -> set[str]:
-    """Load rocks from ROCKS file."""
-    raw = [line.strip() for line in open("ROCKS").readlines()]
-    return {line for line in raw if line and not line.startswith("#")}
-
-
 def combine_results() -> list[TrivyScanResults]:
     """Combine Trivy scan JSON files."""
     result_files = glob.glob("*-results.json")

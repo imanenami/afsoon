@@ -53,6 +53,7 @@ class CIRun:
 
 @dataclass
 class WorkflowSettings:
-    """..."""
+    """Workflow settings data model."""
 
-    config: dict[str, CharmSpec]
+    charms: dict[str, CharmSpec]
+    rocks: list[str]
