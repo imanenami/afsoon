@@ -2,12 +2,23 @@
 
 import logging
 import os
+import secrets
 import subprocess
 
-TMP_PREFIX = "tmp_imon_"
-POETRY = "poetry"
-DOCKER = "lxc exec dckr -- docker"
+logger = logging.getLogger(__name__)
 
+TMP_PREFIX = "tmp_jcmon_"
+POETRY = "poetry"
+
+if not os.environ.get("SANDBOX_INSTANCE", ""):
+    inst = f"sandbox-{secrets.token_hex(8)}"
+    logger.info(f"launching sandbox: {inst}")
+    os.environ.update({"SANDBOX_INSTANCE": inst})
+
+
+SANDBOX_INST = os.environ.get("SANDBOX_INSTANCE")
+DOCKER = f"lxc exec {SANDBOX_INST} -- docker"
+SANDBOX_EXEC = f"lxc exec {SANDBOX_INST} --"
 
 logger = logging.getLogger(__name__)
 
@@ -44,3 +55,24 @@ def clone_repo(repo: str, path="") -> str:
 def cleanup() -> None:
     """Clean up temp files and resources."""
     os.system(f"rm -rf ./{TMP_PREFIX}*")
+    os.system(f"lxc rm --force {SANDBOX_INST}")
+
+
+def prepare_sandbox():
+    """Check if sandbox instance is running, launch one if not."""
+    ret_code = os.system(f"lxc exec {SANDBOX_INST} -- whoami")
+    if not ret_code:
+        logger.info(f"Sandbox instance {SANDBOX_INST} is running...")
+        return
+
+    os.system(f"scripts/init-sandbox.sh {SANDBOX_INST}")
+
+
+def get_or_create_tmp_path() -> str:
+    """Get the tmp path (saved into APP_TMP env. var) or creates it."""
+    tmp_path = os.environ.get("TMP_PATH")
+    if not tmp_path:
+        tmp_path = f"{TMP_PREFIX}_app_{secrets.token_hex(4)}"
+
+    os.makedirs(tmp_path, exist_ok=True)
+    return tmp_path

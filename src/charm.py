@@ -4,12 +4,13 @@ import json
 import logging
 import tempfile
 
+from models import VersionMap
 from util import TMP_PREFIX, exec
 
 logger = logging.getLogger(__name__)
 
 
-def info(charm: str) -> dict[str, str]:
+def info(charm: str) -> VersionMap:
     """Run `juju info` command and return a mapping of track/risk: revision.
 
     The output will be like: {"4/edge": "100", "4/stable": "90", ...}
