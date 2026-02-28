@@ -180,31 +180,31 @@ def push_changes(
     tmp_dir = tempfile.mkdtemp(dir=".", prefix=TMP_PREFIX)
     cred_prefix = f"{gh_user}:{gh_token}@" if all((gh_token, gh_user)) else ""
 
-    repo = Repo.clone_from(
+    repo = Repo.clone_from(  # pyright: ignore
         f"https://{cred_prefix}github.com/{owner}/{repo}", tmp_dir, branch="main"
     )
 
-    matches = re.findall(r"\[([0-9\-]+)\]", repo.head.commit.message)
+    matches = re.findall(r"\[([0-9\-]+)\]", repo.head.commit.message)  # pyright: ignore
     last_date = matches[0] if matches else None
     current_date = f"{datetime.date.today()}"
 
     for file, dest in add.items():
         shutil.copyfile(file, f"{tmp_dir}/{dest}")
-        repo.index.add([dest])
+        repo.index.add([dest])  # pyright: ignore
 
     msg = f"ci: [{current_date}] {message}"
 
     if all((gh_user, gh_email)):
-        with repo.config_writer() as cw:
+        with repo.config_writer() as cw:  # pyright: ignore
             cw.set_value("user", "name", gh_user)
             cw.set_value("user", "email", gh_email)
             cw.release()
 
     push_args = ["origin", gh_push_branch]
     if last_date != current_date:
-        repo.index.commit(msg)
+        repo.index.commit(msg)  # pyright: ignore
     else:
-        repo.git.commit(
+        repo.git.commit(  # pyright: ignore
             "--amend",
             "-m",
             msg,
@@ -215,9 +215,9 @@ def push_changes(
         print(exec("git log --graph -n 3", cwd=tmp_dir))
         print(f"git push {' '.join(push_args)}")
     else:
-        repo.git.push(*push_args)
+        repo.git.push(*push_args)  # pyright: ignore
 
 
 def strip_gh_link(link: str, owner: str = OWNER):
     """Remove GitHub domain and owner name from repo link."""
-    return(link.replace(f"https://github.com/{owner}/", ""))
+    return link.replace(f"https://github.com/{owner}/", "")

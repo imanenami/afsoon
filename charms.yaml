@@ -29,6 +29,11 @@ machine:
   code_path: literals::SNAP_REVISION
   cmd: ls -1 /snap/charmed-kafka-ui/current/opt/kafka-ui/libs
   regex: api-([0-9]+\.[0-9]+\.[0-9]+)\.jar
+- name: cassandra
+  repo: https://github.com/canonical/cassandra-operator
+  snap: charmed-cassandra
+  code_path: workload::SNAP_REVISION
+  cmd: unknown
 
 k8s:
 # cmd: command to determine workload version, which is run on the container
@@ -60,3 +65,5 @@ k8s:
   regex: version ([^\s]+)
   cmd: /opt/zookeeper/bin/zkServer.sh version
   repo: https://github.com/canonical/zookeeper-k8s-operator
+  healthy: false
+

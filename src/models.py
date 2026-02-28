@@ -21,6 +21,7 @@ class CharmSpec:
     regex: str | None = None
     snap: str | None = None
     rock: str | None = None
+    healthy: str = "true"
 
     def __post_init__(self):
         """Validate model consistency."""
@@ -32,6 +33,11 @@ class CharmSpec:
                 raise ValueError('"yaml_path" should be defined for k8s charms.')
         else:
             raise ValueError(f"Unsupported substrate: {self.substrate}")
+
+    @property
+    def is_healthy(self):
+        """Is the CI healthy?"""
+        return self.healthy == "true"
 
 
 @dataclass

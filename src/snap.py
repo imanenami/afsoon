@@ -36,7 +36,7 @@ def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
     site_packages = envs[0]
     logger.info(f"will use {site_packages}")
 
-    address = spec.code_path
+    address = f"{spec.code_path}"
     pkg, var = address.split("::")
 
     rev = exec(

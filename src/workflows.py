@@ -57,7 +57,10 @@ def run(workflow: str, settings: WorkflowSettings) -> None:
 @_register(labels=["poke"])
 def poke_ci(settings: WorkflowSettings) -> None:
     """Poke scheduled CI and re-run if failed and retries < 3."""
-    repos = [github.strip_gh_link(spec.repo) for spec in settings.config.values()]
+    repos = [
+        github.strip_gh_link(spec.repo) for spec in settings.config.values() if spec.is_healthy
+    ]
+    logger.info(f"healthy repos: {', '.join(repos)}")
     retry_list: list[CIRun] = []
     for repo in repos:
         ci_run = github.get_last_scheduled_run(repo)
@@ -73,7 +76,10 @@ def poke_ci(settings: WorkflowSettings) -> None:
 @_register(labels=["heatmap"])
 def generate_heatmap(settings: WorkflowSettings) -> None:
     """Generate heatmap of CI runs, plus general DevSecOps workflow information."""
-    repos = [github.strip_gh_link(spec.repo) for spec in settings.config.values()]
+    repos = [
+        github.strip_gh_link(spec.repo) for spec in settings.config.values() if spec.is_healthy
+    ]
+    logger.info(f"healthy repos: {', '.join(repos)}")
     github.clone_repos(repos)
     wf_state = github.get_repos_wf_state(repos)
     heatmap_data = github.collect_scheduled_ci_stats(repos, last_n_days=20)
