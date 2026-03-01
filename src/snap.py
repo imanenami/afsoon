@@ -9,10 +9,13 @@ import tempfile
 import yaml
 
 import charm
-from models import CharmSpec, Versions
-from util import POETRY, SANDBOX_EXEC, TMP_PREFIX, clone_repo, exec
+from models import Artifact, CharmSpec, Versions
+from util import POETRY, SANDBOX_EXEC, TMP_PREFIX, clone_repo, exec, load_known_versions
 
 logger = logging.getLogger(__name__)
+
+
+KNOWN = load_known_versions()
 
 
 def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
@@ -60,6 +63,11 @@ def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
 def resolve_workload_version(spec: CharmSpec, rev) -> str:
     """Resolve the workload version of a given `snap` at certain revision `rev`."""
     snap = spec.snap
+    artifact = Artifact(type="snap", name=spec.snap, rev=rev)
+    if artifact in KNOWN:
+        logger.info(f"Found {artifact} in known versions.")
+        return KNOWN[artifact]
+
     tmp_path = tempfile.mkdtemp(dir=".", prefix=TMP_PREFIX)
     logger.info(f"downloading snap {snap} @ {rev}...")
     exec(f"snap download {snap} --revision {rev}", cwd=tmp_path)
@@ -116,6 +124,6 @@ def resolve_machine_charm_all(spec: CharmSpec) -> list[Versions]:
     for rel, charm_rev in charm_info.items():
         snap_rev = rev_to_snap[charm_rev]
         wv = snap_to_workload[snap_rev]
-        versions.append(Versions(charm=rel, snap=snap_rev, workload=wv))
+        versions.append(Versions(charm=rel, snap=snap_rev, image=None, workload=wv))
 
     return versions

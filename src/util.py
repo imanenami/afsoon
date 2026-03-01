@@ -1,10 +1,13 @@
 """Utility and helper functions."""
 
+import csv
 import json
 import logging
 import os
 import secrets
 import subprocess
+
+from models import Artifact
 
 logger = logging.getLogger(__name__)
 
@@ -84,3 +87,16 @@ def get_or_create_tmp_path() -> str:
 
     os.makedirs(tmp_path, exist_ok=True)
     return tmp_path
+
+
+def load_known_versions(file: str = ".known-versions") -> dict[Artifact, str]:
+    """Load known artifact versions from the given CSV file."""
+    state: dict[Artifact, str] = {}
+    with open(file) as f:
+        cols = f.readline().strip().split(",")
+        reader = csv.DictReader(f, fieldnames=cols)
+        for row in reader:
+            artifact = Artifact(row["type"], row["name"], row["rev"])
+            state[artifact] = row["version"]
+
+    return state

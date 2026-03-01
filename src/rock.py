@@ -48,15 +48,16 @@ def resolve_k8s_charm_all(spec: CharmSpec) -> list[Versions]:
     rev_to_workload = {}
     for rev in charm_revs:
         charm_dir = charm.unpack(_charm, rev)
+        image = exec(f"cat {charm_dir}/metadata.yaml | yq -r '{spec.yaml_path}'").strip()
         try:
-            rev_to_workload[rev] = resolve_k8s_charm_single(spec, charm_dir)
+            rev_to_workload[rev] = (image, resolve_k8s_charm_single(spec, charm_dir))
         except Exception as e:
             logger.error(e)
-            rev_to_workload[rev] = "unknown"
+            rev_to_workload[rev] = (image, "unknown")
 
     versions = []
     for rel, charm_rev in charm_info.items():
-        wv = rev_to_workload[charm_rev]
-        versions.append(Versions(charm=rel, snap=None, workload=wv))
+        image, wv = rev_to_workload[charm_rev]
+        versions.append(Versions(charm=rel, snap=None, image=image, workload=wv))
 
     return versions

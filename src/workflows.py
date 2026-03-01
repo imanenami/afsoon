@@ -150,6 +150,11 @@ def gather_releases(settings: WorkflowSettings) -> None:
             snap_ver = f" ({ver.snap})" if ver.snap and ver.snap != "unknown" else ""
             ver_txt = ver.workload + snap_ver
             final[canonical_name][ver.charm][subs] = ver_txt
+            # print known version format
+            if subs == "machine":
+                print(f"snap,{spec.snap},{ver.snap},{ver.workload}")
+            else:
+                print(f"rock,{spec.name},xyz,{ver.image}.{ver.workload}")
 
     formatted = {}
     for charm, data in final.items():

@@ -4,7 +4,8 @@ from collections import namedtuple
 from dataclasses import dataclass, field
 from typing import Literal
 
-Versions = namedtuple("Versions", "charm snap workload")
+Artifact = namedtuple("Artifact", "type name rev")
+Versions = namedtuple("Versions", "charm snap image workload")
 VersionMap = dict[str, int | str]
 
 
