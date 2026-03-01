@@ -44,7 +44,7 @@ def test_machine_charm_workload_resolution(with_sandbox):
 def test_k8s_charm_workload_resolution(with_sandbox):
     """Test `snap.resolve_machine_charm_single` resolves snap & workload versions properly."""
     test_spec = CharmSpec(
-        substrate="machine",
+        substrate="k8s",
         name="kafka-k8s",
         repo="https://github.com/canonical/kafka-k8s-operator",
         yaml_path='.resources."kafka-image"."upstream-source"',
@@ -52,5 +52,5 @@ def test_k8s_charm_workload_resolution(with_sandbox):
     )
     test_rev = 82
 
-    versions = rock.resolve_k8s_charm_single(test_spec, test_rev)
-    assert versions.workload == "3.9.0-ubuntu1"
+    version = rock.resolve_k8s_charm_single(test_spec, test_rev)
+    assert version == "3.9.0-ubuntu1"
