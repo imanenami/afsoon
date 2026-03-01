@@ -8,9 +8,9 @@ import os
 TrivyScanResults = dict
 
 
-def combine_results() -> list[TrivyScanResults]:
+def combine_results(base_dir: str = ".") -> list[TrivyScanResults]:
     """Combine Trivy scan JSON files."""
-    result_files = glob.glob("*-results.json")
+    result_files = glob.glob(f"{base_dir}/*-results.json")
     vuln_list = []
     for result_file in result_files:
         product = os.path.basename(result_file).replace("-results.json", "").replace("--", "@")

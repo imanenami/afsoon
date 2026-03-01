@@ -111,7 +111,7 @@ def resolve_machine_charm_single(spec: CharmSpec, rev: int) -> Versions:
     charm_dir = charm.unpack(spec.name, rev)
     snap_rev = resolve_rev(spec, charm_dir=charm_dir)
     workload_version = resolve_workload_version(spec, snap_rev)
-    return Versions(charm=spec.name, snap=snap_rev, workload=workload_version)
+    return Versions(charm=spec.name, snap=snap_rev, image=None, workload=workload_version)
 
 
 def resolve_machine_charm_all(spec: CharmSpec) -> list[Versions]:

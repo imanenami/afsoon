@@ -41,8 +41,9 @@ def test_machine_charm_workload_resolution(with_sandbox):
     assert versions.workload == "4.1.1-ubuntu2"
 
 
+@pytest.mark.integration
 def test_k8s_charm_workload_resolution(with_sandbox):
-    """Test `snap.resolve_machine_charm_single` resolves snap & workload versions properly."""
+    """Test `rock.resolve_k8s_charm_single` resolves workload versions properly."""
     test_spec = CharmSpec(
         substrate="k8s",
         name="kafka-k8s",
