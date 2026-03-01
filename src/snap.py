@@ -36,11 +36,21 @@ def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
     site_packages = envs[0]
     logger.info(f"will use {site_packages}")
 
-    address = f"{spec.code_path}"
-    pkg, var = address.split("::")
+    default_cmd = (
+        "import tomli; "
+        'f = open("refresh_versions.toml", "rb"); '
+        'print(tomli.load(f).get("snap", {}).get("revisions", {}).get("x86_64"))'
+    )
+
+    if spec.code_path == "default":
+        pycmd = default_cmd
+    else:
+        address = f"{spec.code_path}"
+        pkg, var = address.split("::")
+        pycmd = f"from {pkg} import {var}; print({var});"
 
     rev = exec(
-        f"python3 -c 'from {pkg} import {var}; print({var});'",
+        f"python3 -c '{pycmd}'",
         cwd=charm_dir,
         env={"PYTHONPATH": f"{site_packages}/:src/:lib/"},
     ).strip()
