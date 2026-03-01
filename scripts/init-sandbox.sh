@@ -18,6 +18,14 @@ lxc config set $1 \
 sleep 5
 
 lxc file push docker-script.sh $1/root/
-lxc exec $1 -- /root/docker-script.sh
+lxc exec $1 -- /root/docker-script.sh &> /dev/null &
+PID=$!
+
+while [ -d /proc/$PID ]; do
+    for s in / - \\ \|; do
+        printf "\r$s"
+        sleep .1
+    done
+done
 
 popd
