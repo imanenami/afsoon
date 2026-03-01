@@ -16,6 +16,7 @@ logger = logging.getLogger(__name__)
 
 
 KNOWN = load_known_versions()
+print(KNOWN)
 
 
 def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
@@ -63,7 +64,7 @@ def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
 def resolve_workload_version(spec: CharmSpec, rev) -> str:
     """Resolve the workload version of a given `snap` at certain revision `rev`."""
     snap = spec.snap
-    artifact = Artifact(type="snap", name=spec.snap, rev=rev)
+    artifact = Artifact(type="snap", name=spec.snap, rev=str(rev))
     if artifact in KNOWN:
         logger.info(f"Found {artifact} in known versions.")
         return KNOWN[artifact]
