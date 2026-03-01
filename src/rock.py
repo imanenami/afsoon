@@ -15,16 +15,14 @@ logger = logging.getLogger(__name__)
 KNOWN = load_known_versions()
 
 
-def resolve_k8s_charm_single(spec: CharmSpec, charm_dir: str | None = None) -> str:
+def resolve_k8s_charm_single(spec: CharmSpec, rev: int) -> str:
     """Return the workload version of a given charm spec - single revision."""
     tmp_path = tempfile.mkdtemp(dir=".", prefix=TMP_PREFIX)
-    repo = spec.repo
     image_path = spec.yaml_path
     cmd = spec.cmd
     regex = spec.regex
 
-    if not charm_dir:
-        charm_dir = clone_repo(repo, tmp_path)
+    charm_dir = charm.unpack(spec.name, rev)
 
     image = exec(f"cat {charm_dir}/metadata.yaml | yq -r '{image_path}'").strip()
     artifact = Artifact(type="rock", name=spec.name, rev=image)
