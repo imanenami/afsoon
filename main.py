@@ -63,3 +63,4 @@ if __name__ == "__main__":
     settings = WorkflowSettings(charms=charms, rocks=rocks)
 
     workflows.run(workflow, settings)
+    _quit(0)

@@ -43,6 +43,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 
 def _req(method: Literal["POST", "GET"], repo: str, api: str, **kwargs: Any):
+    logger.debug(f"req url: {BASE_URI}/{repo}/{api}")
     match method:
         case "GET":
             resp = requests.get(f"{BASE_URI}/{repo}/{api}", headers=HEADERS)

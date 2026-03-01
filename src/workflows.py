@@ -84,15 +84,15 @@ def poke_ci(settings: WorkflowSettings) -> None:
         github.strip_gh_link(spec.repo) for spec in settings.charms.values() if spec.is_healthy
     ]
     logger.info(f"healthy repos: {', '.join(repos)}")
-    retry_list: list[CIRun] = []
+    retry_list: list[tuple[str, CIRun]] = []
     for repo in repos:
         ci_run = github.get_last_scheduled_run(repo)
         if ci_run.should_retry:
-            retry_list.append(ci_run)
+            retry_list.append((repo, ci_run))
 
         logger.info(f"{repo} - should retry: {ci_run.should_retry}")
 
-    for _run in retry_list:
+    for repo, _run in retry_list:
         github._post(repo, f"actions/runs/{_run.id}/rerun-failed-jobs")
 
 
