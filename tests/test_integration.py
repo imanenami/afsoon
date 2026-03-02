@@ -46,13 +46,14 @@ def test_k8s_charm_workload_resolution(with_sandbox):
     """Test `rock.resolve_k8s_charm_single` resolves workload versions properly."""
     test_spec = CharmSpec(
         substrate="k8s",
-        name="kafka-k8s",
-        repo="https://github.com/canonical/kafka-k8s-operator",
-        yaml_path='.resources."kafka-image"."upstream-source"',
-        cmd="/opt/kafka/bin/kafka-topics.sh --version",
+        name="postgresql-k8s",
+        repo="https://github.com/canonical/postgresql-k8s-operator",
+        yaml_path='.resources."postgresql-image"."upstream-source"',
+        regex=r"[0-9]+.[0-9]+",
+        cmd="psql --version",
     )
-    test_rev = 82
+    test_rev = 774
 
     image, version = rock.resolve_k8s_charm_single(test_spec, test_rev)
     assert image
-    assert version == "3.9.0-ubuntu1"
+    assert version == "14.20"
