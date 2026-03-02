@@ -32,6 +32,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v6
+      - name: Setup LXD
+        uses: canonical/setup-lxd@main
+        with:
+          channel: 6/stable
       - name: Install tox & poetry
         run: |
           cp .env.sample .env
