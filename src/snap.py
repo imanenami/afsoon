@@ -17,6 +17,30 @@ logger = logging.getLogger(__name__)
 
 
 KNOWN = load_known_versions()
+DEFAULT_PYCMD = (
+    "import tomli; "
+    'f = open("refresh_versions.toml", "rb"); '
+    'print(tomli.load(f).get("snap", {}).get("revisions", {}).get("x86_64"))'
+)
+
+
+def _resolve_code_path(code_path: str, charm_dir: str, venv: str = "") -> str:
+    if code_path == "default":
+        pycmd = DEFAULT_PYCMD
+    else:
+        address = f"{code_path}"
+        pkg, var = address.split("::")
+        pycmd = f"import {pkg}; print({pkg}.{var});"
+
+    try:
+        return exec(
+            f"python3 -c '{pycmd}'",
+            cwd=charm_dir,
+            env={"PYTHONPATH": f"src/:lib/:{venv}"},
+        ).strip()
+    except CalledProcessError as e:
+        logger.error(e)
+        raise RuntimeError("Version detection failed!")
 
 
 def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
@@ -39,33 +63,17 @@ def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
     if len(envs) != 1:
         raise RuntimeError("Error detecting the charm venv!")
 
-    site_packages = envs[0]
-    logger.info(f"will use {site_packages}")
+    venv = envs[0]
+    for code_path in spec.code_path:
+        try:
+            return int(_resolve_code_path(code_path=code_path, charm_dir=charm_dir, venv=venv))
+        except RuntimeError:
+            continue
 
-    default_cmd = (
-        "import tomli; "
-        'f = open("refresh_versions.toml", "rb"); '
-        'print(tomli.load(f).get("snap", {}).get("revisions", {}).get("x86_64"))'
+    raise RuntimeError(
+        "Snap version resolution failed after evaluating "
+        f"{len(spec.code_path)} alternatives."
     )
-
-    if spec.code_path == "default":
-        pycmd = default_cmd
-    else:
-        address = f"{spec.code_path}"
-        pkg, var = address.split("::")
-        pycmd = f"from {pkg} import {var}; print({var});"
-
-    try:
-        rev = exec(
-            f"python3 -c '{pycmd}'",
-            cwd=charm_dir,
-            env={"PYTHONPATH": f"{site_packages}/:src/:lib/"},
-        ).strip()
-    except CalledProcessError as e:
-        logger.error(e)
-        raise RuntimeError("Snap version detection failed!")
-
-    return int(rev)
 
 
 def resolve_workload_version(spec: CharmSpec, rev) -> str:

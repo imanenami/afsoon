@@ -2,38 +2,46 @@ machine:
 - name: kafka
   repo: https://github.com/canonical/kafka-operator
   snap: charmed-kafka
-  code_path: literals::CHARMED_KAFKA_SNAP_REVISION
+  code_path: [ "literals::CHARMED_KAFKA_SNAP_REVISION" ]
   cmd: charmed-kafka.topics --version
   regex: null
 - name: kafka-connect
   repo: https://github.com/canonical/kafka-connect-operator
   snap: charmed-kafka
-  code_path: literals::CHARMED_KAFKA_SNAP_REVISION
+  code_path: [ "literals::CHARMED_KAFKA_SNAP_REVISION" ]
   cmd: charmed-kafka.topics --version
   regex: null
 - name: karapace
   repo: https://github.com/canonical/karapace-operator
   snap: charmed-karapace
-  code_path: literals::CHARMED_KARAPACE_SNAP_REVISION
+  code_path: [ "literals::CHARMED_KARAPACE_SNAP_REVISION" ]
   cmd: /snap/charmed-karapace/current/bin/python3 -c 'from karapace import version; print(version.version)'
   regex: null
 - name: zookeeper
   repo: https://github.com/canonical/zookeeper-operator
   snap: charmed-zookeeper
-  code_path: literals::CHARMED_ZOOKEEPER_SNAP_REVISION
+  code_path: [ "literals::CHARMED_ZOOKEEPER_SNAP_REVISION" ]
   regex: version ([^\s]+)
   cmd: /snap/zookeeper/current/bin/zkServer.sh version
 - name: kafka-ui
   repo: https://github.com/canonical/kafka-ui-operator
   snap: charmed-kafka-ui
-  code_path: literals::SNAP_REVISION
+  code_path: [ "literals::SNAP_REVISION" ]
   cmd: ls -1 /snap/charmed-kafka-ui/current/opt/kafka-ui/libs
   regex: api-([0-9]+\.[0-9]+\.[0-9]+)\.jar
 - name: cassandra
   repo: https://github.com/canonical/cassandra-operator
   snap: charmed-cassandra
-  code_path: workload::SNAP_REVISION
+  code_path: [ "workload::SNAP_REVISION" ]
   cmd: unknown
+- name: postgresql
+  repo: https://github.com/canonical/postgresql-operator
+  snap: charmed-postgresql
+  code_path: [ "default", "constants::SNAP_PACKAGES[0][1]['revision']['x86_64']" ]
+  cmd: charmed-postgresql.psql --version
+  regex: "[0-9]+.[0-9]+"
+  healthy: false
+
 
 k8s:
 # cmd: command to determine workload version, which is run on the container
