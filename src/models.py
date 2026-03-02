@@ -4,7 +4,8 @@ from collections import namedtuple
 from dataclasses import dataclass, field
 from typing import Literal
 
-Versions = namedtuple("Versions", "charm snap workload")
+Artifact = namedtuple("Artifact", "type name rev")
+Versions = namedtuple("Versions", "charm snap image workload")
 VersionMap = dict[str, int | str]
 
 
@@ -17,7 +18,7 @@ class CharmSpec:
     repo: str
     cmd: str
     yaml_path: str | None = None
-    code_path: str | None = None
+    code_path: list[str] = field(default_factory=list)
     regex: str | None = None
     snap: str | None = None
     rock: str | None = None

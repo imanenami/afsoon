@@ -1,0 +1,3 @@
+type,name,rev,version
+"snap","charmed-kafka","67","4.1.1-ubuntu2"
+"rock","kafka-k8s","ghcr.io/canonical/charmed-kafka@sha256:8582c514c33b22fa8eb35475cf5c45732befe339307e7807ba4be03906460fa7","4.1.1-ubuntu2"

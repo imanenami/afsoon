@@ -7,10 +7,12 @@ import secrets
 import tempfile
 
 import charm
-from models import CharmSpec, Versions
-from util import DOCKER, TMP_PREFIX, clone_repo, exec
+from models import Artifact, CharmSpec, Versions
+from util import DOCKER, TMP_PREFIX, clone_repo, exec, load_known_versions
 
 logger = logging.getLogger(__name__)
+
+KNOWN = load_known_versions()
 
 
 def resolve_k8s_charm_single(spec: CharmSpec, charm_dir: str | None = None) -> str:
@@ -25,6 +27,10 @@ def resolve_k8s_charm_single(spec: CharmSpec, charm_dir: str | None = None) -> s
         charm_dir = clone_repo(repo, tmp_path)
 
     image = exec(f"cat {charm_dir}/metadata.yaml | yq -r '{image_path}'").strip()
+    artifact = Artifact(type="rock", name=spec.name, rev=image)
+    if artifact in KNOWN:
+        return KNOWN[artifact]
+
     container = f"testrock_{secrets.token_hex(8)}"
     os.system(f"{DOCKER} run -d --name {container} {image}")
     raw = exec(f"{DOCKER} exec {container} {cmd}")
@@ -48,15 +54,16 @@ def resolve_k8s_charm_all(spec: CharmSpec) -> list[Versions]:
     rev_to_workload = {}
     for rev in charm_revs:
         charm_dir = charm.unpack(_charm, rev)
+        image = exec(f"cat {charm_dir}/metadata.yaml | yq -r '{spec.yaml_path}'").strip()
         try:
-            rev_to_workload[rev] = resolve_k8s_charm_single(spec, charm_dir)
+            rev_to_workload[rev] = (image, resolve_k8s_charm_single(spec, charm_dir))
         except Exception as e:
             logger.error(e)
-            rev_to_workload[rev] = "unknown"
+            rev_to_workload[rev] = (image, "unknown")
 
     versions = []
     for rel, charm_rev in charm_info.items():
-        wv = rev_to_workload[charm_rev]
-        versions.append(Versions(charm=rel, snap=None, workload=wv))
+        image, wv = rev_to_workload[charm_rev]
+        versions.append(Versions(charm=rel, snap=None, image=image, workload=wv))
 
     return versions
