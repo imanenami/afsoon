@@ -1,0 +1,1592 @@
+{
+  "SchemaVersion": 2,
+  "CreatedAt": "2026-02-28T16:46:13.694718648Z",
+  "ArtifactName": "/root/zookeeper-rock-3-22.04.tar",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "OS": {
+      "Family": "ubuntu",
+      "Name": "22.04"
+    },
+    "ImageID": "sha256:268e94a0024e2ff1f07467a564b58a0271a6dc64d393e6600bb12845678ba175",
+    "DiffIDs": [
+      "sha256:fd7b85c1b84e3dcd6e601489a9676aeb7126f78d71babf9637fab93280660536",
+      "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f",
+      "sha256:7588f7b36a9b45b6d87365da34fb919743617454b1ddd5e214b6332dad272102",
+      "sha256:cfe03b26a5e401f622f6329cec1e1eb2e0467e529f7fb9c8d65d71ccca2a28a9"
+    ],
+    "ImageConfig": {
+      "architecture": "amd64",
+      "created": "2026-02-24T07:30:08.982985306Z",
+      "history": [
+        {
+          "created": "2026-02-24T07:30:06.252641839Z",
+          "created_by": "/bin/sh -c #(nop)  ARG RELEASE",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-24T07:30:06.29671819Z",
+          "created_by": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-24T07:30:06.323053646Z",
+          "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-24T07:30:06.350505862Z",
+          "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=22.04",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-24T07:30:08.486457135Z",
+          "created_by": "/bin/sh -c #(nop) ADD file:87202021c36509f80e5414aa2307ce867cd2e3b5f0d0f3bd0c98749793bd1fb4 in / "
+        },
+        {
+          "created": "2026-02-24T07:30:08.982985306Z",
+          "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/bash\"]",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:45:55.792973694+01:00",
+          "created_by": "umoci raw add-layer --image /root/images/zookeeper:rockcraft-base /root/images/.temp_layer.238.tar --tag 3.8.4"
+        },
+        {
+          "created": "2026-02-28T17:45:56.590780182+01:00",
+          "created_by": "umoci config",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:45:56.620917326+01:00",
+          "created_by": "umoci config",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:45:56.650234418+01:00",
+          "created_by": "umoci raw add-layer --image /root/images/zookeeper:3.8.4 /root/images/.temp_layer.238.tar --tag 3.8.4"
+        },
+        {
+          "created": "2026-02-28T17:45:56.688240777+01:00",
+          "created_by": "umoci config",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:45:56.709637723+01:00",
+          "created_by": "umoci config",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:45:56.723692059+01:00",
+          "created_by": "umoci config",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:45:56.750093958+01:00",
+          "created_by": "umoci raw add-layer --image /root/images/zookeeper:3.8.4 /root/images/.temp_layer.control_data.238.tar"
+        }
+      ],
+      "os": "linux",
+      "rootfs": {
+        "type": "layers",
+        "diff_ids": [
+          "sha256:fd7b85c1b84e3dcd6e601489a9676aeb7126f78d71babf9637fab93280660536",
+          "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f",
+          "sha256:7588f7b36a9b45b6d87365da34fb919743617454b1ddd5e214b6332dad272102",
+          "sha256:cfe03b26a5e401f622f6329cec1e1eb2e0467e529f7fb9c8d65d71ccca2a28a9"
+        ]
+      },
+      "config": {
+        "Entrypoint": [
+          "/bin/pebble",
+          "enter"
+        ],
+        "Env": [
+          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "JAVA_HOME=/usr/lib/jvm/java-18-openjdk-amd64",
+          "ZOO_LOG_DIR=/var/log/zookeeper",
+          "ZOOCFGDIR=/etc/zookeeper"
+        ],
+        "Labels": {
+          "org.opencontainers.image.base.digest": "dfceaf45ec0029c0032d3c6f68cd428777658bed8d8e6d5cf7ded4f7e890052f",
+          "org.opencontainers.image.created": "2026-02-28T16:45:56.705599+00:00",
+          "org.opencontainers.image.description": "Apache ZooKeeper OCI Image\n\nApache ZooKeeper Image from Canonical, based\non [Ubuntu](https://ubuntu.com/). Receives security updates for Apache\nZooKeeper and Ubuntu. This repository is free to use and exempted from\nper-user rate limits.\n\nZooKeeper is a centralized service for maintaining configuration\ninformation,  naming, providing distributed synchronization, and providing\ngroup services. All of these kinds of services are used in some form or\nanother by distributed applications.\n\nRead more on the [Apache website](https://zookeeper.apache.org/).\nThis image is shipped in support of the Apache Kafka image.\n",
+          "org.opencontainers.image.licenses": "Apache-2.0",
+          "org.opencontainers.image.ref.name": "zookeeper",
+          "org.opencontainers.image.title": "zookeeper",
+          "org.opencontainers.image.version": "3.8.4"
+        }
+      }
+    }
+  },
+  "Results": [
+    {
+      "Target": "/root/zookeeper-rock-3-22.04.tar (ubuntu 22.04)",
+      "Class": "os-pkgs",
+      "Type": "ubuntu",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2025-68972",
+          "PkgID": "gpgv@2.2.27-3ubuntu2.5",
+          "PkgName": "gpgv",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gpgv@2.2.27-3ubuntu2.5?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "be1b6052aee9c308"
+          },
+          "InstalledVersion": "2.2.27-3ubuntu2.5",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:fd7b85c1b84e3dcd6e601489a9676aeb7126f78d71babf9637fab93280660536"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-68972",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: GnuPG: Signature bypass via form feed character in signed messages",
+          "Description": "In GnuPG through 2.4.8, if a signed message has \\f at the end of a plaintext line, an adversary can construct a modified message that places additional text after the signed material, such that signature verification of the modified message succeeds (although an \"invalid armor\" message is printed during verification). This is related to use of \\f as a marker to denote truncation of a long plaintext line.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-347"
+          ],
+          "VendorSeverity": {
+            "azure": 2,
+            "nvd": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:N",
+              "V3Score": 4.7
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:N/I:H/A:N",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2025-68972",
+            "https://gpg.fail/formfeed",
+            "https://media.ccc.de/v/39c3-to-sign-or-not-to-sign-practical-vulnerabilities-i",
+            "https://news.ycombinator.com/item?id=46404339",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-68972",
+            "https://www.cve.org/CVERecord?id=CVE-2025-68972"
+          ],
+          "PublishedDate": "2025-12-27T23:15:40.9Z",
+          "LastModifiedDate": "2026-01-09T20:08:47.323Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-59529",
+          "PkgID": "libavahi-client3@0.8-5ubuntu5.4",
+          "PkgName": "libavahi-client3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libavahi-client3@0.8-5ubuntu5.4?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "f59e01c833d90e16"
+          },
+          "InstalledVersion": "0.8-5ubuntu5.4",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-59529",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "avahi: simple clients denial-of-service",
+          "Description": "Avahi is a system which facilitates service discovery on a local network via the mDNS/DNS-SD protocol suite. In versions up to and including 0.9-rc2, the simple protocol server ignores the documented client limit and accepts unlimited connections, allowing for easy local DoS. Although `CLIENTS_MAX` is defined, `server_work()` unconditionally `accept()`s and `client_new()` always appends the new client and increments `n_clients`. There is no check against the limit. When client cannot be accepted as a result of maximal socket number of avahi-daemon, it logs unconditionally error per each connection. Unprivileged local users can exhaust daemon memory and file descriptors, causing a denial of service system-wide for mDNS/DNS-SD. Exhausting local file descriptors causes increased system load caused by logging errors of each of request. Overloading prevents glibc calls using nss-mdns plugins to resolve `*.local.` names and link-local addresses. As of time of publication, no known patched versions are available, but a candidate fix is available in pull request 808, and some workarounds are available. Simple clients are offered for nss-mdns package functionality. It is not possible to disable the unix socket `/run/avahi-daemon/socket`, but resolution requests received via DBus are not affected directly. Tools avahi-resolve, avahi-resolve-address and avahi-resolve-host-name are not affected, they use DBus interface. It is possible to change permissions of unix socket after avahi-daemon is started. But avahi-daemon does not provide any configuration for it. Additional access restrictions like SELinux can also prevent unwanted tools to access the socket and keep resolution working for trusted users.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-400"
+          ],
+          "VendorSeverity": {
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.5
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2025/12/19/1",
+            "https://access.redhat.com/security/cve/CVE-2025-59529",
+            "https://github.com/avahi/avahi/pull/808",
+            "https://github.com/avahi/avahi/security/advisories/GHSA-73wf-3xmj-x82q",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-59529",
+            "https://www.cve.org/CVERecord?id=CVE-2025-59529",
+            "https://zeropath.com/blog/avahi-simple-protocol-server-dos-cve-2025-59529"
+          ],
+          "PublishedDate": "2025-12-18T21:15:53.637Z",
+          "LastModifiedDate": "2026-01-16T16:50:20.183Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-24401",
+          "PkgID": "libavahi-client3@0.8-5ubuntu5.4",
+          "PkgName": "libavahi-client3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libavahi-client3@0.8-5ubuntu5.4?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "f59e01c833d90e16"
+          },
+          "InstalledVersion": "0.8-5ubuntu5.4",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-24401",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "avahi: Avahi: Denial of Service via recursive CNAME record in mDNS response",
+          "Description": "Avahi is a system which facilitates service discovery on a local network via the mDNS/DNS-SD protocol suite. In versions 0.9rc2 and below, avahi-daemon can be crashed via a segmentation fault by sending an unsolicited mDNS response containing a recursive CNAME record, where the alias and canonical name point to the same domain (e.g., \"h.local\" as a CNAME for \"h.local\"). This causes unbounded recursion in the lookup_handle_cname function, leading to stack exhaustion. The vulnerability affects record browsers where AVAHI_LOOKUP_USE_MULTICAST is set explicitly, which includes record browsers created by resolvers used by nss-mdns. This issue is patched in commit 78eab31128479f06e30beb8c1cbf99dd921e2524.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-674"
+          ],
+          "VendorSeverity": {
+            "azure": 2,
+            "cbl-mariner": 2,
+            "nvd": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+              "V3Score": 6.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+              "V3Score": 6.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2026-24401",
+            "https://github.com/avahi/avahi/commit/78eab31128479f06e30beb8c1cbf99dd921e2524",
+            "https://github.com/avahi/avahi/issues/501",
+            "https://github.com/avahi/avahi/security/advisories/GHSA-h4vp-5m8j-f6w3",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-24401",
+            "https://www.cve.org/CVERecord?id=CVE-2026-24401"
+          ],
+          "PublishedDate": "2026-01-24T02:15:48.76Z",
+          "LastModifiedDate": "2026-02-12T15:58:27.273Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-59529",
+          "PkgID": "libavahi-common-data@0.8-5ubuntu5.4",
+          "PkgName": "libavahi-common-data",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libavahi-common-data@0.8-5ubuntu5.4?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "2f6618ae50bdcebf"
+          },
+          "InstalledVersion": "0.8-5ubuntu5.4",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-59529",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "avahi: simple clients denial-of-service",
+          "Description": "Avahi is a system which facilitates service discovery on a local network via the mDNS/DNS-SD protocol suite. In versions up to and including 0.9-rc2, the simple protocol server ignores the documented client limit and accepts unlimited connections, allowing for easy local DoS. Although `CLIENTS_MAX` is defined, `server_work()` unconditionally `accept()`s and `client_new()` always appends the new client and increments `n_clients`. There is no check against the limit. When client cannot be accepted as a result of maximal socket number of avahi-daemon, it logs unconditionally error per each connection. Unprivileged local users can exhaust daemon memory and file descriptors, causing a denial of service system-wide for mDNS/DNS-SD. Exhausting local file descriptors causes increased system load caused by logging errors of each of request. Overloading prevents glibc calls using nss-mdns plugins to resolve `*.local.` names and link-local addresses. As of time of publication, no known patched versions are available, but a candidate fix is available in pull request 808, and some workarounds are available. Simple clients are offered for nss-mdns package functionality. It is not possible to disable the unix socket `/run/avahi-daemon/socket`, but resolution requests received via DBus are not affected directly. Tools avahi-resolve, avahi-resolve-address and avahi-resolve-host-name are not affected, they use DBus interface. It is possible to change permissions of unix socket after avahi-daemon is started. But avahi-daemon does not provide any configuration for it. Additional access restrictions like SELinux can also prevent unwanted tools to access the socket and keep resolution working for trusted users.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-400"
+          ],
+          "VendorSeverity": {
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.5
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2025/12/19/1",
+            "https://access.redhat.com/security/cve/CVE-2025-59529",
+            "https://github.com/avahi/avahi/pull/808",
+            "https://github.com/avahi/avahi/security/advisories/GHSA-73wf-3xmj-x82q",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-59529",
+            "https://www.cve.org/CVERecord?id=CVE-2025-59529",
+            "https://zeropath.com/blog/avahi-simple-protocol-server-dos-cve-2025-59529"
+          ],
+          "PublishedDate": "2025-12-18T21:15:53.637Z",
+          "LastModifiedDate": "2026-01-16T16:50:20.183Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-24401",
+          "PkgID": "libavahi-common-data@0.8-5ubuntu5.4",
+          "PkgName": "libavahi-common-data",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libavahi-common-data@0.8-5ubuntu5.4?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "2f6618ae50bdcebf"
+          },
+          "InstalledVersion": "0.8-5ubuntu5.4",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-24401",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "avahi: Avahi: Denial of Service via recursive CNAME record in mDNS response",
+          "Description": "Avahi is a system which facilitates service discovery on a local network via the mDNS/DNS-SD protocol suite. In versions 0.9rc2 and below, avahi-daemon can be crashed via a segmentation fault by sending an unsolicited mDNS response containing a recursive CNAME record, where the alias and canonical name point to the same domain (e.g., \"h.local\" as a CNAME for \"h.local\"). This causes unbounded recursion in the lookup_handle_cname function, leading to stack exhaustion. The vulnerability affects record browsers where AVAHI_LOOKUP_USE_MULTICAST is set explicitly, which includes record browsers created by resolvers used by nss-mdns. This issue is patched in commit 78eab31128479f06e30beb8c1cbf99dd921e2524.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-674"
+          ],
+          "VendorSeverity": {
+            "azure": 2,
+            "cbl-mariner": 2,
+            "nvd": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+              "V3Score": 6.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+              "V3Score": 6.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2026-24401",
+            "https://github.com/avahi/avahi/commit/78eab31128479f06e30beb8c1cbf99dd921e2524",
+            "https://github.com/avahi/avahi/issues/501",
+            "https://github.com/avahi/avahi/security/advisories/GHSA-h4vp-5m8j-f6w3",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-24401",
+            "https://www.cve.org/CVERecord?id=CVE-2026-24401"
+          ],
+          "PublishedDate": "2026-01-24T02:15:48.76Z",
+          "LastModifiedDate": "2026-02-12T15:58:27.273Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-59529",
+          "PkgID": "libavahi-common3@0.8-5ubuntu5.4",
+          "PkgName": "libavahi-common3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libavahi-common3@0.8-5ubuntu5.4?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "9f3237546ac1b2b7"
+          },
+          "InstalledVersion": "0.8-5ubuntu5.4",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-59529",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "avahi: simple clients denial-of-service",
+          "Description": "Avahi is a system which facilitates service discovery on a local network via the mDNS/DNS-SD protocol suite. In versions up to and including 0.9-rc2, the simple protocol server ignores the documented client limit and accepts unlimited connections, allowing for easy local DoS. Although `CLIENTS_MAX` is defined, `server_work()` unconditionally `accept()`s and `client_new()` always appends the new client and increments `n_clients`. There is no check against the limit. When client cannot be accepted as a result of maximal socket number of avahi-daemon, it logs unconditionally error per each connection. Unprivileged local users can exhaust daemon memory and file descriptors, causing a denial of service system-wide for mDNS/DNS-SD. Exhausting local file descriptors causes increased system load caused by logging errors of each of request. Overloading prevents glibc calls using nss-mdns plugins to resolve `*.local.` names and link-local addresses. As of time of publication, no known patched versions are available, but a candidate fix is available in pull request 808, and some workarounds are available. Simple clients are offered for nss-mdns package functionality. It is not possible to disable the unix socket `/run/avahi-daemon/socket`, but resolution requests received via DBus are not affected directly. Tools avahi-resolve, avahi-resolve-address and avahi-resolve-host-name are not affected, they use DBus interface. It is possible to change permissions of unix socket after avahi-daemon is started. But avahi-daemon does not provide any configuration for it. Additional access restrictions like SELinux can also prevent unwanted tools to access the socket and keep resolution working for trusted users.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-400"
+          ],
+          "VendorSeverity": {
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.5
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2025/12/19/1",
+            "https://access.redhat.com/security/cve/CVE-2025-59529",
+            "https://github.com/avahi/avahi/pull/808",
+            "https://github.com/avahi/avahi/security/advisories/GHSA-73wf-3xmj-x82q",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-59529",
+            "https://www.cve.org/CVERecord?id=CVE-2025-59529",
+            "https://zeropath.com/blog/avahi-simple-protocol-server-dos-cve-2025-59529"
+          ],
+          "PublishedDate": "2025-12-18T21:15:53.637Z",
+          "LastModifiedDate": "2026-01-16T16:50:20.183Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2026-24401",
+          "PkgID": "libavahi-common3@0.8-5ubuntu5.4",
+          "PkgName": "libavahi-common3",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libavahi-common3@0.8-5ubuntu5.4?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "9f3237546ac1b2b7"
+          },
+          "InstalledVersion": "0.8-5ubuntu5.4",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2026-24401",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "avahi: Avahi: Denial of Service via recursive CNAME record in mDNS response",
+          "Description": "Avahi is a system which facilitates service discovery on a local network via the mDNS/DNS-SD protocol suite. In versions 0.9rc2 and below, avahi-daemon can be crashed via a segmentation fault by sending an unsolicited mDNS response containing a recursive CNAME record, where the alias and canonical name point to the same domain (e.g., \"h.local\" as a CNAME for \"h.local\"). This causes unbounded recursion in the lookup_handle_cname function, leading to stack exhaustion. The vulnerability affects record browsers where AVAHI_LOOKUP_USE_MULTICAST is set explicitly, which includes record browsers created by resolvers used by nss-mdns. This issue is patched in commit 78eab31128479f06e30beb8c1cbf99dd921e2524.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-674"
+          ],
+          "VendorSeverity": {
+            "azure": 2,
+            "cbl-mariner": 2,
+            "nvd": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+              "V3Score": 6.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+              "V3Score": 6.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2026-24401",
+            "https://github.com/avahi/avahi/commit/78eab31128479f06e30beb8c1cbf99dd921e2524",
+            "https://github.com/avahi/avahi/issues/501",
+            "https://github.com/avahi/avahi/security/advisories/GHSA-h4vp-5m8j-f6w3",
+            "https://nvd.nist.gov/vuln/detail/CVE-2026-24401",
+            "https://www.cve.org/CVERecord?id=CVE-2026-24401"
+          ],
+          "PublishedDate": "2026-01-24T02:15:48.76Z",
+          "LastModifiedDate": "2026-02-12T15:58:27.273Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-66382",
+          "PkgID": "libexpat1@2.4.7-1ubuntu0.7",
+          "PkgName": "libexpat1",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libexpat1@2.4.7-1ubuntu0.7?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "e4fd9bee92bf7a31"
+          },
+          "InstalledVersion": "2.4.7-1ubuntu0.7",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-66382",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "libexpat: libexpat: Denial of service via crafted file processing",
+          "Description": "In libexpat through 2.7.3, a crafted file with an approximate size of 2 MiB can lead to dozens of seconds of processing time.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-407"
+          ],
+          "VendorSeverity": {
+            "nvd": 2,
+            "redhat": 1,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+              "V3Score": 5.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:L",
+              "V3Score": 2.9
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2025/12/02/1",
+            "https://access.redhat.com/security/cve/CVE-2025-66382",
+            "https://github.com/libexpat/libexpat/issues/1076",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-66382",
+            "https://www.cve.org/CVERecord?id=CVE-2025-66382"
+          ],
+          "PublishedDate": "2025-11-28T07:15:57.9Z",
+          "LastModifiedDate": "2025-12-19T16:05:03.557Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-8941",
+          "PkgID": "libpam-modules@1.4.0-11ubuntu2.6",
+          "PkgName": "libpam-modules",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-modules@1.4.0-11ubuntu2.6?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "b018a41c0c0a6456"
+          },
+          "InstalledVersion": "1.4.0-11ubuntu2.6",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:fd7b85c1b84e3dcd6e601489a9676aeb7126f78d71babf9637fab93280660536"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-8941",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "linux-pam: Incomplete fix for CVE-2025-6020",
+          "Description": "A flaw was found in linux-pam. The pam_namespace module may improperly handle user-controlled paths, allowing local users to exploit symlink attacks and race conditions to elevate their privileges to root. This CVE provides a \"complete\" fix for CVE-2025-6020.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 2,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2025:14557",
+            "https://access.redhat.com/errata/RHSA-2025:15099",
+            "https://access.redhat.com/errata/RHSA-2025:15100",
+            "https://access.redhat.com/errata/RHSA-2025:15101",
+            "https://access.redhat.com/errata/RHSA-2025:15102",
+            "https://access.redhat.com/errata/RHSA-2025:15103",
+            "https://access.redhat.com/errata/RHSA-2025:15104",
+            "https://access.redhat.com/errata/RHSA-2025:15105",
+            "https://access.redhat.com/errata/RHSA-2025:15106",
+            "https://access.redhat.com/errata/RHSA-2025:15107",
+            "https://access.redhat.com/errata/RHSA-2025:15709",
+            "https://access.redhat.com/errata/RHSA-2025:15827",
+            "https://access.redhat.com/errata/RHSA-2025:15828",
+            "https://access.redhat.com/errata/RHSA-2025:16524",
+            "https://access.redhat.com/errata/RHSA-2025:17181",
+            "https://access.redhat.com/errata/RHSA-2025:18219",
+            "https://access.redhat.com/errata/RHSA-2025:21885",
+            "https://access.redhat.com/security/cve/CVE-2025-8941",
+            "https://bugzilla.redhat.com/2372512",
+            "https://bugzilla.redhat.com/2388220",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2388220",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6020",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-8941",
+            "https://errata.almalinux.org/9/ALSA-2025-15099.html",
+            "https://errata.rockylinux.org/RLSA-2025:14557",
+            "https://linux.oracle.com/cve/CVE-2025-8941.html",
+            "https://linux.oracle.com/errata/ELSA-2025-15099.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-8941",
+            "https://www.cve.org/CVERecord?id=CVE-2025-8941"
+          ],
+          "PublishedDate": "2025-08-13T15:15:41.873Z",
+          "LastModifiedDate": "2025-11-20T21:16:08.11Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-8941",
+          "PkgID": "libpam-modules-bin@1.4.0-11ubuntu2.6",
+          "PkgName": "libpam-modules-bin",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-modules-bin@1.4.0-11ubuntu2.6?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "6c1d878e439254ae"
+          },
+          "InstalledVersion": "1.4.0-11ubuntu2.6",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:fd7b85c1b84e3dcd6e601489a9676aeb7126f78d71babf9637fab93280660536"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-8941",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "linux-pam: Incomplete fix for CVE-2025-6020",
+          "Description": "A flaw was found in linux-pam. The pam_namespace module may improperly handle user-controlled paths, allowing local users to exploit symlink attacks and race conditions to elevate their privileges to root. This CVE provides a \"complete\" fix for CVE-2025-6020.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 2,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2025:14557",
+            "https://access.redhat.com/errata/RHSA-2025:15099",
+            "https://access.redhat.com/errata/RHSA-2025:15100",
+            "https://access.redhat.com/errata/RHSA-2025:15101",
+            "https://access.redhat.com/errata/RHSA-2025:15102",
+            "https://access.redhat.com/errata/RHSA-2025:15103",
+            "https://access.redhat.com/errata/RHSA-2025:15104",
+            "https://access.redhat.com/errata/RHSA-2025:15105",
+            "https://access.redhat.com/errata/RHSA-2025:15106",
+            "https://access.redhat.com/errata/RHSA-2025:15107",
+            "https://access.redhat.com/errata/RHSA-2025:15709",
+            "https://access.redhat.com/errata/RHSA-2025:15827",
+            "https://access.redhat.com/errata/RHSA-2025:15828",
+            "https://access.redhat.com/errata/RHSA-2025:16524",
+            "https://access.redhat.com/errata/RHSA-2025:17181",
+            "https://access.redhat.com/errata/RHSA-2025:18219",
+            "https://access.redhat.com/errata/RHSA-2025:21885",
+            "https://access.redhat.com/security/cve/CVE-2025-8941",
+            "https://bugzilla.redhat.com/2372512",
+            "https://bugzilla.redhat.com/2388220",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2388220",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6020",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-8941",
+            "https://errata.almalinux.org/9/ALSA-2025-15099.html",
+            "https://errata.rockylinux.org/RLSA-2025:14557",
+            "https://linux.oracle.com/cve/CVE-2025-8941.html",
+            "https://linux.oracle.com/errata/ELSA-2025-15099.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-8941",
+            "https://www.cve.org/CVERecord?id=CVE-2025-8941"
+          ],
+          "PublishedDate": "2025-08-13T15:15:41.873Z",
+          "LastModifiedDate": "2025-11-20T21:16:08.11Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-8941",
+          "PkgID": "libpam-runtime@1.4.0-11ubuntu2.6",
+          "PkgName": "libpam-runtime",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-runtime@1.4.0-11ubuntu2.6?arch=all\u0026distro=ubuntu-22.04",
+            "UID": "cde01057d0d5957b"
+          },
+          "InstalledVersion": "1.4.0-11ubuntu2.6",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:fd7b85c1b84e3dcd6e601489a9676aeb7126f78d71babf9637fab93280660536"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-8941",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "linux-pam: Incomplete fix for CVE-2025-6020",
+          "Description": "A flaw was found in linux-pam. The pam_namespace module may improperly handle user-controlled paths, allowing local users to exploit symlink attacks and race conditions to elevate their privileges to root. This CVE provides a \"complete\" fix for CVE-2025-6020.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 2,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2025:14557",
+            "https://access.redhat.com/errata/RHSA-2025:15099",
+            "https://access.redhat.com/errata/RHSA-2025:15100",
+            "https://access.redhat.com/errata/RHSA-2025:15101",
+            "https://access.redhat.com/errata/RHSA-2025:15102",
+            "https://access.redhat.com/errata/RHSA-2025:15103",
+            "https://access.redhat.com/errata/RHSA-2025:15104",
+            "https://access.redhat.com/errata/RHSA-2025:15105",
+            "https://access.redhat.com/errata/RHSA-2025:15106",
+            "https://access.redhat.com/errata/RHSA-2025:15107",
+            "https://access.redhat.com/errata/RHSA-2025:15709",
+            "https://access.redhat.com/errata/RHSA-2025:15827",
+            "https://access.redhat.com/errata/RHSA-2025:15828",
+            "https://access.redhat.com/errata/RHSA-2025:16524",
+            "https://access.redhat.com/errata/RHSA-2025:17181",
+            "https://access.redhat.com/errata/RHSA-2025:18219",
+            "https://access.redhat.com/errata/RHSA-2025:21885",
+            "https://access.redhat.com/security/cve/CVE-2025-8941",
+            "https://bugzilla.redhat.com/2372512",
+            "https://bugzilla.redhat.com/2388220",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2388220",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6020",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-8941",
+            "https://errata.almalinux.org/9/ALSA-2025-15099.html",
+            "https://errata.rockylinux.org/RLSA-2025:14557",
+            "https://linux.oracle.com/cve/CVE-2025-8941.html",
+            "https://linux.oracle.com/errata/ELSA-2025-15099.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-8941",
+            "https://www.cve.org/CVERecord?id=CVE-2025-8941"
+          ],
+          "PublishedDate": "2025-08-13T15:15:41.873Z",
+          "LastModifiedDate": "2025-11-20T21:16:08.11Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-8941",
+          "PkgID": "libpam0g@1.4.0-11ubuntu2.6",
+          "PkgName": "libpam0g",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam0g@1.4.0-11ubuntu2.6?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "2218c037b1655fc2"
+          },
+          "InstalledVersion": "1.4.0-11ubuntu2.6",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:fd7b85c1b84e3dcd6e601489a9676aeb7126f78d71babf9637fab93280660536"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-8941",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "linux-pam: Incomplete fix for CVE-2025-6020",
+          "Description": "A flaw was found in linux-pam. The pam_namespace module may improperly handle user-controlled paths, allowing local users to exploit symlink attacks and race conditions to elevate their privileges to root. This CVE provides a \"complete\" fix for CVE-2025-6020.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 2,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2025:14557",
+            "https://access.redhat.com/errata/RHSA-2025:15099",
+            "https://access.redhat.com/errata/RHSA-2025:15100",
+            "https://access.redhat.com/errata/RHSA-2025:15101",
+            "https://access.redhat.com/errata/RHSA-2025:15102",
+            "https://access.redhat.com/errata/RHSA-2025:15103",
+            "https://access.redhat.com/errata/RHSA-2025:15104",
+            "https://access.redhat.com/errata/RHSA-2025:15105",
+            "https://access.redhat.com/errata/RHSA-2025:15106",
+            "https://access.redhat.com/errata/RHSA-2025:15107",
+            "https://access.redhat.com/errata/RHSA-2025:15709",
+            "https://access.redhat.com/errata/RHSA-2025:15827",
+            "https://access.redhat.com/errata/RHSA-2025:15828",
+            "https://access.redhat.com/errata/RHSA-2025:16524",
+            "https://access.redhat.com/errata/RHSA-2025:17181",
+            "https://access.redhat.com/errata/RHSA-2025:18219",
+            "https://access.redhat.com/errata/RHSA-2025:21885",
+            "https://access.redhat.com/security/cve/CVE-2025-8941",
+            "https://bugzilla.redhat.com/2372512",
+            "https://bugzilla.redhat.com/2388220",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2388220",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6020",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-8941",
+            "https://errata.almalinux.org/9/ALSA-2025-15099.html",
+            "https://errata.rockylinux.org/RLSA-2025:14557",
+            "https://linux.oracle.com/cve/CVE-2025-8941.html",
+            "https://linux.oracle.com/errata/ELSA-2025-15099.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-8941",
+            "https://www.cve.org/CVERecord?id=CVE-2025-8941"
+          ],
+          "PublishedDate": "2025-08-13T15:15:41.873Z",
+          "LastModifiedDate": "2025-11-20T21:16:08.11Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-45582",
+          "PkgID": "tar@1.34+dfsg-1ubuntu0.1.22.04.2",
+          "PkgName": "tar",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/tar@1.34%2Bdfsg-1ubuntu0.1.22.04.2?arch=amd64\u0026distro=ubuntu-22.04",
+            "UID": "4da1970d7f72bef9"
+          },
+          "InstalledVersion": "1.34+dfsg-1ubuntu0.1.22.04.2",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:fd7b85c1b84e3dcd6e601489a9676aeb7126f78d71babf9637fab93280660536"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-45582",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "tar: Tar path traversal",
+          "Description": "GNU Tar through 1.35 allows file overwrite via directory traversal in crafted TAR archives, with a certain two-step process. First, the victim must extract an archive that contains a ../ symlink to a critical directory. Second, the victim must extract an archive that contains a critical file, specified via a relative pathname that begins with the symlink name and ends with that critical file's name. Here, the extraction follows the symlink and overwrites the critical file. This bypasses the protection mechanism of \"Member name contains '..'\" that would occur for a single TAR archive that attempted to specify the critical file via a ../ approach. For example, the first archive can contain \"x -\u003e ../../../../../home/victim/.ssh\" and the second archive can contain x/authorized_keys. This can affect server applications that automatically extract any number of user-supplied TAR archives, and were relying on the blocking of traversal. This can also affect software installation processes in which \"tar xf\" is run more than once (e.g., when installing a package can automatically install two dependencies that are set up as untrusted tarballs instead of official packages). NOTE: the official GNU Tar manual has an otherwise-empty directory for each \"tar xf\" in its Security Rules of Thumb; however, third-party advice leads users to run \"tar xf\" more than once into the same directory.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-24"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "oracle-oval": 2,
+            "redhat": 2,
+            "rocky": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+              "V3Score": 5.6
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2025/11/01/6",
+            "https://access.redhat.com/errata/RHSA-2026:0067",
+            "https://access.redhat.com/security/cve/CVE-2025-45582",
+            "https://bugzilla.redhat.com/2379592",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2379592",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-45582",
+            "https://errata.almalinux.org/9/ALSA-2026-0067.html",
+            "https://errata.rockylinux.org/RLSA-2026:0002",
+            "https://github.com/i900008/vulndb/blob/main/Gnu_tar_vuln.md",
+            "https://linux.oracle.com/cve/CVE-2025-45582.html",
+            "https://linux.oracle.com/errata/ELSA-2026-0067.html",
+            "https://lists.gnu.org/archive/html/bug-tar/2025-08/msg00012.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-45582",
+            "https://www.cve.org/CVERecord?id=CVE-2025-45582",
+            "https://www.gnu.org/software/tar/",
+            "https://www.gnu.org/software/tar/manual/html_node/Integrity.html",
+            "https://www.gnu.org/software/tar/manual/html_node/Integrity.html#Integrity",
+            "https://www.gnu.org/software/tar/manual/html_node/Security-rules-of-thumb.html"
+          ],
+          "PublishedDate": "2025-07-11T17:15:37.183Z",
+          "LastModifiedDate": "2025-11-02T01:15:32.307Z"
+        }
+      ]
+    },
+    {
+      "Target": "Java",
+      "Class": "lang-pkgs",
+      "Type": "jar",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2024-12798",
+          "PkgName": "ch.qos.logback:logback-core",
+          "PkgPath": "opt/zookeeper/lib/logback-core-1.2.13.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/ch.qos.logback/logback-core@1.2.13",
+            "UID": "d50716ca5d64a0c2"
+          },
+          "InstalledVersion": "1.2.13",
+          "FixedVersion": "1.5.13, 1.3.15",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-12798",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "logback-core: arbitrary code execution via JaninoEventEvaluator",
+          "Description": "ACE vulnerability in JaninoEventEvaluator  by QOS.CH logback-core\n      upto including version 0.1 to 1.3.14 and 1.4.0 to 1.5.12 in Java applications allows\n      attacker to execute arbitrary code by compromising an existing\n      logback configuration file or by injecting an environment variable\n      before program execution.\n\n\n\n\n\nMalicious logback configuration files can allow the attacker to execute \narbitrary code using the JaninoEventEvaluator extension.\n\n\n\nA successful attack requires the user to have write access to a \nconfiguration file. Alternatively, the attacker could inject a malicious \nenvironment variable pointing to a malicious configuration file. In both \ncases, the attack requires existing privilege.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-917"
+          ],
+          "VendorSeverity": {
+            "ghsa": 2,
+            "redhat": 2
+          },
+          "CVSS": {
+            "ghsa": {},
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:R/S:U/C:L/I:H/A:L",
+              "V3Score": 5.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2024-12798",
+            "https://github.com/qos-ch/logback",
+            "https://github.com/qos-ch/logback/commit/2cb6d520df7592ef1c3a198f1b5df3c10c93e183",
+            "https://logback.qos.ch/news.html#1.3.15",
+            "https://logback.qos.ch/news.html#1.5.13",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-12798",
+            "https://www.cve.org/CVERecord?id=CVE-2024-12798"
+          ],
+          "PublishedDate": "2024-12-19T16:15:07.557Z",
+          "LastModifiedDate": "2025-01-03T14:15:24.37Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-11226",
+          "PkgName": "ch.qos.logback:logback-core",
+          "PkgPath": "opt/zookeeper/lib/logback-core-1.2.13.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/ch.qos.logback/logback-core@1.2.13",
+            "UID": "d50716ca5d64a0c2"
+          },
+          "InstalledVersion": "1.2.13",
+          "FixedVersion": "1.5.19, 1.3.16",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-11226",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "ch.qos.logback/logback-core: Conditional abitrary code execution in logback-core",
+          "Description": "ACE vulnerability in conditional configuration file processing  by QOS.CH logback-core up to and including version 1.5.18 in Java applications, allows an attacker to execute arbitrary code by compromising an existing logback configuration file or by injecting an environment variable before program execution.\n\n\n\nA successful attack requires the presence of Janino library and Spring Framework to be present on the user's class path. In addition, the attacker must  have write access to a \nconfiguration file. Alternatively, the attacker could inject a malicious \nenvironment variable pointing to a malicious configuration file. In both \ncases, the attack requires existing privilege.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-20"
+          ],
+          "VendorSeverity": {
+            "ghsa": 2,
+            "redhat": 2
+          },
+          "CVSS": {
+            "ghsa": {},
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:H/UI:R/S:C/C:H/I:L/A:L",
+              "V3Score": 6.4
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2025-11226",
+            "https://github.com/qos-ch/logback",
+            "https://github.com/qos-ch/logback/commit/61f6a2544f36b3016e0efd434ee21f19269f1df7",
+            "https://github.com/qos-ch/logback/issues/974",
+            "https://github.com/qos-ch/logback/releases/tag/v_1.5.19",
+            "https://logback.qos.ch/news.html#1.3.16",
+            "https://logback.qos.ch/news.html#1.5.19",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-11226",
+            "https://www.cve.org/CVERecord?id=CVE-2025-11226"
+          ],
+          "PublishedDate": "2025-10-01T08:15:31.25Z",
+          "LastModifiedDate": "2025-10-31T15:15:41.197Z"
+        },
+        {
+          "VulnerabilityID": "GHSA-72hv-8253-57qq",
+          "PkgName": "com.fasterxml.jackson.core:jackson-core",
+          "PkgPath": "opt/zookeeper/lib/jackson-core-2.15.2.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.15.2",
+            "UID": "fa81895ccc278901"
+          },
+          "InstalledVersion": "2.15.2",
+          "FixedVersion": "2.18.6, 2.21.1, 3.1.0",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://github.com/advisories/GHSA-72hv-8253-57qq",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition",
+          "Description": "### Summary\nThe non-blocking (async) JSON parser in `jackson-core` bypasses the `maxNumberLength` constraint (default: 1000 characters) defined in `StreamReadConstraints`. This allows an attacker to send JSON with arbitrarily long numbers through the async parser API, leading to excessive memory allocation and potential CPU exhaustion, resulting in a Denial of Service (DoS).\n\nThe standard synchronous parser correctly enforces this limit, but the async parser fails to do so, creating an inconsistent enforcement policy.\n\n### Details\nThe root cause is that the async parsing path in `NonBlockingUtf8JsonParserBase` (and related classes) does not call the methods responsible for number length validation.\n\n- The number parsing methods (e.g., `_finishNumberIntegralPart`) accumulate digits into the `TextBuffer` without any length checks.\n- After parsing, they call `_valueComplete()`, which finalizes the token but does **not** call `resetInt()` or `resetFloat()`.\n- The `resetInt()`/`resetFloat()` methods in `ParserBase` are where the `validateIntegerLength()` and `validateFPLength()` checks are performed.\n- Because this validation step is skipped, the `maxNumberLength` constraint is never enforced in the async code path.\n\n### PoC\nThe following JUnit 5 test demonstrates the vulnerability. It shows that the async parser accepts a 5,000-digit number, whereas the limit should be 1,000.\n\n```java\npackage tools.jackson.core.unittest.dos;\n\nimport java.nio.charset.StandardCharsets;\n\nimport org.junit.jupiter.api.Test;\n\nimport tools.jackson.core.*;\nimport tools.jackson.core.exc.StreamConstraintsException;\nimport tools.jackson.core.json.JsonFactory;\nimport tools.jackson.core.json.async.NonBlockingByteArrayJsonParser;\n\nimport static org.junit.jupiter.api.Assertions.*;\n\n/**\n * POC: Number Length Constraint Bypass in Non-Blocking (Async) JSON Parsers\n *\n * Authors: sprabhav7, rohan-repos\n * \n * maxNumberLength default = 1000 characters (digits).\n * A number with more than 1000 digits should be rejected by any parser.\n *\n * BUG: The async parser never calls resetInt()/resetFloat() which is where\n * validateIntegerLength()/validateFPLength() lives. Instead it calls\n * _valueComplete() which skips all number length validation.\n *\n * CWE-770: Allocation of Resources Without Limits or Throttling\n */\nclass AsyncParserNumberLengthBypassTest {\n\n    private static final int MAX_NUMBER_LENGTH = 1000;\n    private static final int TEST_NUMBER_LENGTH = 5000;\n\n    private final JsonFactory factory = new JsonFactory();\n\n    // CONTROL: Sync parser correctly rejects a number exceeding maxNumberLength\n    @Test\n    void syncParserRejectsLongNumber() throws Exception {\n        byte[] payload = buildPayloadWithLongInteger(TEST_NUMBER_LENGTH);\n\t\t\n\t\t// Output to console\n        System.out.println(\"[SYNC] Parsing \" + TEST_NUMBER_LENGTH + \"-digit number (limit: \" + MAX_NUMBER_LENGTH + \")\");\n        try {\n            try (JsonParser p = factory.createParser(ObjectReadContext.empty(), payload)) {\n                while (p.nextToken() != null) {\n                    if (p.currentToken() == JsonToken.VALUE_NUMBER_INT) {\n                        System.out.println(\"[SYNC] Accepted number with \" + p.getText().length() + \" digits — UNEXPECTED\");\n                    }\n                }\n            }\n            fail(\"Sync parser must reject a \" + TEST_NUMBER_LENGTH + \"-digit number\");\n        } catch (StreamConstraintsException e) {\n            System.out.println(\"[SYNC] Rejected with StreamConstraintsException: \" + e.getMessage());\n        }\n    }\n\n    // VULNERABILITY: Async parser accepts the SAME number that sync rejects\n    @Test\n    void asyncParserAcceptsLongNumber() throws Exception {\n        byte[] payload = buildPayloadWithLongInteger(TEST_NUMBER_LENGTH);\n\n        NonBlockingByteArrayJsonParser p =\n            (NonBlockingByteArrayJsonParser) factory.createNonBlockingByteArrayParser(ObjectReadContext.empty());\n        p.feedInput(payload, 0, payload.length);\n        p.endOfInput();\n\n        boolean foundNumber = false;\n        try {\n            while (p.nextToken() != null) {\n                if (p.currentToken() == JsonToken.VALUE_NUMBER_INT) {\n                    foundNumber = true;\n                    String numberText = p.getText();\n                    assertEquals(TEST_NUMBER_LENGTH, numberText.length(),\n                        \"Async parser silently accepted all \" + TEST_NUMBER_LENGTH + \" digits\");\n                }\n            }\n            // Output to console\n            System.out.println(\"[ASYNC INT] Accepted number with \" + TEST_NUMBER_LENGTH + \" digits — BUG CONFIRMED\");\n            assertTrue(foundNumber, \"Parser should have produced a VALUE_NUMBER_INT token\");\n        } catch (StreamConstraintsException e) {\n            fail(\"Bug is fixed — async parser now correctly rejects long numbers: \" + e.getMessage());\n        }\n        p.close();\n    }\n\n    private byte[] buildPayloadWithLongInteger(int numDigits) {\n        StringBuilder sb = new StringBuilder(numDigits + 10);\n        sb.append(\"{\\\"v\\\":\");\n        for (int i = 0; i \u003c numDigits; i++) {\n            sb.append((char) ('1' + (i % 9)));\n        }\n        sb.append('}');\n        return sb.toString().getBytes(StandardCharsets.UTF_8);\n    }\n}\n\n```\n\n\n### Impact\nA malicious actor can send a JSON document with an arbitrarily long number to an application using the async parser (e.g., in a Spring WebFlux or other reactive application). This can cause:\n1.  **Memory Exhaustion:** Unbounded allocation of memory in the `TextBuffer` to store the number's digits, leading to an `OutOfMemoryError`.\n2.  **CPU Exhaustion:** If the application subsequently calls `getBigIntegerValue()` or `getDecimalValue()`, the JVM can be tied up in O(n^2) `BigInteger` parsing operations, leading to a CPU-based DoS.\n\n### Suggested Remediation\n\nThe async parsing path should be updated to respect the `maxNumberLength` constraint. The simplest fix appears to ensure that `_valueComplete()` or a similar method in the async path calls the appropriate validation methods (`resetInt()` or `resetFloat()`) already present in `ParserBase`, mirroring the behavior of the synchronous parsers.\n\n**NOTE:** This research was performed in collaboration with [rohan-repos](https://github.com/rohan-repos)",
+          "Severity": "HIGH",
+          "VendorSeverity": {
+            "ghsa": 3
+          },
+          "CVSS": {
+            "ghsa": {}
+          },
+          "References": [
+            "https://github.com/FasterXML/jackson-core",
+            "https://github.com/FasterXML/jackson-core/commit/a004e9789c2cc6b41b379d02d229d58474d9a738",
+            "https://github.com/FasterXML/jackson-core/issues/1538",
+            "https://github.com/FasterXML/jackson-core/security/advisories/GHSA-72hv-8253-57qq"
+          ],
+          "PublishedDate": "2026-02-28T02:01:05Z",
+          "LastModifiedDate": "2026-02-28T02:01:06Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-47554",
+          "PkgName": "commons-io:commons-io",
+          "PkgPath": "opt/zookeeper/lib/commons-io-2.11.0.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/commons-io/commons-io@2.11.0",
+            "UID": "c5af3754597936b"
+          },
+          "InstalledVersion": "2.11.0",
+          "FixedVersion": "2.14.0",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-47554",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "apache-commons-io: Possible denial of service attack on untrusted input to XmlStreamReader",
+          "Description": "Uncontrolled Resource Consumption vulnerability in Apache Commons IO.\n\nThe org.apache.commons.io.input.XmlStreamReader class may excessively consume CPU resources when processing maliciously crafted input.\n\n\nThis issue affects Apache Commons IO: from 2.0 before 2.14.0.\n\nUsers are recommended to upgrade to version 2.14.0 or later, which fixes the issue.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-400"
+          ],
+          "VendorSeverity": {
+            "amazon": 2,
+            "azure": 2,
+            "cbl-mariner": 2,
+            "ghsa": 3,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:L",
+              "V3Score": 4.3
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2024/10/03/2",
+            "https://access.redhat.com/security/cve/CVE-2024-47554",
+            "https://github.com/apache/commons-io",
+            "https://lists.apache.org/thread/6ozr91rr9cj5lm0zyhv30bsp317hk5z1",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-47554",
+            "https://security.netapp.com/advisory/ntap-20250131-0010",
+            "https://security.netapp.com/advisory/ntap-20250131-0010/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-47554"
+          ],
+          "PublishedDate": "2024-10-03T12:15:02.613Z",
+          "LastModifiedDate": "2025-07-10T21:10:32.113Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-58057",
+          "PkgName": "io.netty:netty-codec",
+          "PkgPath": "opt/zookeeper/lib/netty-codec-4.1.105.Final.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/io.netty/netty-codec@4.1.105.Final",
+            "UID": "47c9052e8c2a144a"
+          },
+          "InstalledVersion": "4.1.105.Final",
+          "FixedVersion": "4.1.125.Final",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-58057",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "netty-codec: netty-codec-compression: Netty's BrotliDecoder is vulnerable to DoS via zip bomb style attack",
+          "Description": "Netty is an asynchronous event-driven network application framework for rapid development of maintainable high performance protocol servers \u0026 clients. In netty-codec-compression versions 4.1.124.Final and below, and netty-codec versions 4.2.4.Final and below, when supplied with specially crafted input, BrotliDecoder and certain other decompression decoders will allocate a large number of reachable byte buffers, which can lead to denial of service. BrotliDecoder.decompress has no limit in how often it calls pull, decompressing data 64K bytes at a time. The buffers are saved in the output list, and remain reachable until OOM is hit. This is fixed in versions 4.1.125.Final of netty-codec and 4.2.5.Final of netty-codec-compression.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-409"
+          ],
+          "VendorSeverity": {
+            "ghsa": 2,
+            "nvd": 3,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "ghsa": {},
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2025-58057",
+            "https://github.com/netty/netty",
+            "https://github.com/netty/netty/commit/9d804c54ce962408ae6418255a83a13924f7145d",
+            "https://github.com/netty/netty/commit/9d804c54ce962408ae6418255a83a13924f7145d (netty-4.2.5.Final)",
+            "https://github.com/netty/netty/security/advisories/GHSA-3p8m-j85q-pgmj",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-58057",
+            "https://ubuntu.com/security/notices/USN-7918-1",
+            "https://www.cve.org/CVERecord?id=CVE-2025-58057"
+          ],
+          "PublishedDate": "2025-09-04T10:42:32.18Z",
+          "LastModifiedDate": "2025-09-08T16:45:55.143Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-47535",
+          "PkgName": "io.netty:netty-common",
+          "PkgPath": "opt/zookeeper/lib/netty-common-4.1.105.Final.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/io.netty/netty-common@4.1.105.Final",
+            "UID": "c21db6c19758203d"
+          },
+          "InstalledVersion": "4.1.105.Final",
+          "FixedVersion": "4.1.115.Final",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-47535",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "netty: Denial of Service attack on windows app using Netty",
+          "Description": "Netty is an asynchronous event-driven network application framework for rapid development of maintainable high performance protocol servers \u0026 clients. An unsafe reading of environment file could potentially cause a denial of service in Netty. When loaded on an Windows application, Netty attempts to load a file that does not exist. If an attacker creates such a large file, the Netty application crashes. This vulnerability is fixed in 4.1.115.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-400"
+          ],
+          "VendorSeverity": {
+            "ghsa": 2,
+            "redhat": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2024-47535",
+            "https://github.com/netty/netty",
+            "https://github.com/netty/netty/commit/fbf7a704a82e7449b48bd0bbb679f5661c6d61a3",
+            "https://github.com/netty/netty/security/advisories/GHSA-xq3w-v528-46rv",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-47535",
+            "https://www.cve.org/CVERecord?id=CVE-2024-47535"
+          ],
+          "PublishedDate": "2024-11-12T16:15:22.237Z",
+          "LastModifiedDate": "2025-09-05T14:00:07.22Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-25193",
+          "PkgName": "io.netty:netty-common",
+          "PkgPath": "opt/zookeeper/lib/netty-common-4.1.105.Final.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/io.netty/netty-common@4.1.105.Final",
+            "UID": "c21db6c19758203d"
+          },
+          "InstalledVersion": "4.1.105.Final",
+          "FixedVersion": "4.1.118.Final",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-25193",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "netty: Denial of Service attack on windows app using Netty",
+          "Description": "Netty, an asynchronous, event-driven network application framework, has a vulnerability in versions up to and including 4.1.118.Final. An unsafe reading of environment file could potentially cause a denial of service in Netty. When loaded on an Windows application, Netty attempts to load a file that does not exist. If an attacker creates such a large file, the Netty application crash. A similar issue was previously reported as CVE-2024-47535. This issue was fixed, but the fix was incomplete in that null-bytes were not counted against the input limit. Commit d1fbda62d3a47835d3fb35db8bd42ecc205a5386 contains an updated fix.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-400"
+          ],
+          "VendorSeverity": {
+            "ghsa": 2,
+            "nvd": 2,
+            "redhat": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.5
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2025-25193",
+            "https://github.com/netty/netty",
+            "https://github.com/netty/netty/commit/d1fbda62d3a47835d3fb35db8bd42ecc205a5386",
+            "https://github.com/netty/netty/security/advisories/GHSA-389x-839f-4rhx",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-25193",
+            "https://security.netapp.com/advisory/ntap-20250221-0006",
+            "https://security.netapp.com/advisory/ntap-20250221-0006/",
+            "https://www.cve.org/CVERecord?id=CVE-2025-25193"
+          ],
+          "PublishedDate": "2025-02-10T22:15:38.45Z",
+          "LastModifiedDate": "2025-06-11T15:36:22.693Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-24970",
+          "PkgName": "io.netty:netty-handler",
+          "PkgPath": "opt/zookeeper/lib/netty-handler-4.1.105.Final.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/io.netty/netty-handler@4.1.105.Final",
+            "UID": "efd27796964cde55"
+          },
+          "InstalledVersion": "4.1.105.Final",
+          "FixedVersion": "4.1.118.Final",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-24970",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "io.netty:netty-handler: SslHandler doesn't correctly validate packets which can lead to native crash when using native SSLEngine",
+          "Description": "Netty, an asynchronous, event-driven network application framework, has a vulnerability starting in version 4.1.91.Final and prior to version 4.1.118.Final. When a special crafted packet is received via SslHandler it doesn't correctly handle validation of such a packet in all cases which can lead to a native crash. Version 4.1.118.Final contains a patch. As workaround its possible to either disable the usage of the native SSLEngine or change the code manually.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-20"
+          ],
+          "VendorSeverity": {
+            "ghsa": 3,
+            "redhat": 3
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 7.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2025-24970",
+            "https://github.com/netty/netty",
+            "https://github.com/netty/netty/commit/87f40725155b2f89adfde68c7732f97c153676c4",
+            "https://github.com/netty/netty/security/advisories/GHSA-4g8c-wm8x-jfhw",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-24970",
+            "https://security.netapp.com/advisory/ntap-20250221-0005",
+            "https://security.netapp.com/advisory/ntap-20250221-0005/",
+            "https://www.cve.org/CVERecord?id=CVE-2025-24970",
+            "https://www.vicarius.io/vsociety/posts/cve-2025-24970-netty-vulnerability-detection",
+            "https://www.vicarius.io/vsociety/posts/cve-2025-24970-netty-vulnerability-mitigation"
+          ],
+          "PublishedDate": "2025-02-10T22:15:38.057Z",
+          "LastModifiedDate": "2025-09-05T17:20:12.26Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-6763",
+          "PkgName": "org.eclipse.jetty:jetty-http",
+          "PkgPath": "opt/zookeeper/lib/jetty-http-9.4.53.v20231009.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/org.eclipse.jetty/jetty-http@9.4.53.v20231009",
+            "UID": "bdae6c9b248834d2"
+          },
+          "InstalledVersion": "9.4.53.v20231009",
+          "FixedVersion": "12.0.12",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-6763",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "org.eclipse.jetty:jetty-http: jetty: Jetty URI parsing of invalid authority",
+          "Description": "Eclipse Jetty is a lightweight, highly scalable, Java-based web server and Servlet engine . It includes a utility class, HttpURI, for URI/URL parsing.\n\nThe HttpURI class does insufficient validation on the authority segment of a URI.  However the behaviour of HttpURI\n differs from the common browsers in how it handles a URI that would be \nconsidered invalid if fully validated against the RRC.  Specifically HttpURI\n and the browser may differ on the value of the host extracted from an \ninvalid URI and thus a combination of Jetty and a vulnerable browser may\n be vulnerable to a open redirect attack or to a SSRF attack if the URI \nis used after passing validation checks.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-1286"
+          ],
+          "VendorSeverity": {
+            "ghsa": 2,
+            "nvd": 2,
+            "redhat": 1,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+              "V3Score": 3.7
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+              "V3Score": 5.3
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:L/A:N",
+              "V3Score": 3.7
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2024-6763",
+            "https://github.com/jetty/jetty.project",
+            "https://github.com/jetty/jetty.project/pull/12012",
+            "https://github.com/jetty/jetty.project/security/advisories/GHSA-qh8g-58pp-2wxh",
+            "https://gitlab.eclipse.org/security/cve-assignement/-/issues/25",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-6763",
+            "https://security.netapp.com/advisory/ntap-20250306-0005",
+            "https://security.netapp.com/advisory/ntap-20250306-0005/",
+            "https://www.cve.org/CVERecord?id=CVE-2024-6763"
+          ],
+          "PublishedDate": "2024-10-14T16:15:04.163Z",
+          "LastModifiedDate": "2025-07-10T15:04:04.103Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-13009",
+          "PkgName": "org.eclipse.jetty:jetty-server",
+          "PkgPath": "opt/zookeeper/lib/jetty-server-9.4.53.v20231009.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.53.v20231009",
+            "UID": "7b7957aca06ef4ce"
+          },
+          "InstalledVersion": "9.4.53.v20231009",
+          "FixedVersion": "9.4.57.v20241219",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-13009",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "jetty-server: Jetty: Gzip Request Body Buffer Corruption",
+          "Description": "In Eclipse Jetty versions 9.4.0 to 9.4.56 a buffer can be incorrectly released when confronted with a gzip error when inflating a request\nbody. This can result in corrupted and/or inadvertent sharing of data between requests.",
+          "Severity": "HIGH",
+          "CweIDs": [
+            "CWE-404"
+          ],
+          "VendorSeverity": {
+            "ghsa": 3,
+            "redhat": 3
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N",
+              "V3Score": 7.2
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N",
+              "V3Score": 7.2
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2024-13009",
+            "https://github.com/jetty/jetty.project",
+            "https://github.com/jetty/jetty.project/security/advisories/GHSA-q4rv-gq96-w7c5",
+            "https://gitlab.eclipse.org/security/cve-assignement/-/issues/48",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-13009",
+            "https://www.cve.org/CVERecord?id=CVE-2024-13009"
+          ],
+          "PublishedDate": "2025-05-08T18:15:41.64Z",
+          "LastModifiedDate": "2025-07-31T16:31:12.697Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2024-8184",
+          "PkgName": "org.eclipse.jetty:jetty-server",
+          "PkgPath": "opt/zookeeper/lib/jetty-server-9.4.53.v20231009.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/org.eclipse.jetty/jetty-server@9.4.53.v20231009",
+            "UID": "7b7957aca06ef4ce"
+          },
+          "InstalledVersion": "9.4.53.v20231009",
+          "FixedVersion": "12.0.9, 10.0.24, 11.0.24, 9.4.56",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2024-8184",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "org.eclipse.jetty:jetty-server: jetty: Jetty ThreadLimitHandler.getRemote() vulnerable to remote DoS attacks",
+          "Description": "There exists a security vulnerability in Jetty's ThreadLimitHandler.getRemote() which can be exploited by unauthorized users to cause remote denial-of-service (DoS) attack.  By repeatedly sending crafted requests, attackers can trigger OutofMemory errors and exhaust the server's memory.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-400",
+            "CWE-770"
+          ],
+          "VendorSeverity": {
+            "ghsa": 2,
+            "nvd": 2,
+            "redhat": 2
+          },
+          "CVSS": {
+            "ghsa": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 5.9
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.5
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+              "V3Score": 6.5
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2024-8184",
+            "https://github.com/jetty/jetty.project",
+            "https://github.com/jetty/jetty.project/pull/11723",
+            "https://github.com/jetty/jetty.project/security/advisories/GHSA-g8m5-722r-8whq",
+            "https://gitlab.eclipse.org/security/cve-assignement/-/issues/30",
+            "https://lists.debian.org/debian-lts-announce/2025/04/msg00001.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2024-8184",
+            "https://www.cve.org/CVERecord?id=CVE-2024-8184"
+          ],
+          "PublishedDate": "2024-10-14T16:15:04.38Z",
+          "LastModifiedDate": "2025-11-03T20:17:04.82Z"
+        }
+      ]
+    },
+    {
+      "Target": "usr/bin/pebble",
+      "Class": "lang-pkgs",
+      "Type": "gobinary",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2025-68121",
+          "PkgName": "stdlib",
+          "PkgIdentifier": {
+            "PURL": "pkg:golang/stdlib@1.24.12",
+            "UID": "f8a08fed796df87e"
+          },
+          "InstalledVersion": "1.24.12",
+          "FixedVersion": "1.24.13, 1.25.7, 1.26.0-rc.3",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:18641f5d7b600069c1573ecd59b300965a9a232f75e3cd3872c01a9774cef14f"
+          },
+          "SeveritySource": "nvd",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-68121",
+          "DataSource": {
+            "ID": "govulndb",
+            "Name": "The Go Vulnerability Database",
+            "URL": "https://pkg.go.dev/vuln/"
+          },
+          "Title": "crypto/tls: Unexpected session resumption in crypto/tls",
+          "Description": "During session resumption in crypto/tls, if the underlying Config has its ClientCAs or RootCAs fields mutated between the initial handshake and the resumed handshake, the resumed handshake may succeed when it should have failed. This may happen when a user calls Config.Clone and mutates the returned Config, or uses Config.GetConfigForClient. This can cause a client to resume a session with a server that it would not have resumed with during the initial handshake, or cause a server to resume a session with a client that it would not have resumed with during the initial handshake.",
+          "Severity": "CRITICAL",
+          "CweIDs": [
+            "CWE-295"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 3,
+            "bitnami": 4,
+            "nvd": 4,
+            "oracle-oval": 3,
+            "photon": 4,
+            "redhat": 2,
+            "rocky": 3
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+              "V3Score": 10
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+              "V3Score": 10
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2026:3337",
+            "https://access.redhat.com/security/cve/CVE-2025-68121",
+            "https://bugzilla.redhat.com/2418462",
+            "https://bugzilla.redhat.com/2434431",
+            "https://bugzilla.redhat.com/2434432",
+            "https://bugzilla.redhat.com/2437111",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2434431",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2434432",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2437016",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2437111",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-61726",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-61728",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-61732",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-68121",
+            "https://errata.almalinux.org/9/ALSA-2026-3337.html",
+            "https://errata.rockylinux.org/RLSA-2026:2708",
+            "https://go.dev/cl/737700",
+            "https://go.dev/issue/77217",
+            "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk",
+            "https://linux.oracle.com/cve/CVE-2025-68121.html",
+            "https://linux.oracle.com/errata/ELSA-2026-3343.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-68121",
+            "https://pkg.go.dev/vuln/GO-2026-4337",
+            "https://www.cve.org/CVERecord?id=CVE-2025-68121"
+          ],
+          "PublishedDate": "2026-02-05T18:16:10.857Z",
+          "LastModifiedDate": "2026-02-20T17:25:50.303Z"
+        }
+      ]
+    }
+  ]
+}

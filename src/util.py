@@ -84,6 +84,7 @@ def get_or_create_tmp_path() -> str:
     tmp_path = os.environ.get("TMP_PATH")
     if not tmp_path:
         tmp_path = f"{TMP_PREFIX}_app_{secrets.token_hex(4)}"
+        os.environ.update({"TMP_PATH": tmp_path})
 
     os.makedirs(tmp_path, exist_ok=True)
     return tmp_path

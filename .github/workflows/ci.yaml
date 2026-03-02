@@ -1,0 +1,48 @@
+name: CI Tests
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+
+
+jobs:
+  lint:
+    name: Run Linter
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Prepare environment
+        run: |
+          cp .env.sample .env
+          sudo snap install --classic astral-uv
+          pipx install tox
+          pipx install poetry
+      - name: Run linters
+        run: tox run -e lint
+
+  tests:
+    name: Run Unit & Integration Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+      - name: Setup LXD
+        uses: canonical/setup-lxd@main
+        with:
+          channel: 6/stable
+      - name: Prepare environment
+        run: |
+          cp .env.sample .env
+          sudo snap install juju --channel 3.6/stable
+          sudo snap install --classic astral-uv
+          pipx install tox
+          pipx install poetry
+      - name: Run tests
+        run: tox run -e tests
+

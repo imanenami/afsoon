@@ -62,5 +62,9 @@ if __name__ == "__main__":
     rocks = load_rocks()
     settings = WorkflowSettings(charms=charms, rocks=rocks)
 
-    workflows.run(workflow, settings)
-    _quit(0)
+    try:
+        workflows.run(workflow, settings)
+        _quit(0)
+    except Exception as e:
+        logger.error(f"Workflow finished with error:\n{e}")
+        _quit(256)

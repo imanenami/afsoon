@@ -1,0 +1,740 @@
+{
+  "SchemaVersion": 2,
+  "CreatedAt": "2026-02-28T16:44:45.764782304Z",
+  "ArtifactName": "/root/kafka-rock-4-24.04.tar",
+  "ArtifactType": "container_image",
+  "Metadata": {
+    "OS": {
+      "Family": "ubuntu",
+      "Name": "24.04"
+    },
+    "ImageID": "sha256:00a2378005def24fc1ccdf9bff1f907f2d1847b04782c702c2c810eecda4d016",
+    "DiffIDs": [
+      "sha256:f2a7f072635332d307212e318e07284948b89f4167fce5c4d7c9cfb7590b74b6",
+      "sha256:3423bf2cf5f60a71800bf2932eeb51d9899a220ed62bbad076ef4deb15b12158",
+      "sha256:a7716354a6c5e2a9c1261b912b4711695713cb99143c43756090f6eb92803af9",
+      "sha256:d0da53c45d1e310b0d508dfc965e6368abe09671c700a495d48adb05991e65f5"
+    ],
+    "ImageConfig": {
+      "architecture": "amd64",
+      "created": "2026-02-23T17:17:56.132176015Z",
+      "history": [
+        {
+          "created": "2026-02-23T17:17:53.377372197Z",
+          "created_by": "/bin/sh -c #(nop)  ARG RELEASE",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-23T17:17:53.408508506Z",
+          "created_by": "/bin/sh -c #(nop)  ARG LAUNCHPAD_BUILD_ARCH",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-23T17:17:53.45626953Z",
+          "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.ref.name=ubuntu",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-23T17:17:53.486399083Z",
+          "created_by": "/bin/sh -c #(nop)  LABEL org.opencontainers.image.version=24.04",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-23T17:17:55.728281038Z",
+          "created_by": "/bin/sh -c #(nop) ADD file:3f78aa860931e0853077f09eb31eddbeeef8a9dd70977305b4876aa176770721 in / "
+        },
+        {
+          "created": "2026-02-23T17:17:56.132176015Z",
+          "created_by": "/bin/sh -c #(nop)  CMD [\"/bin/bash\"]",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:44:27.523482253+01:00",
+          "created_by": "umoci raw add-layer --image /root/images/kafka:rockcraft-base /root/images/.temp_layer.432.tar --tag 4.1.1"
+        },
+        {
+          "created": "2026-02-28T17:44:28.47088169+01:00",
+          "created_by": "umoci config",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:44:28.487487064+01:00",
+          "created_by": "umoci config",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:44:28.504919091+01:00",
+          "created_by": "umoci raw add-layer --image /root/images/kafka:4.1.1 /root/images/.temp_layer.432.tar --tag 4.1.1"
+        },
+        {
+          "created": "2026-02-28T17:44:28.521059959+01:00",
+          "created_by": "umoci config",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:44:28.530848173+01:00",
+          "created_by": "umoci config",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:44:28.549097751+01:00",
+          "created_by": "umoci config",
+          "empty_layer": true
+        },
+        {
+          "created": "2026-02-28T17:44:28.562325816+01:00",
+          "created_by": "umoci raw add-layer --image /root/images/kafka:4.1.1 /root/images/.temp_layer.control_data.432.tar"
+        }
+      ],
+      "os": "linux",
+      "rootfs": {
+        "type": "layers",
+        "diff_ids": [
+          "sha256:f2a7f072635332d307212e318e07284948b89f4167fce5c4d7c9cfb7590b74b6",
+          "sha256:3423bf2cf5f60a71800bf2932eeb51d9899a220ed62bbad076ef4deb15b12158",
+          "sha256:a7716354a6c5e2a9c1261b912b4711695713cb99143c43756090f6eb92803af9",
+          "sha256:d0da53c45d1e310b0d508dfc965e6368abe09671c700a495d48adb05991e65f5"
+        ]
+      },
+      "config": {
+        "Entrypoint": [
+          "/usr/bin/pebble",
+          "enter"
+        ],
+        "Env": [
+          "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
+          "JAVA_HOME=/usr/lib/jvm/java-21-openjdk-amd64",
+          "KAFKA_LOG4J_OPTS=-Dlog4j.configuration=file:/etc/kafka/tools-log4j.properties"
+        ],
+        "Labels": {
+          "org.opencontainers.image.base.digest": "b1940c8ecf8ff591053cc5db0303fb882f9fafec50f26892a870bcbe1b30d25a",
+          "org.opencontainers.image.created": "2026-02-28T16:44:28.527391+00:00",
+          "org.opencontainers.image.description": "Apache Kafka OCI Image\n\nApache Kafka Image from Canonical, based\non [Ubuntu](https://ubuntu.com/). Receives security updates for Apache\nKafka and Ubuntu. This repository is free to use and exempted from\nper-user rate limits.\n\nApache Kafka is an open-source distributed event streaming platform for\nhigh-performance data pipelines, streaming analytics and integrations.\nRead more on the [Apache Kafka website](https://kafka.apache.org/).\n",
+          "org.opencontainers.image.licenses": "Apache-2.0",
+          "org.opencontainers.image.ref.name": "kafka",
+          "org.opencontainers.image.title": "kafka",
+          "org.opencontainers.image.version": "4.1.1"
+        }
+      }
+    }
+  },
+  "Results": [
+    {
+      "Target": "/root/kafka-rock-4-24.04.tar (ubuntu 24.04)",
+      "Class": "os-pkgs",
+      "Type": "ubuntu",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2025-68972",
+          "PkgID": "gpgv@2.4.4-2ubuntu17.4",
+          "PkgName": "gpgv",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/gpgv@2.4.4-2ubuntu17.4?arch=amd64\u0026distro=ubuntu-24.04",
+            "UID": "3ed4b28d44ef0d14"
+          },
+          "InstalledVersion": "2.4.4-2ubuntu17.4",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:f2a7f072635332d307212e318e07284948b89f4167fce5c4d7c9cfb7590b74b6"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-68972",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "gnupg: GnuPG: Signature bypass via form feed character in signed messages",
+          "Description": "In GnuPG through 2.4.8, if a signed message has \\f at the end of a plaintext line, an adversary can construct a modified message that places additional text after the signed material, such that signature verification of the modified message succeeds (although an \"invalid armor\" message is printed during verification). This is related to use of \\f as a marker to denote truncation of a long plaintext line.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-347"
+          ],
+          "VendorSeverity": {
+            "azure": 2,
+            "nvd": 2,
+            "redhat": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:L/UI:N/S:U/C:N/I:H/A:N",
+              "V3Score": 4.7
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:C/C:N/I:H/A:N",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "https://access.redhat.com/security/cve/CVE-2025-68972",
+            "https://gpg.fail/formfeed",
+            "https://media.ccc.de/v/39c3-to-sign-or-not-to-sign-practical-vulnerabilities-i",
+            "https://news.ycombinator.com/item?id=46404339",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-68972",
+            "https://www.cve.org/CVERecord?id=CVE-2025-68972"
+          ],
+          "PublishedDate": "2025-12-27T23:15:40.9Z",
+          "LastModifiedDate": "2026-01-09T20:08:47.323Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-8941",
+          "PkgID": "libpam-modules@1.5.3-5ubuntu5.5",
+          "PkgName": "libpam-modules",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-modules@1.5.3-5ubuntu5.5?arch=amd64\u0026distro=ubuntu-24.04",
+            "UID": "a0c2c3cde0600a83"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.5",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:f2a7f072635332d307212e318e07284948b89f4167fce5c4d7c9cfb7590b74b6"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-8941",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "linux-pam: Incomplete fix for CVE-2025-6020",
+          "Description": "A flaw was found in linux-pam. The pam_namespace module may improperly handle user-controlled paths, allowing local users to exploit symlink attacks and race conditions to elevate their privileges to root. This CVE provides a \"complete\" fix for CVE-2025-6020.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 2,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2025:14557",
+            "https://access.redhat.com/errata/RHSA-2025:15099",
+            "https://access.redhat.com/errata/RHSA-2025:15100",
+            "https://access.redhat.com/errata/RHSA-2025:15101",
+            "https://access.redhat.com/errata/RHSA-2025:15102",
+            "https://access.redhat.com/errata/RHSA-2025:15103",
+            "https://access.redhat.com/errata/RHSA-2025:15104",
+            "https://access.redhat.com/errata/RHSA-2025:15105",
+            "https://access.redhat.com/errata/RHSA-2025:15106",
+            "https://access.redhat.com/errata/RHSA-2025:15107",
+            "https://access.redhat.com/errata/RHSA-2025:15709",
+            "https://access.redhat.com/errata/RHSA-2025:15827",
+            "https://access.redhat.com/errata/RHSA-2025:15828",
+            "https://access.redhat.com/errata/RHSA-2025:16524",
+            "https://access.redhat.com/errata/RHSA-2025:17181",
+            "https://access.redhat.com/errata/RHSA-2025:18219",
+            "https://access.redhat.com/errata/RHSA-2025:21885",
+            "https://access.redhat.com/security/cve/CVE-2025-8941",
+            "https://bugzilla.redhat.com/2372512",
+            "https://bugzilla.redhat.com/2388220",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2388220",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6020",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-8941",
+            "https://errata.almalinux.org/9/ALSA-2025-15099.html",
+            "https://errata.rockylinux.org/RLSA-2025:14557",
+            "https://linux.oracle.com/cve/CVE-2025-8941.html",
+            "https://linux.oracle.com/errata/ELSA-2025-15099.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-8941",
+            "https://www.cve.org/CVERecord?id=CVE-2025-8941"
+          ],
+          "PublishedDate": "2025-08-13T15:15:41.873Z",
+          "LastModifiedDate": "2025-11-20T21:16:08.11Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-8941",
+          "PkgID": "libpam-modules-bin@1.5.3-5ubuntu5.5",
+          "PkgName": "libpam-modules-bin",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-modules-bin@1.5.3-5ubuntu5.5?arch=amd64\u0026distro=ubuntu-24.04",
+            "UID": "ab6c8325252a5169"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.5",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:f2a7f072635332d307212e318e07284948b89f4167fce5c4d7c9cfb7590b74b6"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-8941",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "linux-pam: Incomplete fix for CVE-2025-6020",
+          "Description": "A flaw was found in linux-pam. The pam_namespace module may improperly handle user-controlled paths, allowing local users to exploit symlink attacks and race conditions to elevate their privileges to root. This CVE provides a \"complete\" fix for CVE-2025-6020.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 2,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2025:14557",
+            "https://access.redhat.com/errata/RHSA-2025:15099",
+            "https://access.redhat.com/errata/RHSA-2025:15100",
+            "https://access.redhat.com/errata/RHSA-2025:15101",
+            "https://access.redhat.com/errata/RHSA-2025:15102",
+            "https://access.redhat.com/errata/RHSA-2025:15103",
+            "https://access.redhat.com/errata/RHSA-2025:15104",
+            "https://access.redhat.com/errata/RHSA-2025:15105",
+            "https://access.redhat.com/errata/RHSA-2025:15106",
+            "https://access.redhat.com/errata/RHSA-2025:15107",
+            "https://access.redhat.com/errata/RHSA-2025:15709",
+            "https://access.redhat.com/errata/RHSA-2025:15827",
+            "https://access.redhat.com/errata/RHSA-2025:15828",
+            "https://access.redhat.com/errata/RHSA-2025:16524",
+            "https://access.redhat.com/errata/RHSA-2025:17181",
+            "https://access.redhat.com/errata/RHSA-2025:18219",
+            "https://access.redhat.com/errata/RHSA-2025:21885",
+            "https://access.redhat.com/security/cve/CVE-2025-8941",
+            "https://bugzilla.redhat.com/2372512",
+            "https://bugzilla.redhat.com/2388220",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2388220",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6020",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-8941",
+            "https://errata.almalinux.org/9/ALSA-2025-15099.html",
+            "https://errata.rockylinux.org/RLSA-2025:14557",
+            "https://linux.oracle.com/cve/CVE-2025-8941.html",
+            "https://linux.oracle.com/errata/ELSA-2025-15099.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-8941",
+            "https://www.cve.org/CVERecord?id=CVE-2025-8941"
+          ],
+          "PublishedDate": "2025-08-13T15:15:41.873Z",
+          "LastModifiedDate": "2025-11-20T21:16:08.11Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-8941",
+          "PkgID": "libpam-runtime@1.5.3-5ubuntu5.5",
+          "PkgName": "libpam-runtime",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam-runtime@1.5.3-5ubuntu5.5?arch=all\u0026distro=ubuntu-24.04",
+            "UID": "a8932e74051637e"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.5",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:f2a7f072635332d307212e318e07284948b89f4167fce5c4d7c9cfb7590b74b6"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-8941",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "linux-pam: Incomplete fix for CVE-2025-6020",
+          "Description": "A flaw was found in linux-pam. The pam_namespace module may improperly handle user-controlled paths, allowing local users to exploit symlink attacks and race conditions to elevate their privileges to root. This CVE provides a \"complete\" fix for CVE-2025-6020.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 2,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2025:14557",
+            "https://access.redhat.com/errata/RHSA-2025:15099",
+            "https://access.redhat.com/errata/RHSA-2025:15100",
+            "https://access.redhat.com/errata/RHSA-2025:15101",
+            "https://access.redhat.com/errata/RHSA-2025:15102",
+            "https://access.redhat.com/errata/RHSA-2025:15103",
+            "https://access.redhat.com/errata/RHSA-2025:15104",
+            "https://access.redhat.com/errata/RHSA-2025:15105",
+            "https://access.redhat.com/errata/RHSA-2025:15106",
+            "https://access.redhat.com/errata/RHSA-2025:15107",
+            "https://access.redhat.com/errata/RHSA-2025:15709",
+            "https://access.redhat.com/errata/RHSA-2025:15827",
+            "https://access.redhat.com/errata/RHSA-2025:15828",
+            "https://access.redhat.com/errata/RHSA-2025:16524",
+            "https://access.redhat.com/errata/RHSA-2025:17181",
+            "https://access.redhat.com/errata/RHSA-2025:18219",
+            "https://access.redhat.com/errata/RHSA-2025:21885",
+            "https://access.redhat.com/security/cve/CVE-2025-8941",
+            "https://bugzilla.redhat.com/2372512",
+            "https://bugzilla.redhat.com/2388220",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2388220",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6020",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-8941",
+            "https://errata.almalinux.org/9/ALSA-2025-15099.html",
+            "https://errata.rockylinux.org/RLSA-2025:14557",
+            "https://linux.oracle.com/cve/CVE-2025-8941.html",
+            "https://linux.oracle.com/errata/ELSA-2025-15099.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-8941",
+            "https://www.cve.org/CVERecord?id=CVE-2025-8941"
+          ],
+          "PublishedDate": "2025-08-13T15:15:41.873Z",
+          "LastModifiedDate": "2025-11-20T21:16:08.11Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-8941",
+          "PkgID": "libpam0g@1.5.3-5ubuntu5.5",
+          "PkgName": "libpam0g",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/libpam0g@1.5.3-5ubuntu5.5?arch=amd64\u0026distro=ubuntu-24.04",
+            "UID": "ce436748d1c6d81b"
+          },
+          "InstalledVersion": "1.5.3-5ubuntu5.5",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:f2a7f072635332d307212e318e07284948b89f4167fce5c4d7c9cfb7590b74b6"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-8941",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "linux-pam: Incomplete fix for CVE-2025-6020",
+          "Description": "A flaw was found in linux-pam. The pam_namespace module may improperly handle user-controlled paths, allowing local users to exploit symlink attacks and race conditions to elevate their privileges to root. This CVE provides a \"complete\" fix for CVE-2025-6020.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-22"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 2,
+            "oracle-oval": 3,
+            "redhat": 3,
+            "rocky": 3,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+              "V3Score": 7.8
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2025:14557",
+            "https://access.redhat.com/errata/RHSA-2025:15099",
+            "https://access.redhat.com/errata/RHSA-2025:15100",
+            "https://access.redhat.com/errata/RHSA-2025:15101",
+            "https://access.redhat.com/errata/RHSA-2025:15102",
+            "https://access.redhat.com/errata/RHSA-2025:15103",
+            "https://access.redhat.com/errata/RHSA-2025:15104",
+            "https://access.redhat.com/errata/RHSA-2025:15105",
+            "https://access.redhat.com/errata/RHSA-2025:15106",
+            "https://access.redhat.com/errata/RHSA-2025:15107",
+            "https://access.redhat.com/errata/RHSA-2025:15709",
+            "https://access.redhat.com/errata/RHSA-2025:15827",
+            "https://access.redhat.com/errata/RHSA-2025:15828",
+            "https://access.redhat.com/errata/RHSA-2025:16524",
+            "https://access.redhat.com/errata/RHSA-2025:17181",
+            "https://access.redhat.com/errata/RHSA-2025:18219",
+            "https://access.redhat.com/errata/RHSA-2025:21885",
+            "https://access.redhat.com/security/cve/CVE-2025-8941",
+            "https://bugzilla.redhat.com/2372512",
+            "https://bugzilla.redhat.com/2388220",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2372512",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2388220",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-6020",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-8941",
+            "https://errata.almalinux.org/9/ALSA-2025-15099.html",
+            "https://errata.rockylinux.org/RLSA-2025:14557",
+            "https://linux.oracle.com/cve/CVE-2025-8941.html",
+            "https://linux.oracle.com/errata/ELSA-2025-15099.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-8941",
+            "https://www.cve.org/CVERecord?id=CVE-2025-8941"
+          ],
+          "PublishedDate": "2025-08-13T15:15:41.873Z",
+          "LastModifiedDate": "2025-11-20T21:16:08.11Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-45582",
+          "PkgID": "tar@1.35+dfsg-3build1",
+          "PkgName": "tar",
+          "PkgIdentifier": {
+            "PURL": "pkg:deb/ubuntu/tar@1.35%2Bdfsg-3build1?arch=amd64\u0026distro=ubuntu-24.04",
+            "UID": "f5d7b0a3814ea711"
+          },
+          "InstalledVersion": "1.35+dfsg-3build1",
+          "Status": "affected",
+          "Layer": {
+            "DiffID": "sha256:f2a7f072635332d307212e318e07284948b89f4167fce5c4d7c9cfb7590b74b6"
+          },
+          "SeveritySource": "ubuntu",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-45582",
+          "DataSource": {
+            "ID": "ubuntu",
+            "Name": "Ubuntu CVE Tracker",
+            "URL": "https://git.launchpad.net/ubuntu-cve-tracker"
+          },
+          "Title": "tar: Tar path traversal",
+          "Description": "GNU Tar through 1.35 allows file overwrite via directory traversal in crafted TAR archives, with a certain two-step process. First, the victim must extract an archive that contains a ../ symlink to a critical directory. Second, the victim must extract an archive that contains a critical file, specified via a relative pathname that begins with the symlink name and ends with that critical file's name. Here, the extraction follows the symlink and overwrites the critical file. This bypasses the protection mechanism of \"Member name contains '..'\" that would occur for a single TAR archive that attempted to specify the critical file via a ../ approach. For example, the first archive can contain \"x -\u003e ../../../../../home/victim/.ssh\" and the second archive can contain x/authorized_keys. This can affect server applications that automatically extract any number of user-supplied TAR archives, and were relying on the blocking of traversal. This can also affect software installation processes in which \"tar xf\" is run more than once (e.g., when installing a package can automatically install two dependencies that are set up as untrusted tarballs instead of official packages). NOTE: the official GNU Tar manual has an otherwise-empty directory for each \"tar xf\" in its Security Rules of Thumb; however, third-party advice leads users to run \"tar xf\" more than once into the same directory.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-24"
+          ],
+          "VendorSeverity": {
+            "alma": 2,
+            "oracle-oval": 2,
+            "redhat": 2,
+            "rocky": 2,
+            "ubuntu": 2
+          },
+          "CVSS": {
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:L",
+              "V3Score": 5.6
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2025/11/01/6",
+            "https://access.redhat.com/errata/RHSA-2026:0067",
+            "https://access.redhat.com/security/cve/CVE-2025-45582",
+            "https://bugzilla.redhat.com/2379592",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2379592",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-45582",
+            "https://errata.almalinux.org/9/ALSA-2026-0067.html",
+            "https://errata.rockylinux.org/RLSA-2026:0002",
+            "https://github.com/i900008/vulndb/blob/main/Gnu_tar_vuln.md",
+            "https://linux.oracle.com/cve/CVE-2025-45582.html",
+            "https://linux.oracle.com/errata/ELSA-2026-0067.html",
+            "https://lists.gnu.org/archive/html/bug-tar/2025-08/msg00012.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-45582",
+            "https://www.cve.org/CVERecord?id=CVE-2025-45582",
+            "https://www.gnu.org/software/tar/",
+            "https://www.gnu.org/software/tar/manual/html_node/Integrity.html",
+            "https://www.gnu.org/software/tar/manual/html_node/Integrity.html#Integrity",
+            "https://www.gnu.org/software/tar/manual/html_node/Security-rules-of-thumb.html"
+          ],
+          "PublishedDate": "2025-07-11T17:15:37.183Z",
+          "LastModifiedDate": "2025-11-02T01:15:32.307Z"
+        }
+      ]
+    },
+    {
+      "Target": "Java",
+      "Class": "lang-pkgs",
+      "Type": "jar",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "GHSA-72hv-8253-57qq",
+          "PkgName": "com.fasterxml.jackson.core:jackson-core",
+          "PkgPath": "opt/kafka/libs/jackson-core-2.19.0.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/com.fasterxml.jackson.core/jackson-core@2.19.0",
+            "UID": "49d4646dffaf773a"
+          },
+          "InstalledVersion": "2.19.0",
+          "FixedVersion": "2.18.6, 2.21.1, 3.1.0",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:3423bf2cf5f60a71800bf2932eeb51d9899a220ed62bbad076ef4deb15b12158"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://github.com/advisories/GHSA-72hv-8253-57qq",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "jackson-core: Number Length Constraint Bypass in Async Parser Leads to Potential DoS Condition",
+          "Description": "### Summary\nThe non-blocking (async) JSON parser in `jackson-core` bypasses the `maxNumberLength` constraint (default: 1000 characters) defined in `StreamReadConstraints`. This allows an attacker to send JSON with arbitrarily long numbers through the async parser API, leading to excessive memory allocation and potential CPU exhaustion, resulting in a Denial of Service (DoS).\n\nThe standard synchronous parser correctly enforces this limit, but the async parser fails to do so, creating an inconsistent enforcement policy.\n\n### Details\nThe root cause is that the async parsing path in `NonBlockingUtf8JsonParserBase` (and related classes) does not call the methods responsible for number length validation.\n\n- The number parsing methods (e.g., `_finishNumberIntegralPart`) accumulate digits into the `TextBuffer` without any length checks.\n- After parsing, they call `_valueComplete()`, which finalizes the token but does **not** call `resetInt()` or `resetFloat()`.\n- The `resetInt()`/`resetFloat()` methods in `ParserBase` are where the `validateIntegerLength()` and `validateFPLength()` checks are performed.\n- Because this validation step is skipped, the `maxNumberLength` constraint is never enforced in the async code path.\n\n### PoC\nThe following JUnit 5 test demonstrates the vulnerability. It shows that the async parser accepts a 5,000-digit number, whereas the limit should be 1,000.\n\n```java\npackage tools.jackson.core.unittest.dos;\n\nimport java.nio.charset.StandardCharsets;\n\nimport org.junit.jupiter.api.Test;\n\nimport tools.jackson.core.*;\nimport tools.jackson.core.exc.StreamConstraintsException;\nimport tools.jackson.core.json.JsonFactory;\nimport tools.jackson.core.json.async.NonBlockingByteArrayJsonParser;\n\nimport static org.junit.jupiter.api.Assertions.*;\n\n/**\n * POC: Number Length Constraint Bypass in Non-Blocking (Async) JSON Parsers\n *\n * Authors: sprabhav7, rohan-repos\n * \n * maxNumberLength default = 1000 characters (digits).\n * A number with more than 1000 digits should be rejected by any parser.\n *\n * BUG: The async parser never calls resetInt()/resetFloat() which is where\n * validateIntegerLength()/validateFPLength() lives. Instead it calls\n * _valueComplete() which skips all number length validation.\n *\n * CWE-770: Allocation of Resources Without Limits or Throttling\n */\nclass AsyncParserNumberLengthBypassTest {\n\n    private static final int MAX_NUMBER_LENGTH = 1000;\n    private static final int TEST_NUMBER_LENGTH = 5000;\n\n    private final JsonFactory factory = new JsonFactory();\n\n    // CONTROL: Sync parser correctly rejects a number exceeding maxNumberLength\n    @Test\n    void syncParserRejectsLongNumber() throws Exception {\n        byte[] payload = buildPayloadWithLongInteger(TEST_NUMBER_LENGTH);\n\t\t\n\t\t// Output to console\n        System.out.println(\"[SYNC] Parsing \" + TEST_NUMBER_LENGTH + \"-digit number (limit: \" + MAX_NUMBER_LENGTH + \")\");\n        try {\n            try (JsonParser p = factory.createParser(ObjectReadContext.empty(), payload)) {\n                while (p.nextToken() != null) {\n                    if (p.currentToken() == JsonToken.VALUE_NUMBER_INT) {\n                        System.out.println(\"[SYNC] Accepted number with \" + p.getText().length() + \" digits — UNEXPECTED\");\n                    }\n                }\n            }\n            fail(\"Sync parser must reject a \" + TEST_NUMBER_LENGTH + \"-digit number\");\n        } catch (StreamConstraintsException e) {\n            System.out.println(\"[SYNC] Rejected with StreamConstraintsException: \" + e.getMessage());\n        }\n    }\n\n    // VULNERABILITY: Async parser accepts the SAME number that sync rejects\n    @Test\n    void asyncParserAcceptsLongNumber() throws Exception {\n        byte[] payload = buildPayloadWithLongInteger(TEST_NUMBER_LENGTH);\n\n        NonBlockingByteArrayJsonParser p =\n            (NonBlockingByteArrayJsonParser) factory.createNonBlockingByteArrayParser(ObjectReadContext.empty());\n        p.feedInput(payload, 0, payload.length);\n        p.endOfInput();\n\n        boolean foundNumber = false;\n        try {\n            while (p.nextToken() != null) {\n                if (p.currentToken() == JsonToken.VALUE_NUMBER_INT) {\n                    foundNumber = true;\n                    String numberText = p.getText();\n                    assertEquals(TEST_NUMBER_LENGTH, numberText.length(),\n                        \"Async parser silently accepted all \" + TEST_NUMBER_LENGTH + \" digits\");\n                }\n            }\n            // Output to console\n            System.out.println(\"[ASYNC INT] Accepted number with \" + TEST_NUMBER_LENGTH + \" digits — BUG CONFIRMED\");\n            assertTrue(foundNumber, \"Parser should have produced a VALUE_NUMBER_INT token\");\n        } catch (StreamConstraintsException e) {\n            fail(\"Bug is fixed — async parser now correctly rejects long numbers: \" + e.getMessage());\n        }\n        p.close();\n    }\n\n    private byte[] buildPayloadWithLongInteger(int numDigits) {\n        StringBuilder sb = new StringBuilder(numDigits + 10);\n        sb.append(\"{\\\"v\\\":\");\n        for (int i = 0; i \u003c numDigits; i++) {\n            sb.append((char) ('1' + (i % 9)));\n        }\n        sb.append('}');\n        return sb.toString().getBytes(StandardCharsets.UTF_8);\n    }\n}\n\n```\n\n\n### Impact\nA malicious actor can send a JSON document with an arbitrarily long number to an application using the async parser (e.g., in a Spring WebFlux or other reactive application). This can cause:\n1.  **Memory Exhaustion:** Unbounded allocation of memory in the `TextBuffer` to store the number's digits, leading to an `OutOfMemoryError`.\n2.  **CPU Exhaustion:** If the application subsequently calls `getBigIntegerValue()` or `getDecimalValue()`, the JVM can be tied up in O(n^2) `BigInteger` parsing operations, leading to a CPU-based DoS.\n\n### Suggested Remediation\n\nThe async parsing path should be updated to respect the `maxNumberLength` constraint. The simplest fix appears to ensure that `_valueComplete()` or a similar method in the async path calls the appropriate validation methods (`resetInt()` or `resetFloat()`) already present in `ParserBase`, mirroring the behavior of the synchronous parsers.\n\n**NOTE:** This research was performed in collaboration with [rohan-repos](https://github.com/rohan-repos)",
+          "Severity": "HIGH",
+          "VendorSeverity": {
+            "ghsa": 3
+          },
+          "CVSS": {
+            "ghsa": {}
+          },
+          "References": [
+            "https://github.com/FasterXML/jackson-core",
+            "https://github.com/FasterXML/jackson-core/commit/a004e9789c2cc6b41b379d02d229d58474d9a738",
+            "https://github.com/FasterXML/jackson-core/issues/1538",
+            "https://github.com/FasterXML/jackson-core/security/advisories/GHSA-72hv-8253-57qq"
+          ],
+          "PublishedDate": "2026-02-28T02:01:05Z",
+          "LastModifiedDate": "2026-02-28T02:01:06Z"
+        },
+        {
+          "VulnerabilityID": "CVE-2025-68161",
+          "PkgName": "org.apache.logging.log4j:log4j-core",
+          "PkgPath": "opt/kafka/libs/log4j-core-2.24.3.jar",
+          "PkgIdentifier": {
+            "PURL": "pkg:maven/org.apache.logging.log4j/log4j-core@2.24.3",
+            "UID": "cf0818ab367ce90a"
+          },
+          "InstalledVersion": "2.24.3",
+          "FixedVersion": "2.25.3",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:3423bf2cf5f60a71800bf2932eeb51d9899a220ed62bbad076ef4deb15b12158"
+          },
+          "SeveritySource": "ghsa",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-68161",
+          "DataSource": {
+            "ID": "ghsa",
+            "Name": "GitHub Security Advisory Maven",
+            "URL": "https://github.com/advisories?query=type%3Areviewed+ecosystem%3Amaven"
+          },
+          "Title": "Apache Log4j: Apache Log4j Core: Information disclosure via missing TLS hostname verification",
+          "Description": "The Socket Appender in Apache Log4j Core versions 2.0-beta9 through 2.25.2 does not perform TLS hostname verification of the peer certificate, even when the  verifyHostName https://logging.apache.org/log4j/2.x/manual/appenders/network.html#SslConfiguration-attr-verifyHostName  configuration attribute or the  log4j2.sslVerifyHostName https://logging.apache.org/log4j/2.x/manual/systemproperties.html#log4j2.sslVerifyHostName  system property is set to true.\n\nThis issue may allow a man-in-the-middle attacker to intercept or redirect log traffic under the following conditions:\n\n  *  The attacker is able to intercept or redirect network traffic between the client and the log receiver.\n  *  The attacker can present a server certificate issued by a certification authority trusted by the Socket Appender’s configured trust store (or by the default Java trust store if no custom trust store is configured).\n\n\nUsers are advised to upgrade to Apache Log4j Core version 2.25.3, which addresses this issue.\n\nAs an alternative mitigation, the Socket Appender may be configured to use a private or restricted trust root to limit the set of trusted certificates.",
+          "Severity": "MEDIUM",
+          "CweIDs": [
+            "CWE-297",
+            "CWE-295"
+          ],
+          "VendorSeverity": {
+            "amazon": 2,
+            "ghsa": 2,
+            "nvd": 2,
+            "redhat": 2
+          },
+          "CVSS": {
+            "ghsa": {},
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+              "V3Score": 4.8
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+              "V3Score": 5.9
+            }
+          },
+          "References": [
+            "http://www.openwall.com/lists/oss-security/2025/12/18/1",
+            "https://access.redhat.com/security/cve/CVE-2025-68161",
+            "https://github.com/apache/logging-log4j2",
+            "https://github.com/apache/logging-log4j2/commit/3b93748497e1adbbd027fda8a5e7268ec5d0d578",
+            "https://github.com/apache/logging-log4j2/pull/4002",
+            "https://lists.apache.org/thread/xr33kyxq3sl67lwb61ggvm1fzc8k7dvx",
+            "https://lists.debian.org/debian-lts-announce/2026/01/msg00015.html",
+            "https://logging.apache.org/cyclonedx/vdr.xml",
+            "https://logging.apache.org/log4j/2.x/manual/appenders/network.html#SslConfiguration-attr-verifyHostName",
+            "https://logging.apache.org/log4j/2.x/manual/systemproperties.html#log4j2.sslVerifyHostName",
+            "https://logging.apache.org/security.html#CVE-2025-68161",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-68161",
+            "https://www.cve.org/CVERecord?id=CVE-2025-68161"
+          ],
+          "PublishedDate": "2025-12-18T21:15:57.96Z",
+          "LastModifiedDate": "2026-01-20T01:15:55.067Z"
+        }
+      ]
+    },
+    {
+      "Target": "usr/bin/pebble",
+      "Class": "lang-pkgs",
+      "Type": "gobinary",
+      "Vulnerabilities": [
+        {
+          "VulnerabilityID": "CVE-2025-68121",
+          "PkgName": "stdlib",
+          "PkgIdentifier": {
+            "PURL": "pkg:golang/stdlib@1.24.12",
+            "UID": "f8a08fed796df87e"
+          },
+          "InstalledVersion": "1.24.12",
+          "FixedVersion": "1.24.13, 1.25.7, 1.26.0-rc.3",
+          "Status": "fixed",
+          "Layer": {
+            "DiffID": "sha256:3423bf2cf5f60a71800bf2932eeb51d9899a220ed62bbad076ef4deb15b12158"
+          },
+          "SeveritySource": "nvd",
+          "PrimaryURL": "https://avd.aquasec.com/nvd/cve-2025-68121",
+          "DataSource": {
+            "ID": "govulndb",
+            "Name": "The Go Vulnerability Database",
+            "URL": "https://pkg.go.dev/vuln/"
+          },
+          "Title": "crypto/tls: Unexpected session resumption in crypto/tls",
+          "Description": "During session resumption in crypto/tls, if the underlying Config has its ClientCAs or RootCAs fields mutated between the initial handshake and the resumed handshake, the resumed handshake may succeed when it should have failed. This may happen when a user calls Config.Clone and mutates the returned Config, or uses Config.GetConfigForClient. This can cause a client to resume a session with a server that it would not have resumed with during the initial handshake, or cause a server to resume a session with a client that it would not have resumed with during the initial handshake.",
+          "Severity": "CRITICAL",
+          "CweIDs": [
+            "CWE-295"
+          ],
+          "VendorSeverity": {
+            "alma": 3,
+            "amazon": 3,
+            "bitnami": 4,
+            "nvd": 4,
+            "oracle-oval": 3,
+            "photon": 4,
+            "redhat": 2,
+            "rocky": 3
+          },
+          "CVSS": {
+            "bitnami": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+              "V3Score": 10
+            },
+            "nvd": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+              "V3Score": 10
+            },
+            "redhat": {
+              "V3Vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:N",
+              "V3Score": 7.4
+            }
+          },
+          "References": [
+            "https://access.redhat.com/errata/RHSA-2026:3337",
+            "https://access.redhat.com/security/cve/CVE-2025-68121",
+            "https://bugzilla.redhat.com/2418462",
+            "https://bugzilla.redhat.com/2434431",
+            "https://bugzilla.redhat.com/2434432",
+            "https://bugzilla.redhat.com/2437111",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2434431",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2434432",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2437016",
+            "https://bugzilla.redhat.com/show_bug.cgi?id=2437111",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-61726",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-61728",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-61732",
+            "https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-68121",
+            "https://errata.almalinux.org/9/ALSA-2026-3337.html",
+            "https://errata.rockylinux.org/RLSA-2026:2708",
+            "https://go.dev/cl/737700",
+            "https://go.dev/issue/77217",
+            "https://groups.google.com/g/golang-announce/c/K09ubi9FQFk",
+            "https://linux.oracle.com/cve/CVE-2025-68121.html",
+            "https://linux.oracle.com/errata/ELSA-2026-3343.html",
+            "https://nvd.nist.gov/vuln/detail/CVE-2025-68121",
+            "https://pkg.go.dev/vuln/GO-2026-4337",
+            "https://www.cve.org/CVERecord?id=CVE-2025-68121"
+          ],
+          "PublishedDate": "2026-02-05T18:16:10.857Z",
+          "LastModifiedDate": "2026-02-20T17:25:50.303Z"
+        }
+      ]
+    }
+  ]
+}
