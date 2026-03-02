@@ -71,8 +71,7 @@ def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
             continue
 
     raise RuntimeError(
-        "Snap version resolution failed after evaluating "
-        f"{len(spec.code_path)} alternatives."
+        f"Snap version resolution failed after evaluating {len(spec.code_path)} alternatives."
     )
 
 

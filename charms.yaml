@@ -1,3 +1,22 @@
+# Charms defintion file. 
+
+# cmd:       command to determine workload version, which is run either 
+#            on the sandbox with the snap installed on it, or on the
+#            running container.
+#
+# regex:     If the output of `cmd` needs to be parsed, a regex in which
+#            the version is captured by the first match group.
+#
+# code_path: list of places in the charm code to look for definition of snap
+#            revision. "default" is the value to use for the charms which
+#            use refresh v3 charmlib.
+#            - example: "constants::SNAP_REV" refers to SNAP_REV variable
+#                       defined in the constants module 
+#
+# yaml_path: yq-style path to image URL in metadata.yaml or charmcraft.yaml
+#            only reuired for Kks charms.
+#
+
 machine:
 - name: kafka
   repo: https://github.com/canonical/kafka-operator
@@ -44,10 +63,6 @@ machine:
 
 
 k8s:
-# cmd: command to determine workload version, which is run on the container
-# regex: If the output of `cmd` needs to be parsed, a regex in which
-#        the version is captured by the first match group.
-# yaml_path: yq-style path to image URL in metadata.yaml or charmcraft.yaml
 - name: kafka-k8s
   cmd: /opt/kafka/bin/kafka-topics.sh --version
   yaml_path: .resources."kafka-image"."upstream-source"
