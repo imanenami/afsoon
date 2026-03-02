@@ -5,6 +5,7 @@ import logging
 import os
 import re
 import tempfile
+from subprocess import CalledProcessError
 
 import yaml
 
@@ -16,7 +17,6 @@ logger = logging.getLogger(__name__)
 
 
 KNOWN = load_known_versions()
-print(KNOWN)
 
 
 def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
@@ -36,7 +36,9 @@ def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
     else:
         envs = glob.glob(f"{charm_dir}/**/site-packages", recursive=True)
 
-    assert len(envs) == 1, "Error detecting the charm venv!"
+    if len(envs) != 1:
+        raise RuntimeError("Error detecting the charm venv!")
+
     site_packages = envs[0]
     logger.info(f"will use {site_packages}")
 
@@ -53,11 +55,16 @@ def resolve_rev(spec: CharmSpec, charm_dir: str | None = None) -> int:
         pkg, var = address.split("::")
         pycmd = f"from {pkg} import {var}; print({var});"
 
-    rev = exec(
-        f"python3 -c '{pycmd}'",
-        cwd=charm_dir,
-        env={"PYTHONPATH": f"{site_packages}/:src/:lib/"},
-    ).strip()
+    try:
+        rev = exec(
+            f"python3 -c '{pycmd}'",
+            cwd=charm_dir,
+            env={"PYTHONPATH": f"{site_packages}/:src/:lib/"},
+        ).strip()
+    except CalledProcessError as e:
+        logger.error(e)
+        raise RuntimeError("Snap version detection failed!")
+
     return int(rev)
 
 
@@ -110,7 +117,7 @@ def resolve_machine_charm_all(spec: CharmSpec) -> list[Versions]:
         charm_dir = charm.unpack(_charm, rev)
         try:
             rev_to_snap[rev] = resolve_rev(spec, charm_dir)
-        except AssertionError:
+        except RuntimeError:
             rev_to_snap[rev] = "unknown"
 
     snap_revs = set(rev_to_snap.values())
