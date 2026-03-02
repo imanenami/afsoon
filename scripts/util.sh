@@ -2,7 +2,7 @@
 
 
 
-# Shows a spinner while another command is running. Randomly picks one of 12 spinner styles.
+# Shows a spinner while another command is running.
 # @args command to run (with any parameters) while showing a spinner. 
 #       E.g. ‹spinner sleep 10›
 # credits: https://unix.stackexchange.com/questions/225179/display-spinner-while-waiting-for-some-process-to-finish
