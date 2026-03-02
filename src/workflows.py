@@ -141,6 +141,7 @@ def gather_releases(settings: WorkflowSettings) -> None:
     # format results for a nice HTML/JS rendering:
     # final = {charm: {rel: {vm: ,k8s: } } }
     final = {}
+    _known_versions = ""
     for spec, vers in res:
         subs = spec.substrate.replace("machine", "vm")
         canonical_name = spec.name.replace("-k8s", "")
@@ -151,10 +152,14 @@ def gather_releases(settings: WorkflowSettings) -> None:
             ver_txt = ver.workload + snap_ver
             final[canonical_name][ver.charm][subs] = ver_txt
             # print known version format
-            if subs == "machine":
-                print(f"snap,{spec.snap},{ver.snap},{ver.workload}")
+            if spec.substrate == "machine":
+                _known_versions += f"snap,{spec.snap},{ver.snap},{ver.workload}\n"
             else:
-                print(f"rock,{spec.name},xyz,{ver.image}.{ver.workload}")
+                _known_versions += f"rock,{spec.name},{ver.image},{ver.workload}\n"
+
+    print("###\n\n")
+    print(_known_versions)
+    print("###\n\n")
 
     formatted = {}
     for charm, data in final.items():
