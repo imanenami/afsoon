@@ -30,6 +30,8 @@ def _resolve_code_path(code_path: str, charm_dir: str, venv: str = "") -> str:
     else:
         address = f"{code_path}"
         pkg, var = address.split("::")
+        # convert single quotes to double quotes
+        var = var.replace("'", '"')
         pycmd = f"import {pkg}; print({pkg}.{var});"
 
     try:
