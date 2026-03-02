@@ -89,4 +89,10 @@ k8s:
   cmd: /opt/zookeeper/bin/zkServer.sh version
   repo: https://github.com/canonical/zookeeper-k8s-operator
   healthy: false
+- name: postgresql-k8s
+  repo: https://github.com/canonical/postgresql-k8s-operator
+  yaml_path: .resources."postgresql-image"."upstream-source"
+  cmd: psql --version
+  regex: "[0-9]+.[0-9]+"
+  healthy: false
 
