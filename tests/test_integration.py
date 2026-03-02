@@ -31,7 +31,7 @@ def test_machine_charm_workload_resolution(with_sandbox):
         name="kafka",
         repo="https://github.com/canonical/kafka-operator",
         snap="charmed-kafka",
-        code_path="literals::CHARMED_KAFKA_SNAP_REVISION",
+        code_path=["literals::CHARMED_KAFKA_SNAP_REVISION"],
         cmd="charmed-kafka.topics --version",
     )
     test_rev = 248
@@ -53,5 +53,6 @@ def test_k8s_charm_workload_resolution(with_sandbox):
     )
     test_rev = 82
 
-    version = rock.resolve_k8s_charm_single(test_spec, test_rev)
+    image, version = rock.resolve_k8s_charm_single(test_spec, test_rev)
+    assert image
     assert version == "3.9.0-ubuntu1"
