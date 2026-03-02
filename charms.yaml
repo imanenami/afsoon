@@ -14,7 +14,7 @@
 #                       defined in the constants module 
 #
 # yaml_path: yq-style path to image URL in metadata.yaml or charmcraft.yaml
-#            only reuired for Kks charms.
+#            only reuired for k8s charms.
 #
 
 machine:
