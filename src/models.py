@@ -58,3 +58,5 @@ class WorkflowSettings:
 
     charms: dict[str, CharmSpec]
     rocks: list[str]
+    dry_run: bool = False
+    output_dir: str = "."

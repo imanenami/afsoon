@@ -6,6 +6,7 @@ import logging
 import os
 import secrets
 import subprocess
+from typing import Any
 
 from models import Artifact
 
@@ -44,6 +45,13 @@ def exec(
     except subprocess.CalledProcessError as e:
         print(e.stderr, e.stdout)
         raise
+
+
+def write(path: str, content: str | list[Any], mode: str = "w") -> None:
+    """Write `content` to `path`."""
+    c = content if isinstance(content, str) else "\n".join(content)
+    with open(path, mode) as f:
+        f.write(c + "\n")
 
 
 def clone_repo(repo: str, path="") -> str:
