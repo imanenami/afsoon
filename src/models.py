@@ -2,20 +2,61 @@
 
 from collections import namedtuple
 from dataclasses import dataclass, field
-from typing import Literal
+from functools import cached_property
+from typing import Any, Literal
 
 Artifact = namedtuple("Artifact", "type name rev")
 Versions = namedtuple("Versions", "charm snap image workload")
 VersionMap = dict[str, int | str]
 
 
+@dataclass(frozen=True)
+class Repo:
+    """Git repo repr. model."""
+
+    url: str
+    branch: str = "main"
+    owner: str = "canonical"
+    group: str = "kafka"
+    workflows: frozenset[str] = frozenset([])
+
+    @cached_property
+    def short_name(self) -> str:
+        """GitHub repo name after removing the base URL and owner."""
+        return self.url.rstrip("/").split("/")[-1]
+
+    @cached_property
+    def name(self) -> str:
+        """A name to represent the repo/branch combination, e.g. kafka--3-edge."""
+        _branch = self.branch.replace("/", "-")
+        return f"{self.short_name}--{_branch}"
+
+    @classmethod
+    def from_dict(cls, dict_: dict, branch: str) -> "Repo":
+        """Create Repo from a given dict & branch."""
+        return cls(
+            url=dict_["repo"],
+            group=dict_["group"],
+            branch=branch,
+            workflows=frozenset(dict_.get("workflows", [])),
+        )
+
+    def __str__(self) -> str:
+        """Display name of a Repo."""
+        _postfix = "" if self.branch == "main" else f" [{self.branch}]"
+        return f"{self.short_name.replace('-operator', '')}{_postfix}"
+
+
 @dataclass
 class CharmSpec:
     """Charm specification data model."""
 
+    ref: Repo
     substrate: Literal["machine", "k8s"]
+    group: str
     name: str
     repo: str
+    branch: str
     cmd: str
     yaml_path: str | None = None
     code_path: list[str] = field(default_factory=list)
@@ -35,10 +76,9 @@ class CharmSpec:
         else:
             raise ValueError(f"Unsupported substrate: {self.substrate}")
 
-    @property
-    def is_healthy(self):
-        """Is the CI healthy?"""
-        return self.healthy == "true"
+    def __str__(self) -> str:
+        """Unique string repr. of the charm specification."""
+        return f"{self.name} [{self.branch}]"
 
 
 @dataclass
@@ -57,4 +97,5 @@ class WorkflowSettings:
     """Workflow settings data model."""
 
     charms: dict[str, CharmSpec]
-    rocks: list[str]
+    repos: list[Repo]
+    params: dict[str, Any]

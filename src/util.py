@@ -1,13 +1,18 @@
 """Utility and helper functions."""
 
 import csv
+import datetime
 import json
 import logging
 import os
 import secrets
 import subprocess
+from collections.abc import Iterable
+from dataclasses import replace
 
-from models import Artifact
+import tenacity
+
+from models import Artifact, CharmSpec, Repo
 
 logger = logging.getLogger(__name__)
 
@@ -27,6 +32,13 @@ SANDBOX_EXEC = f"lxc exec {SANDBOX_INST} --"
 logger = logging.getLogger(__name__)
 
 
+@tenacity.retry(
+    after=tenacity.after_log(logger, logging.INFO),
+    reraise=True,
+    retry=tenacity.retry_if_exception_type(subprocess.TimeoutExpired),
+    stop=tenacity.stop_after_attempt(5),
+    wait=tenacity.wait_random(3, 10),
+)
 def exec(
     cmd: str, cwd: str | None = None, env: dict | None = None, timeout: float | None = None
 ) -> str:
@@ -54,6 +66,19 @@ def clone_repo(repo: str, path="") -> str:
     logger.info("Cloning repo...")
     os.system(f"git clone {repo} {clone_path}")
     return clone_path
+
+
+def keep_main_only(in_: Iterable[CharmSpec | Repo]) -> list[CharmSpec | Repo]:
+    """Return a list of data classes (Repo or CharmSpec) keeping only the main branch."""
+    out = []
+    seen: set[str] = set()
+    for item in in_:
+        copy = replace(item, branch="main")
+        if str(copy) in seen:
+            continue
+        seen.add(str(copy))
+        out.append(copy)
+    return out
 
 
 def lxc_list() -> list[str]:
@@ -101,3 +126,10 @@ def load_known_versions(file: str = ".known-versions") -> dict[Artifact, str]:
             state[artifact] = row["version"]
 
     return state
+
+
+def dtdiff(dt_str: str) -> int:
+    """Return no. of days difference between a given datetime string repr. and today."""
+    return int(
+        (datetime.datetime.now(tz=datetime.UTC) - datetime.datetime.fromisoformat(dt_str)).days
+    )
