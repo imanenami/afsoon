@@ -19,7 +19,10 @@ logger = logging.getLogger(__name__)
 def open_issues(settings: WorkflowSettings):
     """Get open PRs or Issues.
 
-    Accepted params are: out (required, output file path), type ("pr" or "issue"), group
+    Accepted workflow params are:
+        out (required): output file path,
+        type: "pr" or "issue",
+        group: charm engineering group.
     """
     outfile = settings.params.get("out")
     if not outfile:

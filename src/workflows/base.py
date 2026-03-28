@@ -32,7 +32,8 @@ def prettyprint() -> None:
     for func, aliases in alias_map.items():
         aliases.sort()
         quoted = [f'"{alias}"' for alias in aliases]
-        print(f"  - {', '.join(quoted)}:", func.__doc__)
+        doc_lines = [line.strip() for line in func.__doc__.split("\n") if line.strip()]
+        print(f"  - {', '.join(quoted)}:", " ".join(doc_lines))
 
 
 # push_to_remote = partial(
@@ -58,7 +59,7 @@ def register(aliases: Iterable[str] = []):
     """Register a workflow with given aliases."""
 
     def decorator(f: Callable[[WorkflowSettings], None]):
-        global WORKFLOWS
+        global _WORKFLOWS
         nonlocal aliases
         _aliases = [f.__qualname__, f.__qualname__.replace("_", "-"), *aliases]
         for alias in _aliases:
