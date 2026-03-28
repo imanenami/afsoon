@@ -1,3 +1,6 @@
+#############################
+#          Kafka            #
+#############################
 - group: kafka
   name: kafka
   repo: https://github.com/canonical/kafka-operator
@@ -70,31 +73,6 @@
     code_path:
     - workload::SNAP_REVISION
     cmd: unknown
-- group: postgresql
-  name: postgresql
-  repo: https://github.com/canonical/postgresql-operator
-  branch: [ "main", "16/edge" ]
-  workflows: [ heatmap, releases ]
-  charm:
-    substrate: machine
-    snap: charmed-postgresql
-    code_path:
-    - default
-    - constants::SNAP_PACKAGES[0][1]['revision']['x86_64']
-    cmd: charmed-postgresql.psql --version
-    regex: '[0-9]+.[0-9]+'
-- group: postgresql
-  name: pgbouncer
-  repo: https://github.com/canonical/pgbouncer-operator
-  branch: [ "main" ]
-  workflows: [ heatmap, releases ]
-  charm:
-    substrate: machine
-    snap: charmed-pgbouncer
-    code_path:
-    - constants::SNAP_PACKAGES[0][1]['revision']['x86_64']
-    cmd: charmed-pgbouncer.pgbouncer --version
-    regex: '[0-9]+.[0-9]+.[0-9]+'
 - group: kafka
   name: kafka-k8s
   repo: https://github.com/canonical/kafka-k8s-operator
@@ -145,26 +123,6 @@
     yaml_path: .resources."zookeeper-image"."upstream-source"
     regex: version ([^\s]+)
     cmd: /opt/zookeeper/bin/zkServer.sh version
-- group: postgresql
-  name: postgresql-k8s
-  repo: https://github.com/canonical/postgresql-k8s-operator
-  branch: [ "main", "16/edge" ]
-  workflows: [ heatmap, releases ]
-  charm:
-    substrate: k8s
-    yaml_path: .resources."postgresql-image"."upstream-source"
-    cmd: psql --version
-    regex: '[0-9]+.[0-9]+'
-- group: postgresql
-  name: pgbouncer-k8s
-  repo: https://github.com/canonical/pgbouncer-k8s-operator
-  branch: [ "main" ]
-  workflows: [ heatmap, releases ]
-  charm:
-    substrate: k8s
-    yaml_path: .resources."pgbouncer-image"."upstream-source"
-    cmd: pgbouncer --version
-    regex: '[0-9]+.[0-9]+.[0-9]+'
 - group: kafka
   name: kafka-rock
   repo: https://github.com/canonical/kafka-rock
@@ -233,6 +191,54 @@
   name: kafka-broker-rack-awareness-operator
   repo: https://github.com/canonical/kafka-broker-rack-awareness-operator
   branch: [ main ]
+#############################
+#        PostgreSQL         #
+#############################
+- group: postgresql
+  name: postgresql
+  repo: https://github.com/canonical/postgresql-operator
+  branch: [ "main", "16/edge" ]
+  workflows: [ heatmap, releases ]
+  charm:
+    substrate: machine
+    snap: charmed-postgresql
+    code_path:
+    - default
+    - constants::SNAP_PACKAGES[0][1]['revision']['x86_64']
+    cmd: charmed-postgresql.psql --version
+    regex: '[0-9]+.[0-9]+'
+- group: postgresql
+  name: pgbouncer
+  repo: https://github.com/canonical/pgbouncer-operator
+  branch: [ "main" ]
+  workflows: [ heatmap, releases ]
+  charm:
+    substrate: machine
+    snap: charmed-pgbouncer
+    code_path:
+    - constants::SNAP_PACKAGES[0][1]['revision']['x86_64']
+    cmd: charmed-pgbouncer.pgbouncer --version
+    regex: '[0-9]+.[0-9]+.[0-9]+'
+- group: postgresql
+  name: postgresql-k8s
+  repo: https://github.com/canonical/postgresql-k8s-operator
+  branch: [ "main", "16/edge" ]
+  workflows: [ heatmap, releases ]
+  charm:
+    substrate: k8s
+    yaml_path: .resources."postgresql-image"."upstream-source"
+    cmd: psql --version
+    regex: '[0-9]+.[0-9]+'
+- group: postgresql
+  name: pgbouncer-k8s
+  repo: https://github.com/canonical/pgbouncer-k8s-operator
+  branch: [ "main" ]
+  workflows: [ heatmap, releases ]
+  charm:
+    substrate: k8s
+    yaml_path: .resources."pgbouncer-image"."upstream-source"
+    cmd: pgbouncer --version
+    regex: '[0-9]+.[0-9]+.[0-9]+'
 - group: postgresql
   name: postgresql-rock
   repo: https://github.com/canonical/postgresql-rock
