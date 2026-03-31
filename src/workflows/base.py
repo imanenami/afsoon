@@ -4,8 +4,9 @@ import logging
 import os
 from collections import defaultdict
 from collections.abc import Callable, Iterable
-from functools import wraps
+from functools import partial, wraps
 
+import github
 from models import Repo, WorkflowSettings
 
 logger = logging.getLogger(__name__)
@@ -36,15 +37,15 @@ def prettyprint() -> None:
         print(f"  - {', '.join(quoted)}:", " ".join(doc_lines))
 
 
-# push_to_remote = partial(
-#     github.push_changes,
-#     Repo("kafka-ci", owner="imanenami"),
-#     gh_user="iminions",
-#     gh_email="iman@datapy.co",
-# )
+push_to_remote = partial(
+    github.push_changes,
+    Repo("kafka-ci", owner="imanenami"),
+    gh_user="iminions",
+    gh_email="iman@datapy.co",
+)
 
 
-def push_to_remote(add: dict[str, str] = {}):
+def _push_to_remote(add: dict[str, str] = {}):
     """Dev. implementation of push_to_kafka_ci."""
     for k, v in add.items():
         os.system(f"cp {k} /var/www/html/kafka-ci/{v}")
