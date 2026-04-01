@@ -193,8 +193,13 @@ def collect_scheduled_ci_stats(repos: Iterable[Repo], last_n_days: int = 20) -> 
             conclusion = wf_run["conclusion"]
             url = wf_run["html_url"]
             day = datetime.datetime.fromisoformat(wf_run["created_at"]).date()
+            if day < (datetime.date.today() - datetime.timedelta(days=30)):
+                continue
             val = 100 if conclusion == "success" else 0
             series["data"].append({"x": str(day), "y": val, "url": url})
+
+        if not series["data"]:
+            continue
 
         data.append(series)
         logger.info(f"{repo} -- {series},")
