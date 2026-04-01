@@ -1,0 +1,262 @@
+#############################
+#          Kafka            #
+#############################
+- group: kafka
+  name: kafka
+  repo: https://github.com/canonical/kafka-operator
+  branch: [ "main", "3/edge" ]
+  workflows: [ poke, heatmap, releases ]
+  charm:
+    substrate: machine
+    snap: charmed-kafka
+    code_path:
+    - literals::CHARMED_KAFKA_SNAP_REVISION
+    cmd: charmed-kafka.topics --version
+    regex: null
+- group: kafka
+  name: kafka-connect
+  repo: https://github.com/canonical/kafka-connect-operator
+  branch: [ main ]
+  workflows: [ poke, heatmap, releases ]
+  charm:
+    substrate: machine
+    snap: charmed-kafka
+    code_path:
+    - literals::CHARMED_KAFKA_SNAP_REVISION
+    cmd: charmed-kafka.topics --version
+    regex: null
+- group: kafka
+  name: karapace
+  repo: https://github.com/canonical/karapace-operator
+  branch: [ main ]
+  workflows: [ poke, heatmap, releases ]
+  charm:
+    substrate: machine
+    snap: charmed-karapace
+    code_path:
+    - literals::CHARMED_KARAPACE_SNAP_REVISION
+    cmd: /snap/charmed-karapace/current/bin/python3 -c 'from karapace import version;
+      print(version.version)'
+    regex: null
+- group: kafka
+  name: zookeeper
+  repo: https://github.com/canonical/zookeeper-operator
+  branch: [ main ]
+  workflows: [ poke, heatmap, releases ]
+  charm:
+    substrate: machine
+    snap: charmed-zookeeper
+    code_path:
+    - literals::CHARMED_ZOOKEEPER_SNAP_REVISION
+    regex: version ([^\s]+)
+    cmd: /snap/zookeeper/current/bin/zkServer.sh version
+- group: kafka
+  name: kafka-ui
+  repo: https://github.com/canonical/kafka-ui-operator
+  branch: [ main ]
+  workflows: [ poke, heatmap, releases ]
+  charm:
+    substrate: machine
+    snap: charmed-kafka-ui
+    code_path:
+    - literals::SNAP_REVISION
+    cmd: ls -1 /snap/charmed-kafka-ui/current/opt/kafka-ui/libs
+    regex: api-([0-9]+\.[0-9]+\.[0-9]+)\.jar
+- group: kafka
+  name: cassandra
+  repo: https://github.com/canonical/cassandra-operator
+  branch: [ main ]
+  workflows: [ poke, heatmap, releases ]
+  charm:
+    substrate: machine
+    snap: charmed-cassandra
+    code_path:
+    - workload::SNAP_REVISION
+    cmd: unknown
+- group: kafka
+  name: kafka-k8s
+  repo: https://github.com/canonical/kafka-k8s-operator
+  branch: [ "main", "3/edge" ]
+  workflows: [ poke, heatmap, releases ]
+  charm:
+    substrate: k8s
+    cmd: /opt/kafka/bin/kafka-topics.sh --version
+    yaml_path: .resources."kafka-image"."upstream-source"
+    regex: null
+- group: kafka
+  name: kafka-connect-k8s
+  repo: https://github.com/canonical/kafka-connect-k8s-operator
+  branch: [ main ]
+  workflows: [ poke, heatmap, releases ]
+  charm:
+    substrate: k8s
+    cmd: /opt/kafka/bin/kafka-topics.sh --version
+    yaml_path: .resources."kafka-image"."upstream-source"
+    regex: null
+- group: kafka
+  name: kafka-ui-k8s
+  repo: https://github.com/canonical/kafka-ui-k8s-operator
+  branch: [ main ]
+  workflows: [ poke, heatmap, releases ]
+  charm:
+    substrate: k8s
+    cmd: ls -1 /opt/kafka-ui/libs/
+    yaml_path: .resources."kafka-ui-image"."upstream-source"
+    regex: api-([0-9]+\.[0-9]+\.[0-9]+)\.jar
+- group: kafka
+  name: karapace-k8s
+  repo: https://github.com/canonical/karapace-k8s-operator
+  branch: [ main ]
+  workflows: [ poke, heatmap, releases ]
+  charm:
+    substrate: k8s
+    cmd: python3 -c 'from karapace import version; print(version.version)'
+    yaml_path: .resources."karapace-image"."upstream-source"
+    regex: null
+- group: kafka
+  name: zookeeper-k8s
+  repo: https://github.com/canonical/zookeeper-k8s-operator
+  branch: [ main ]
+  workflows: [ heatmap, releases ]
+  charm:
+    substrate: k8s
+    yaml_path: .resources."zookeeper-image"."upstream-source"
+    regex: version ([^\s]+)
+    cmd: /opt/zookeeper/bin/zkServer.sh version
+- group: kafka
+  name: kafka-rock
+  repo: https://github.com/canonical/kafka-rock
+  branch:
+  - 3-22.04
+  - 4-24.04
+  workflows: [ scan ]
+- group: kafka
+  name: kafka-rock
+  repo: https://github.com/canonical/zookeeper-rock
+  branch: [ 3-22.04 ]
+  workflows: [ scan ]
+- group: kafka
+  name: charmed-cassandra-snap
+  repo: https://github.com/canonical/charmed-cassandra-snap
+  branch: [ main ]
+- group: kafka
+  name: charmed-kafka-rock
+  repo: https://github.com/canonical/charmed-kafka-rock
+  branch: [ main ]
+- group: kafka
+  name: charmed-kafka-snap
+  repo: https://github.com/canonical/charmed-kafka-snap
+  branch: [ main ]
+- group: kafka
+  name: charmed-kafka-ui-rock
+  repo: https://github.com/canonical/charmed-kafka-ui-rock
+  branch: [ main ]
+- group: kafka
+  name: charmed-kafka-ui-snap
+  repo: https://github.com/canonical/charmed-kafka-ui-snap
+  branch: [ main ]
+- group: kafka
+  name: charmed-karapace-rock
+  repo: https://github.com/canonical/charmed-karapace-rock
+  branch: [ main ]
+- group: kafka
+  name: charmed-karapace-snap
+  repo: https://github.com/canonical/charmed-karapace-snap
+  branch: [ main ]
+- group: kafka
+  name: charmed-zookeeper-rock
+  repo: https://github.com/canonical/charmed-zookeeper-rock
+  branch: [ main ]
+- group: kafka
+  name: charmed-zookeeper-snap
+  repo: https://github.com/canonical/charmed-zookeeper-snap
+  branch: [ main ]
+- group: kafka
+  name: kafka-bundle
+  repo: https://github.com/canonical/kafka-bundle
+  branch: [ main ]
+- group: kafka
+  name: kafka-k8s-bundle
+  repo: https://github.com/canonical/kafka-k8s-bundle
+  branch: [ main ]
+- group: kafka
+  name: template-connect-integrator
+  repo: https://github.com/canonical/template-connect-integrator
+  branch: [ main ]
+- group: kafka
+  name: kafka-test-app
+  repo: https://github.com/canonical/kafka-test-app
+  branch: [ main ]
+- group: kafka
+  name: kafka-broker-rack-awareness-operator
+  repo: https://github.com/canonical/kafka-broker-rack-awareness-operator
+  branch: [ main ]
+#############################
+#        PostgreSQL         #
+#############################
+- group: postgresql
+  name: postgresql
+  repo: https://github.com/canonical/postgresql-operator
+  branch: [ "main", "16/edge" ]
+  workflows: [ heatmap, releases ]
+  charm:
+    substrate: machine
+    snap: charmed-postgresql
+    code_path:
+    - default
+    - constants::SNAP_PACKAGES[0][1]['revision']['x86_64']
+    cmd: charmed-postgresql.psql --version
+    regex: '[0-9]+.[0-9]+'
+- group: postgresql
+  name: pgbouncer
+  repo: https://github.com/canonical/pgbouncer-operator
+  branch: [ "main" ]
+  workflows: [ heatmap, releases ]
+  charm:
+    substrate: machine
+    snap: charmed-pgbouncer
+    code_path:
+    - constants::SNAP_PACKAGES[0][1]['revision']['x86_64']
+    cmd: charmed-pgbouncer.pgbouncer --version
+    regex: '[0-9]+.[0-9]+.[0-9]+'
+- group: postgresql
+  name: postgresql-k8s
+  repo: https://github.com/canonical/postgresql-k8s-operator
+  branch: [ "main", "16/edge" ]
+  workflows: [ heatmap, releases ]
+  charm:
+    substrate: k8s
+    yaml_path: .resources."postgresql-image"."upstream-source"
+    cmd: psql --version
+    regex: '[0-9]+.[0-9]+'
+- group: postgresql
+  name: pgbouncer-k8s
+  repo: https://github.com/canonical/pgbouncer-k8s-operator
+  branch: [ "main" ]
+  workflows: [ heatmap, releases ]
+  charm:
+    substrate: k8s
+    yaml_path: .resources."pgbouncer-image"."upstream-source"
+    cmd: pgbouncer --version
+    regex: '[0-9]+.[0-9]+.[0-9]+'
+- group: postgresql
+  name: postgresql-rock
+  repo: https://github.com/canonical/postgresql-rock
+  branch: [ 16-24.04 ]
+  workflows: [ scan ]
+- group: postgresql
+  name: charmed-postgresql-snap
+  repo: https://github.com/canonical/charmed-postgresql-snap
+  branch: [ main ]
+- group: postgresql
+  name: charmed-postgresql-rock
+  repo: https://github.com/canonical/charmed-postgresql-rock
+  branch: [ main ]
+- group: postgresql
+  name: charmed-pgbouncer-snap
+  repo: https://github.com/canonical/charmed-pgbouncer-snap
+  branch: [ main ]
+- group: postgresql
+  name: charmed-pgbouncer-rock
+  repo: https://github.com/canonical/charmed-pgbouncer-rock
+  branch: [ main ]

@@ -2,33 +2,67 @@
 
 import logging
 import sys
+import traceback
+from typing import Any
 
 import yaml
 
 import workflows
-from models import CharmSpec, WorkflowSettings
+from models import CharmSpec, Repo, WorkflowSettings
 from util import cleanup
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 
+def load_repos() -> list[Repo]:
+    """Load repos from `sources.yaml` file."""
+    with open("sources.yaml") as f:
+        sources = yaml.safe_load(f)
+
+    repos = []
+    for dict_ in sources:
+        for branch in dict_.get("branch", ["main"]):
+            repos.append(Repo.from_dict(dict_, branch))
+
+    return repos
+
+
 def load_charms() -> dict[str, CharmSpec]:
-    """Load charms.yaml."""
-    charms = yaml.safe_load(open("charms.yaml"))
+    """Load charms from `sources.yaml` file."""
+    with open("sources.yaml") as f:
+        sources = yaml.safe_load(f)
     cfg = {}
-    for substrate in ("machine", "k8s"):
-        charm_info = charms.get(substrate, [])
-        for spec_dict in charm_info:
-            spec = CharmSpec(substrate=substrate, **spec_dict)
-            cfg[spec.name] = spec
+    for spec_dict in sources:
+        if "charm" not in spec_dict:
+            continue
+        for branch in spec_dict.get("branch", ["main"]):
+            kv = dict(spec_dict)
+            kv |= spec_dict["charm"]
+            kv["ref"] = Repo.from_dict(spec_dict, branch)
+            _ = kv.pop("charm")
+            kv["branch"] = branch
+            spec = CharmSpec(**{k: v for k, v in kv.items() if k in CharmSpec.__dataclass_fields__})
+            unique_name = f"{spec.name}/{branch}"
+            cfg[unique_name] = spec
     return cfg
 
 
-def load_rocks() -> list[str]:
-    """Load rocks from ROCKS file."""
-    raw = [line.strip() for line in open("ROCKS").readlines()]
-    return [line for line in raw if line and not line.startswith("#")]
+def parse_workflow_params() -> dict[str, Any]:
+    """Parse additional workflow params passed via CLI args."""
+    if len(sys.argv) < 3:
+        return {}
+
+    ret = {}
+    for kv in sys.argv[2:]:
+        parts = kv.split("=")
+        if len(parts) != 2:
+            continue
+        k = parts[0]
+        v = parts[1].replace('"', "").replace("'", "")
+        ret[k] = v
+
+    return ret
 
 
 def _help() -> None:
@@ -53,18 +87,20 @@ if __name__ == "__main__":
         _quit(1)
 
     workflow = sys.argv[1].replace("-", "_")
-    if workflow not in workflows.WORKFLOWS:
+    params = parse_workflow_params()
+
+    if workflow not in workflows.registered():
         print(f'ERROR: Workflow "{workflow}" is not defined, available values are:')
         workflows.prettyprint()
         _quit(2)
 
     charms = load_charms()
-    rocks = load_rocks()
-    settings = WorkflowSettings(charms=charms, rocks=rocks)
+    repos = load_repos()
+    settings = WorkflowSettings(charms=charms, repos=repos, params=params)
 
     try:
         workflows.run(workflow, settings)
         _quit(0)
-    except Exception as e:
-        logger.error(f"Workflow finished with error:\n{e}")
+    except Exception:
+        logger.error(f"Workflow finished with error:\n{traceback.format_exc()}")
         _quit(256)

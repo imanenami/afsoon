@@ -2,13 +2,16 @@
 
 import pytest
 
-from models import CharmSpec
+from models import CharmSpec, Repo
 
 DEFAULT_SPEC_MACHINE = {
     "name": "test-charm",
     "repo": "https://github.com/example/test-charm",
     "cmd": "workload --version",
     "substrate": "machine",
+    "group": "test",
+    "branch": "main",
+    "ref": Repo(url="https://github.com/example/test-charm"),
 }
 
 DEFAULT_SPEC_K8S = dict(DEFAULT_SPEC_MACHINE) | {"substrate": "k8s"}

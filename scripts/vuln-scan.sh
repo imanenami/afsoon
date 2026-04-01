@@ -3,18 +3,21 @@
 # Utility for building rocks from source and running Trivy scans against them.
 # This utility uses a LXD instance as sandbox environment.
 #
-# Usage: ./vuln-scan.sh [LXD-INSTANCE-NAME] [ROCK-REPOSITORY-NAME] [BRANCH]
+# Usage: ./vuln-scan.sh [LXD-INSTANCE-NAME] [ROCK-REPOSITORY-NAME] [BRANCH] [GROUP]
 
 
 DOCKER_ENABLED_CONTAINER=$1
-REPO=$2
+URL=$2
 BRANCH=$3
+GROUP=$4
+REPO=$(echo $URL | awk -F'/' '{print $NF}')
+
 
 CWD=$(pwd)
 STAGE_PATH="$CWD/stage-rock-repo"
 
-git clone https://github.com/canonical/$REPO --branch $BRANCH $STAGE_PATH
-OUTFILE="$REPO--$BRANCH-results.json"
+git clone $URL --branch $BRANCH $STAGE_PATH
+OUTFILE="$REPO--$BRANCH--$GROUP-results.json"
 echo $OUTFILE
 
 pushd $STAGE_PATH

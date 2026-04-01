@@ -5,10 +5,14 @@ description = "Tools to make your charming life easier."
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
+    "fastapi>=0.135.1",
     "gitpython>=3.1.46",
+    "pydantic-settings>=2.13.1",
     "pyright>=1.1.408",
     "pyyaml>=6.0.3",
     "requests>=2.32.5",
+    "tenacity>=9.1.4",
+    "uvicorn>=0.42.0",
 ]
 
 [tool.ruff]
