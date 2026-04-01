@@ -6,7 +6,7 @@ import pytest
 
 import rock
 import snap
-from models import CharmSpec
+from models import CharmSpec, Repo
 from util import cleanup, prepare_sandbox
 
 logging.basicConfig(level=logging.DEBUG)
@@ -28,7 +28,10 @@ def test_machine_charm_workload_resolution(with_sandbox):
     """Test `snap.resolve_machine_charm_single` resolves snap & workload versions properly."""
     test_spec = CharmSpec(
         substrate="machine",
+        group="kafka",
         name="kafka",
+        branch="main",
+        ref=Repo(url="https://github.com/canonical/kafka-operator"),
         repo="https://github.com/canonical/kafka-operator",
         snap="charmed-kafka",
         code_path=["literals::CHARMED_KAFKA_SNAP_REVISION"],
@@ -46,7 +49,10 @@ def test_k8s_charm_workload_resolution(with_sandbox):
     """Test `rock.resolve_k8s_charm_single` resolves workload versions properly."""
     test_spec = CharmSpec(
         substrate="k8s",
+        group="kafka",
         name="postgresql-k8s",
+        branch="16/edge",
+        ref=Repo(url="https://github.com/canonical/postgresql-k8s-operator"),
         repo="https://github.com/canonical/postgresql-k8s-operator",
         yaml_path='.resources."postgresql-image"."upstream-source"',
         regex=r"[0-9]+.[0-9]+",
