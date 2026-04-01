@@ -63,3 +63,25 @@ def test_k8s_charm_workload_resolution(with_sandbox):
     image, version = rock.resolve_k8s_charm_single(test_spec, test_rev)
     assert image
     assert version == "14.20"
+
+
+@pytest.mark.integration
+def test_machine_charm_workload_resolution_opensearch(with_sandbox):
+    """Test `snap.resolve_machine_charm_single` resolves snap & workload versions properly."""
+    test_spec = CharmSpec(
+        substrate="machine",
+        group="opensearch",
+        name="opensearch",
+        branch="2/edge",
+        ref=Repo(url="https://github.com/canonical/opensearch-operator", branch="2/edge"),
+        repo="https://github.com/canonical/opensearch-operator",
+        snap="opensearch",
+        code_path=["charms.opensearch.v0.constants_charm::OPENSEARCH_SNAP_REVISION"],
+        cmd="ls -1 /snap/opensearch/current/usr/share/opensearch/lib/ | grep opensearch",
+        regex="[0-9]+.[0-9]+.[0-9]+",
+    )
+    test_rev = 341
+
+    versions = snap.resolve_machine_charm_single(test_spec, test_rev)
+    assert versions.snap == 98
+    assert versions.workload == "2.19.4"
