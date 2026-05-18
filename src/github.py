@@ -94,7 +94,7 @@ def collect_test_stats(repo: Repo) -> dict[str, int]:
     for test in tests:
         if "OpsTest" in test[1] or "ops_test" in test[1]:
             counts["pytest-operator"] += 1
-        elif "jubilant" in test[1] or "Juju" in test[1]:
+        elif "jubilant" in test[1] or "Juju" in test[1] or "JujuFixture" in test[1]:
             counts["jubilant"] += 1
         else:
             counts["unknown"] += 1
@@ -102,8 +102,9 @@ def collect_test_stats(repo: Repo) -> dict[str, int]:
 
 
 def get_last_scheduled_run(repo: Repo) -> CIRun:
-    """Return the last scheduled CI run state, i.e. looks for `ci.yaml/runs?event=schedule`."""
-    resp = _get(repo, "actions/workflows/ci.yaml/runs?event=schedule")
+    """Return the last scheduled CI run state, i.e. looks for `{workflow}/runs?event=schedule`."""
+    workflow = repo.defaults.ci_workflow
+    resp = _get(repo, f"actions/workflows/{workflow}/runs?event=schedule")
 
     wf_run = resp["workflow_runs"][0]
     status = wf_run["status"]
@@ -172,7 +173,7 @@ def collect_scheduled_ci_stats(repos: Iterable[Repo], last_n_days: int = 20) -> 
     data = []
     for repo in repos:
         qenc = urlencode({"branch": repo.branch})
-        resp = _get(repo, f"actions/workflows/ci.yaml/runs?{qenc}")
+        resp = _get(repo, f"actions/workflows/{repo.defaults.ci_workflow}/runs?{qenc}")
         rf_num = 0
         rf_denom = len(resp["workflow_runs"])
         if not rf_denom:
