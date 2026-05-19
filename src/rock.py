@@ -4,14 +4,36 @@ import logging
 import os
 import re
 import secrets
+import subprocess
 
 import charm
-from models import Artifact, CharmSpec, Versions
-from util import DOCKER, exec, load_known_versions
+from models import Artifact, CharmSpec, Repo, Versions
+from util import DOCKER, clone_repo, exec, get_or_create_tmp_path, load_known_versions
 
 logger = logging.getLogger(__name__)
 
 KNOWN = load_known_versions()
+
+
+def pack(src: Repo) -> str:
+    """Pack a rock using src."""
+    tmp_path = get_or_create_tmp_path()
+    name = src.url.rstrip("/").split("/")[-1]
+    workdir = clone_repo(src.url, f"{tmp_path}/{name}")
+    prev = os.getcwd()
+    os.chdir(workdir)
+
+    ret = 0
+    cmds = [line.strip() for line in src.defaults.rock_pack.split("\n") if line.strip()]
+    for cmd in cmds:
+        ret += os.system(cmd)
+
+    os.chdir(prev)
+
+    if ret:
+        raise RuntimeError("Rock pack failed, see logs for more details.")
+
+    return workdir
 
 
 def resolve_k8s_charm_single(spec: CharmSpec, rev: int | str) -> tuple[str, str]:
@@ -22,7 +44,10 @@ def resolve_k8s_charm_single(spec: CharmSpec, rev: int | str) -> tuple[str, str]
 
     charm_dir = charm.unpack(spec.name, rev)
 
-    image = exec(f"cat {charm_dir}/metadata.yaml | yq -r '{image_path}'").strip()
+    try:
+        image = exec(f"cat {charm_dir}/metadata.yaml | yq -r '{image_path}'").strip()
+    except subprocess.CalledProcessError:
+        image = exec(f"cat {charm_dir}/charmcraft.yaml | yq -r '{image_path}'").strip()
     artifact = Artifact(type="rock", name=spec.name, rev=image)
     if artifact in KNOWN:
         return image, KNOWN[artifact]

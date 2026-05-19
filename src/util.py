@@ -47,6 +47,7 @@ def exec(
         return subprocess.check_output(
             cmd,
             shell=True,
+            executable="/bin/bash",
             universal_newlines=True,
             stderr=subprocess.PIPE,
             cwd=cwd,
